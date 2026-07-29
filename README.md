@@ -10,7 +10,7 @@ CoverMap joins **what bites where** → **what each product is actually proven t
 **who can reach care**, and returns a named, costed pre-positioning plan: which facility should
 stock which antivenom, how many vials, at what annual cost.
 
-**→ [Read the demonstrators](https://USUARIO.github.io/covermap/)**
+**→ [Read the demonstrators](https://resolutivesp.github.io/covermap/)**
 
 ---
 
