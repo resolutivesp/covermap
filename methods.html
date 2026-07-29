@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>CoverMap — Methods v0.6.1</title>
+<style>
+:root{
+ --surface:#fcfcfb; --plane:#f6f7f9; --ink:#0b0b0b; --sec:#52514e; --mut:#898781;
+ --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+ --blue:#2a78d6; --blue-d:#184f95; --orange:#eb6834; --aqua:#1baf7a; --yellow:#eda100;
+ --good:#0ca30c; --good-txt:#006300; --warning:#fab219; --serious:#ec835a; --crit:#d03b3b;
+ --brand1:#0b6b5b; --brand2:#0d4f6b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+ color:var(--ink);background:var(--plane);line-height:1.58;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 76px}
+header{background:linear-gradient(135deg,var(--brand1),var(--brand2));color:#fff;padding:34px 22px}
+header .wrap{padding:0}
+.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);
+ border-radius:20px;padding:3px 12px;font-size:12px;margin-bottom:12px;letter-spacing:.2px}
+h1{font-size:30px;margin:.08em 0 .18em;letter-spacing:-.4px;line-height:1.15}
+.sub{font-size:17px;opacity:.96;max-width:800px}
+h2{font-size:21px;margin:34px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--grid);letter-spacing:-.2px}
+h3{font-size:13px;margin:18px 0 6px;color:var(--brand1);text-transform:uppercase;letter-spacing:.5px}
+p{margin:.6em 0} .lead{font-size:17px}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:13px;padding:20px 22px;
+ margin:16px 0;box-shadow:0 1px 3px rgba(20,30,50,.045)}
+img{width:100%;border:1px solid var(--grid);border-radius:10px;margin-top:8px;background:var(--surface)}
+/* stat tiles — hero numbers use PROPORTIONAL figures (no tabular-nums), per dataviz */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:16px 0}
+.kpi{background:var(--surface);border:1px solid var(--grid);border-radius:11px;padding:15px 16px}
+.kpi>b{display:block;font-size:26px;line-height:1.1;color:var(--blue-d);font-weight:700}
+.kpi.bad>b{color:var(--crit)} .kpi.warn>b{color:#9a6a00}
+.kpi span{font-size:12.5px;color:var(--sec);display:block;margin-top:4px}
+.kpi span b{display:inline;font-size:inherit;line-height:inherit;color:inherit;font-weight:700}
+/* tables — tabular-nums only here, where digits align in columns */
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
+.t td,.t th{border-bottom:1px solid var(--grid);padding:7px 9px;text-align:right;font-variant-numeric:tabular-nums}
+.t th{background:#eef1f4;color:var(--sec);font-weight:600} .t td.l,.t th.l{text-align:left;font-variant-numeric:normal}
+.cov td,.cov th{border:2px solid var(--surface);padding:6px 5px;text-align:center;font-weight:600;font-size:12px}
+.cov th{background:#26313f;color:#fff;font-size:11px} .cov td.sp{background:#eef1f4;text-align:left;font-size:12px;font-style:italic}
+.note{background:#f1f7f5;border-left:4px solid var(--brand1);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+.callout{background:#fff5f2;border-left:4px solid var(--serious);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+.anchor{background:#eef4fb;border-left:4px solid var(--blue);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;margin:9px 0;color:var(--sec)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--ring)}
+ul{margin:.3em 0;padding-left:20px} li{margin:4px 0}
+small,.src{font-size:12px;color:var(--mut)} .src a{color:var(--brand1)}
+.muted{color:var(--sec);font-size:14px}
+footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--grid);font-size:12px;color:var(--mut)}
+@media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
+
+.doc{background:var(--surface);border:1px solid var(--grid);border-radius:13px;padding:26px 30px;margin:18px 0}
+.doc h2{margin:30px 0 8px;font-size:19px;color:var(--brand1);border-bottom:1px solid var(--grid);padding-bottom:6px}
+.doc h2:first-child{margin-top:0}
+.doc h3{margin:22px 0 6px;font-size:15.5px;color:var(--blue-d)}
+.doc h4{margin:16px 0 4px;font-size:13.5px;color:var(--sec);letter-spacing:.3px;text-transform:uppercase}
+.doc p{margin:9px 0;font-size:14px;color:var(--ink)}
+.doc li{font-size:14px;margin:5px 0}
+.doc table{border-collapse:collapse;width:100%;margin:14px 0;font-size:12.8px}
+.doc th{background:var(--plane);text-align:left;font-weight:600;color:var(--sec);
+ border-bottom:2px solid var(--grid);padding:8px 10px;vertical-align:bottom}
+.doc td{border-bottom:1px solid var(--grid);padding:8px 10px;vertical-align:top;
+ font-variant-numeric:tabular-nums}
+.doc tr:last-child td{border-bottom:none}
+.doc code{background:var(--plane);border:1px solid var(--grid);border-radius:4px;
+ padding:1px 5px;font-size:12.3px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.doc pre{background:var(--plane);border:1px solid var(--grid);border-radius:8px;
+ padding:13px 15px;overflow-x:auto;font-size:12.3px;line-height:1.5}
+.doc pre code{background:none;border:none;padding:0}
+.doc blockquote{margin:13px 0;padding:2px 0 2px 15px;border-left:3px solid var(--blue);
+ color:var(--sec);font-size:13.5px}
+.doc a{color:var(--blue)}
+.doc hr{border:none;border-top:1px solid var(--grid);margin:26px 0}
+.doc strong{font-weight:650}
+.back{display:inline-block;margin:2px 0 0;font-size:13px;color:var(--blue);text-decoration:none}
+.back:hover{text-decoration:underline}
+@media(max-width:820px){.doc{padding:18px 16px}.doc table{font-size:11.6px}}
+</style></head><body>
+<header><div class=wrap>
+<div class=badge>CoverMap v0.6.1 · July 2026 · METHODS · what the model does and what it assumes</div>
+<h1>Methods — Ghana · Nigeria · India</h1>
+<div class=sub>The full method, every load-bearing parameter, and an explicit record of what is
+sourced versus what we chose. Read alongside the
+<a href="parameter-audit.txt" style="color:#fff;text-decoration:underline">parameter provenance audit</a>,
+which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
+</div></header><div class=wrap>
+<p><a class=back href="index.html">← Back to CoverMap</a></p>
+<div class=doc>
+<p><strong>Version:</strong> v0.6.1 · July 2026 · <strong>NOT clinical guidance.</strong> Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.</p>
+<hr />
+<h2 id="0-changelog-what-changed-and-why">0. Changelog — what changed and why</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Change</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v0.6.1</strong></td>
+<td>Corrected <strong>three Ghana figure titles</strong> that still displayed <strong>87.5%</strong> — the pre-v0.4 coverage value — while every text KPI on the same page said <strong>86.0%</strong>. Headline numbers in figures are now read from the model JSON. Added a <strong>fifth verification suite</strong> (<code>verify_figures.py</code>) that OCRs every shipped figure and requires each percentage it displays to be a value the model actually produced</td>
+<td>The four existing suites (256 checks) all passed with the wrong number on screen: they check arithmetic and HTML <em>text</em>, but a number typed into a chart title is baked into a PNG and invisible to every string check — while being the first thing a reader sees</td>
+</tr>
+<tr>
+<td><strong>v0.6</strong></td>
+<td>India gains a <strong>targeting-scenario table</strong> ("the decision it changes"); <strong>all three</strong> briefs gain a <strong>parameter-provenance table</strong>; version stamped inside every artifact</td>
+<td>India lacked the decision table the other two had; only Ghana had the provenance table — an inconsistency, not a choice</td>
+</tr>
+<tr>
+<td><strong>v0.5</strong></td>
+<td>Took all 10 assumed parameters back to primary sources: <strong>4 resolved, 6 labelled NOT CONFIRMED</strong></td>
+<td>"Not confirmed" now means <em>searched hard, no published figure exists</em> — not <em>unchecked</em></td>
+</tr>
+<tr>
+<td><strong>v0.4</strong></td>
+<td>Removed the <strong>care-seeking double discount</strong>; replaced the synthetic mortality chain with Visser's <strong>observed</strong> differential; corrected India's state death rates (deviated up to 300% from the published MDS table while being described as MDS values); corrected Ghana's forest rate (contradicted by Mensah 2016)</td>
+<td>Six real errors, one of which v0.3 had explicitly denied existed</td>
+</tr>
+<tr>
+<td><strong>v0.3</strong></td>
+<td>Unified design system; reproducibility hardened; verification suites</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Current figures:</strong> Ghana 86.0% coverage · 4,654 vials/yr · $371,114 — Nigeria 85.5% · 36,671 vials/yr · $2,931,101 — India 36.8% coverage-gap · 20,484 gap-deaths/yr · 55,656 modelled mortality.</p>
+<hr />
+<h2 id="1-objective">1. Objective</h2>
+<p>Tell an antivenom purchaser <strong>which product to pre-position at which facilities, in what quantity</strong> — by joining <em>what bites where</em> to <em>what each product is actually proven to neutralise</em> to <em>who can reach care</em> — and state the impact <strong>honestly</strong>.</p>
+<h2 id="2-one-engine-two-failure-regimes">2. One engine, two failure regimes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>West Africa (Ghana, Nigeria)</th>
+<th>India</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Binding gap</td>
+<td><strong>Which product</strong> is stocked, and where</td>
+<td><strong>Regional venom variation</strong> + non-Big-Four species</td>
+</tr>
+<tr>
+<td>Why</td>
+<td>Several products with wildly different <em>Echis</em> cover; some fail outright</td>
+<td>One southern-sourced polyvalent used nationwide</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Named, costed pre-positioning plan</td>
+<td>Coverage-gap target list for region-specific antivenom</td>
+</tr>
+</tbody>
+</table>
+<p>That the same engine expresses both regimes is the central evidence that the method generalises.</p>
+<h2 id="3-the-novel-core-an-evidence-graded-coverage-matrix">3. The novel core — an evidence-graded coverage matrix</h2>
+<p>Product × species, every cell graded and cited:</p>
+<ul>
+<li><strong>A</strong> — WHO risk-benefit-assessed (product overview)</li>
+<li><strong>B</strong> — peer-reviewed preclinical (ED50 / antivenomics)</li>
+<li><strong>C</strong> — manufacturer claim or label only</li>
+<li><strong>D</strong> — no data</li>
+<li><strong>✗</strong> — documented failure</li>
+</ul>
+<p>A manufacturer label is <strong>never</strong> promoted to "covered". No public dataset provides this layer; it is the reusable asset.</p>
+<h2 id="4-data-inputs-all-public-all-persisted-in-the-repository">4. Data inputs (all public; all persisted in the repository)</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Ghana</th>
+<th>Nigeria</th>
+<th>India</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Boundaries</td>
+<td>geoBoundaries ADM1/2 (CC BY)</td>
+<td>geoBoundaries, 774 LGAs</td>
+<td>geoBoundaries, 734 districts</td>
+</tr>
+<tr>
+<td>Population</td>
+<td>afripop → GSS 2021 PHC regions (30.8 M)</td>
+<td>afripop distribution → 206.1 M (World Bank 2020)</td>
+<td>Census of India 2011 (1,210,854,977 — exact)</td>
+</tr>
+<tr>
+<td>Facilities</td>
+<td>190 hospitals (Maina 2019 <em>Sci Data</em> 6:134)</td>
+<td>1,309 hospitals (Maina/WHO)</td>
+<td>3,575 hospital-tier (NIC HealthGIS: DHO/THO/CHC)</td>
+</tr>
+<tr>
+<td>Burden</td>
+<td>zone incidence, facility-anchored</td>
+<td>zone incidence, facility-anchored</td>
+<td>MDS state death rates × district population</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reproducibility:</strong> every input is committed. No pipeline depends on network access or on <code>/tmp</code>. <code>python3 build → outputs → verify</code> reruns end to end.</p>
+<h2 id="5-burden-anchoring-the-first-guardrail">5. Burden anchoring — the first guardrail</h2>
+<p>No country's burden is asserted without checking it against a published national figure <strong>before</strong> anything downstream is computed.</p>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Model</th>
+<th>Published anchor</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ghana</td>
+<td>3,760 envenomings/yr</td>
+<td>Ghana Health Service ~9,900 <strong>bites</strong>/yr (avg 2015–20)</td>
+<td>model sits <strong>below</strong> reported bites, as it must → conservative floor</td>
+</tr>
+<tr>
+<td>Nigeria</td>
+<td>implied <strong>14.0</strong>/100k envenomings</td>
+<td>published West Africa <strong>8.9–93.3</strong>/100k (Habib 2013)</td>
+<td><strong>inside</strong> the published range — a <em>bound</em>, not a confirmation. Implied attendance (21.6/100k) is ~2.8× FMoH surveillance (7.6/100k), assuming substantial under-reporting</td>
+</tr>
+<tr>
+<td>India</td>
+<td>55,649 deaths/yr</td>
+<td>MDS ~58,000 (Suraweera 2020); GBD 2019 51,100 (UI 29,600–64,100)</td>
+<td>within <strong>4.1%</strong> of MDS, <strong>inside</strong> the GBD interval, using state rates <strong>transcribed verbatim</strong> from MDS Table 3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ Correction in v0.4 (India).</strong> The v0.3 state death rates were <em>approximations</em> described in the deliverables as "real Million Death Study state death rates". They deviated from the published table by up to <strong>300%</strong> (Kerala) and <strong>140%</strong> (Chhattisgarh); 12 of 17 states were off by ≥20%. They are now transcribed verbatim from Table 3 (column 2010–2014) and <strong>locked by a verification check</strong>.</p>
+<h2 id="6-model">6. Model</h2>
+<ol>
+<li><strong>Burden</strong> per unit = population × zone incidence × species-severe fraction (West Africa), or population × MDS state death rate (India).</li>
+<li><strong>Rural weighting (India).</strong> The MDS finds <strong>~94% of India's snakebite deaths occur in rural areas</strong>. Distributing state mortality by <em>total</em> population implies city-dwellers die of snakebite at rural per-capita rates — contradicting the anchor source and pushing metros to the top of the priority list. Each state's mortality is therefore split <strong>94% rural / 6% urban</strong> using the census rural/urban household split. This is a <em>within-state re-allocation</em>: every state total and the national total are unchanged.</li>
+<li><strong>Reach.</strong> A unit is within reach if ≤ <strong>50 km</strong> of a stocking facility (straight-line proxy for travel time).</li>
+<li><strong>Optimiser.</strong> Greedy maximal-coverage: iteratively add the facility bringing the most not-yet-covered burden within reach.</li>
+<li><strong>Demand.</strong> Each unit's burden is assigned to its nearest chosen facility; vials/yr = burden × care-seeking × vials/patient × (1 + buffer).</li>
+</ol>
+<h2 id="7-grounded-parameters-shared-across-ghana-and-nigeria-identical-by-construction-verified">7. Grounded parameters (shared across Ghana and Nigeria — identical by construction, verified)</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Point</th>
+<th>Range</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reach radius</td>
+<td>50 km</td>
+<td>30–80</td>
+<td>proxy (finalist: MAP friction surface)</td>
+</tr>
+<tr>
+<td>~~Care-seeking~~</td>
+<td><strong>REMOVED</strong></td>
+<td>—</td>
+<td><strong>deleted in v0.4 — it double-discounted; see the correction above</strong></td>
+</tr>
+<tr>
+<td>Reach radius</td>
+<td>50 km</td>
+<td>—</td>
+<td><strong>PROXY.</strong> The published standard is <strong>3 h travel time</strong> (Longbottom 2018 <em>Lancet</em> 392:673), clinically justified by Habib &amp; Abubakar (+1.01% mortality per hour of delay). The distance→time conversion is ours.</td>
+</tr>
+<tr>
+<td>Vials / patient</td>
+<td>1.5</td>
+<td>1–3</td>
+<td><strong>WHO PANAF-Premium product overview: Echis initial dose "1–3 vials"</strong>; observed mean 1.23 in Ghana's Oti region (Ketor 2024)</td>
+</tr>
+<tr>
+<td>Price / vial</td>
+<td>$80</td>
+<td>$3.4–$315</td>
+<td>no authoritative price exists; $120/course sits inside the $100–153/dose baseline used in published supply modelling (Potet 2020)</td>
+</tr>
+<tr>
+<td>Safety buffer</td>
+<td>25%</td>
+<td>—</td>
+<td><strong>NOT CONFIRMED</strong> — WHO/EPI sets stock in <em>months of stock</em>, not a percentage</td>
+</tr>
+<tr>
+<td>Envenoming fraction</td>
+<td>0.647</td>
+<td>—</td>
+<td>Aglanu 2025 (64.7% of attendances had abnormal clotting); assumed outside northern Ghana</td>
+</tr>
+<tr>
+<td>Product-choice CFR differential</td>
+<td><strong>0.103</strong></td>
+<td>0.062–0.120</td>
+<td><strong>Visser 2008 — observed</strong> (1.8% → 12.1%). Replaces the synthetic chain.</td>
+</tr>
+<tr>
+<td>Untreated CFR / effectiveness</td>
+<td>0.16 / 0.75</td>
+<td>—</td>
+<td>Habib 2015 — retained for the sensitivity band only, no longer in headline figures</td>
+</tr>
+<tr>
+<td>Vials / treated patient</td>
+<td>1.5</td>
+<td>1–3</td>
+<td>WHO overviews; Ghana Oti real 1.23</td>
+</tr>
+<tr>
+<td>Price / vial</td>
+<td>$80</td>
+<td>$18–200</td>
+<td>Brown 2012 ($80 is an assumption inside his range, not a Brown point estimate)</td>
+</tr>
+<tr>
+<td>Safety-stock buffer</td>
+<td>25%</td>
+<td>—</td>
+<td>planning assumption</td>
+</tr>
+</tbody>
+</table>
+<h3 id="correction-in-v04-this-section-previously-contained-a-false-claim">⚠️ CORRECTION IN v0.4 — this section previously contained a false claim</h3>
+<p>The v0.3 text asserted: <em>"The chain is conservative at both steps; it is not a double discount of the same quantity."</em> <strong>That was wrong.</strong></p>
+<p>The published Ghanaian rates are <strong>facility snakebite ATTENDANCE rates</strong> — people who have already reached a hospital. Multiplying them by a care-seeking fraction discounted the same quantity twice, and <strong>understated the vial forecast by roughly half</strong>. The care-seeking parameter has been <strong>removed entirely</strong> from both West-African models.</p>
+<p><strong>The corrected chain</strong> (each step named separately so none is silently conflated):</p>
+<p><code>facility attendance rate → envenoming fraction (0.647, Aglanu 2025) → Echis fraction → vials × (1+buffer)</code></p>
+<p>Outputs are therefore <strong>antivenom demand at facilities</strong>, not total community burden — the model deliberately does not estimate the unreached (community incidence in northern Ghana is ~10× the facility rate, Musah 2019). For a pre-positioning tool this is the right frame: you stock for the patients who arrive.</p>
+<p><strong>Mortality was also re-anchored.</strong> The old formula multiplied three assumed parameters (care-seeking × untreated CFR × effectiveness). It is replaced by a single <strong>directly observed</strong> Ghanaian measurement: when an ineffective antivenom was substituted in rural Ghana, treated-patient case-fatality rose <strong>1.8% → 12.1%</strong> (Visser 2008). We apply that <strong>10.3-point differential</strong>. This removed three assumptions and replaced them with one measurement.</p>
+<h2 id="7b-what-is-not-sourced-shipped-as-a-first-class-artifact">7b. What is NOT sourced — shipped as a first-class artifact</h2>
+<p><code>audit_parameters.py</code> classifies every load-bearing number as <strong>CITED</strong>, <strong>DERIVED</strong> or <strong>ASSUMED</strong> and prints the three largest exposures. Verification scripts check <em>arithmetic</em>; this audit checks <em>provenance</em>. They are different questions, and conflating them is what allowed earlier errors to survive rounds of "verification".</p>
+<p><strong>Confirmation pass (v0.5).</strong> All ten previously-assumed parameters were taken back to primary sources. <strong>Four resolved, six did not.</strong> The six are now labelled <strong>NOT CONFIRMED</strong> — meaning <em>searched hard, no published figure exists</em>, not <em>unchecked</em>.</p>
+<p>Resolved: vials/patient (inside the WHO-published Echis dose); India's catch-all state rates (MDS Table 3 publishes its own "Northeastern states" 0.7 and "All other states" 3.2 rows — <strong>no assumed state rate remains in India</strong>, and the implied national rate 4.6/100k now matches Table 3's published All-India row of 4.5/100k); the 50 km reach (re-labelled a proxy for the published 3-hour standard); the vial price (bracketed and cross-checked).</p>
+<p>Still not confirmed: Nigeria's per-zone rates and southern Echis fraction · Ghana's coastal rate and non-northern Echis fractions · India's adequacy tiers · the 25% buffer.</p>
+<p>The three largest remaining exposures, stated plainly:</p>
+<ol>
+<li><strong>India's adequacy tiers</strong> — the coverage-gap headline is a direct function of magnitudes we chose. <strong>No published national or state figure exists</strong> (confirmed by targeted search of the primary literature, TRSTMH reviews and NAPSE). An adversarial literature review confirmed the <em>direction</em> of every tier and <strong>no precise level</strong>. The error sign is unknown. The published sub-national anchors — <strong>68.4%</strong> clinical ASV non-response in NW India (Gopalakrishnan 2025) and <strong>66.19%</strong> non-Big-Four share of identified venomous bites in Assam (Menon 2025) — are the hard evidence and should carry the argument.</li>
+<li><strong>Nigeria's zone rates</strong> — a <strong>construction</strong>; no published per-eco-zone figure exists. The gradient between the two savanna zones may even be inverted (the strongest community datum may belong to Katsina, not Benue; the 1980 source could not be obtained). And the Nigerian mortality gap <strong>exceeds the published central national mortality</strong> — flagged in the brief rather than tuned away.</li>
+<li><strong>Ghana's coastal rate</strong> — no published figure of any kind; the northern Echis fraction (0.90) rests on a hedged assertion, not a measurement.</li>
+</ol>
+<h2 id="8-honesty-guardrails-enforced-in-code-not-promised-in-prose">8. Honesty guardrails — enforced in code, not promised in prose</h2>
+<ol>
+<li><strong>Headline is coverage</strong>, not deaths. Coverage is what the tool controls.</li>
+<li><strong>Deaths are a bounded decision-gap</strong> versus a worst case (ineffective product everywhere) — explicitly <em>not</em> extra lives versus today, since effective antivenom already reaches some patients.</li>
+<li><strong>No impact figure may exceed total national mortality.</strong> Nigeria's upper bound is hard-capped at the highest published estimate (2,640; GBD 2019 UI upper) and the cap is disclosed wherever it binds. <em>This caught a real error:</em> the uncapped ceiling scenario produced 2,955 — an impossible number.</li>
+<li><strong>Artifacts are quantified, not hidden.</strong> Urban units inherit rural zone rates. Nigeria: disclosed, and shown not to drive the plan (only 1.9% of vials to FCT/Lagos). India: fixed at source via the 94/6 rural weighting.</li>
+<li><strong>Stock is unobservable</strong> subnationally → placement <em>choices</em> are modelled, never a false inventory.</li>
+<li><strong>Corrections are carried, not dropped.</strong> The brief states prominently that an earlier draft wrongly claimed no South-Asian products were WHO-assessed (seven are), and explains why the finding survives: assessment covers the Big-Four label, not regional variation or non-Big-Four species.</li>
+</ol>
+<h2 id="9-sensitivity-robustness">9. Sensitivity &amp; robustness</h2>
+<ul>
+<li>Coverage-% is <strong>invariant to uniform incidence scaling</strong> (it is a ratio); absolute demand scales linearly.</li>
+<li><strong>Placement is robust:</strong> Ghana 23/25 and Nigeria 51/64 chosen facilities remain chosen when the north–south gradient is flattened.</li>
+<li>India's priority list is rural-dominated by construction (top-10 mean rural share 0.80) and contains no metro district.</li>
+</ul>
+<h2 id="10-honest-limits">10. Honest limits</h2>
+<ol>
+<li><strong>Care-seeking is the dominant uncertainty</strong> (~5× swing) — hence a range, not a point. Published values measure different things ("ever reached a facility" vs "formal care as <em>first</em> contact").</li>
+<li><strong>Access is straight-line</strong>, not road travel time.</li>
+<li><strong>Species presence is eco-zone-level</strong>; coverage rests largely on preincubation ED50/antivenomics, not clinical RCTs — grade B ≠ proven bedside efficacy.</li>
+<li><strong>India's facility layer covers 25 of 36 states</strong> → the "far from care" figure is a floor, not a ceiling.</li>
+<li><strong>India's district-name join matches 85.7%</strong>; unmatched districts are filled to their state average, so <em>state totals stay exact</em>.</li>
+<li><strong>India's ASV coverage-gap is a zone-level approximation</strong>, not a per-patient prediction.</li>
+<li><strong>Not clinical guidance</strong> — informs procurement and placement only.</li>
+</ol>
+<h2 id="11-verification">11. Verification</h2>
+<p>Independent scripts re-derive every published number from raw inputs and fail loudly on mismatch.</p>
+<p><code>python3 verify_ghana.py        # 54 checks
+python3 verify_nigeria.py      # 62 checks
+python3 verify_india.py        # 62 checks
+python3 verify_crosscountry.py # 67 checks — shared params, honesty invariants, no stale numbers
+python3 audit_parameters.py    # provenance audit (not a pass/fail suite)</code></p>
+<p>All <strong>245</strong> pass. <strong>They do not prove the model is correct</strong> — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says 10 load-bearing numbers remain assumptions. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.</p>
+<h2 id="12-reproduce">12. Reproduce</h2>
+<p><code>python3 build_v2.py &amp;&amp; python3 make_v2_visuals.py &amp;&amp; python3 make_report_v2.py &amp;&amp; python3 make_planner.py
+python3 nigeria_build.py &amp;&amp; python3 nigeria_outputs.py
+python3 india_build.py &amp;&amp; python3 india_outputs.py
+python3 make_index.py
+python3 verify_ghana.py &amp;&amp; python3 verify_nigeria.py &amp;&amp; python3 verify_india.py &amp;&amp; python3 verify_crosscountry.py</code></p>
+<h2 id="13-sources-verified-against-primary-sources-july-2026">13. Sources (verified against primary sources, July 2026)</h2>
+<ul>
+<li><strong>Cost-effectiveness / impact:</strong> Habib 2015, <em>PLoS NTD</em> 9(1):e0003381 — effectiveness <strong>75%</strong>, untreated CFR <strong>16%</strong>, cost/death <strong>$2,330.16</strong>, cost/DALY <strong>$99.61</strong> discounted / <strong>$56.88</strong> undiscounted <em>(all verified verbatim)</em> · Hamza 2016, <em>PLoS NTD</em> 10(3):e0004568 (16-country; $83–281/DALY). <em>Cite each for its own figure.</em></li>
+<li><strong>National mortality:</strong> GBD 2019 via <em>Nat Commun</em> 2022 13:6160 — Nigeria <strong>1,460 (977–2,640)</strong>, India <strong>51,100 (29,600–64,100)</strong>, global 63,400 <em>(verified verbatim)</em> · Habib 2015, <em>PLoS NTD</em> 9(9):e0004088 — Nigeria <strong>1,927 (1,529–2,333)</strong> · Suraweera 2020, <em>eLife</em> 9:e54076 — India <strong>~58,000/yr</strong>, <strong>~94% rural</strong>, <strong>77% out-of-hospital</strong>, 1.2 M deaths 2000–2019 <em>(verified verbatim)</em>.</li>
+<li><strong>Incidence:</strong> Habib 2013, <em>J Venom Anim Toxins Trop Dis</em> 19:27 (West Africa 8.9–93.3/100k; Benue ~497/100k; only ~8.5% of Nigerian victims attend hospital) · Aglanu 2025, <em>PLoS NTD</em> (N Ghana ~55/100k facility) · Ceesay 2021, <em>Pan Afr Med J</em> 40:131 (Volta/Oti ~24/100k) · Musah 2019, <em>PLoS NTD</em> (community ~580/100k) · Ghana Health Service NTD Programme (~9,900 bites/yr).</li>
+<li><strong>Wrong-antivenom mortality:</strong> Visser 2008, <em>TRSTMH</em> 102(5):445 — CFR <strong>1.8% → 12.1%</strong> ("sixfold").</li>
+<li><strong>Coverage matrix:</strong> WHO risk-benefit-assessment product overviews (PANAF-Premium, EchiTAbG, Antivipmyn Africa) · Ainsworth 2018/2020 · Khochare 2024 <em>IJMS</em> 25:4213 · Edge 2025 <em>PLoS NTD</em> · Warrell 2008 · Senji Laxme/Sunagar antivenomics (India) · TRSTMH 2025.</li>
+<li><strong>Base layers:</strong> geoBoundaries (CC BY) · Maina 2019 <em>Sci Data</em> 6:134 · Census of India 2011 · Ghana Statistical Service 2021 PHC · NIC HealthGIS · afripop2020 · GBIF.</li>
+</ul>
+</div>
+<p><a class=back href="index.html">← Back to CoverMap</a></p>
+</div></body></html>

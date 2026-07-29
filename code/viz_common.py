@@ -19,12 +19,16 @@ import base64
 from matplotlib.colors import LinearSegmentedColormap
 
 # Single source of truth for the release stamp. Bump here; every brief picks it up.
-VERSION = "v0.6"
+VERSION = "v0.6.1"
 VERSION_DATE = "July 2026"
-VERSION_NOTE = ("v0.6 — adds the targeting-scenario table for India and a parameter-provenance "
-                "table to all three briefs. v0.5 confirmed 4 of 10 assumed parameters against "
-                "primary sources and labelled the remaining 6 NOT CONFIRMED. v0.4 corrected the "
-                "care-seeking double discount and India's state death rates.")
+VERSION_NOTE = ("v0.6.1 — corrects three Ghana figure titles that still displayed 87.5%, the "
+                "pre-v0.4 coverage value, while every text KPI on the same page said 86.0%; the "
+                "numbers are now read from the model JSON and a fifth verification suite OCRs "
+                "every shipped figure to keep image and text in agreement. v0.6 added the "
+                "targeting-scenario table for India and a parameter-provenance table to all three "
+                "briefs. v0.5 confirmed 4 of 10 assumed parameters against primary sources and "
+                "labelled the remaining 6 NOT CONFIRMED. v0.4 corrected the care-seeking double "
+                "discount and India's state death rates.")
 VERSION_TAG = f"CoverMap {VERSION} · {VERSION_DATE}"
 
 # ---- palette tokens (dataviz skill, light surface) ------------------------------------

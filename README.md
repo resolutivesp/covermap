@@ -10,7 +10,7 @@ CoverMap joins **what bites where** → **what each product is actually proven t
 **who can reach care**, and returns a named, costed pre-positioning plan: which facility should
 stock which antivenom, how many vials, at what annual cost.
 
-**→ [Read the demonstrators](https://resolutivesp.github.io/covermap/)**
+**→ [Read the demonstrators](https://USUARIO.github.io/covermap/)**
 
 ---
 
@@ -70,12 +70,19 @@ python3 code/verify_ghana.py        # 54 checks
 python3 code/verify_nigeria.py      # 62 checks
 python3 code/verify_india.py        # 73 checks
 python3 code/verify_crosscountry.py # 67 checks
+python3 code/verify_figures.py      # OCRs all 11 shipped figures
 python3 code/audit_parameters.py    # provenance audit (not pass/fail)
 ```
 
-**256 checks pass.** They prove the arithmetic is consistent with the inputs and that specific past
-errors cannot recur. They do **not** prove the inputs are correct — that is the audit's job, and the
-audit says 6 load-bearing numbers remain unconfirmed.
+**256 checks, plus an OCR pass over every figure.** The fifth suite exists because the other four
+all passed while three Ghana charts displayed `87.5%` — a pre-v0.4 value — and every text KPI on
+the same page said `86.0%`. String checks cannot see a number baked into a PNG, which is the first
+thing a reader sees. `verify_figures.py` reads each chart back with OCR and requires every
+percentage it displays to be a value the model actually produced.
+
+Together they prove the arithmetic is consistent with the inputs, that the figures agree with the
+text, and that specific past errors cannot recur. They do **not** prove the inputs are correct —
+that is the audit's job, and the audit says 6 load-bearing numbers remain unconfirmed.
 
 ---
 

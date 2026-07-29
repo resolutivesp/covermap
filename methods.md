@@ -1,6 +1,6 @@
-# CoverMap — Methods v0.6 (Ghana · Nigeria · India)
+# CoverMap — Methods v0.6.1 (Ghana · Nigeria · India)
 
-**Version:** v0.6 · July 2026 · **NOT clinical guidance.** Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.
+**Version:** v0.6.1 · July 2026 · **NOT clinical guidance.** Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.
 
 ---
 
@@ -8,6 +8,7 @@
 
 | Version | Change | Why |
 |---|---|---|
+| **v0.6.1** | Corrected **three Ghana figure titles** that still displayed **87.5%** — the pre-v0.4 coverage value — while every text KPI on the same page said **86.0%**. Headline numbers in figures are now read from the model JSON. Added a **fifth verification suite** (`verify_figures.py`) that OCRs every shipped figure and requires each percentage it displays to be a value the model actually produced | The four existing suites (256 checks) all passed with the wrong number on screen: they check arithmetic and HTML *text*, but a number typed into a chart title is baked into a PNG and invisible to every string check — while being the first thing a reader sees |
 | **v0.6** | India gains a **targeting-scenario table** ("the decision it changes"); **all three** briefs gain a **parameter-provenance table**; version stamped inside every artifact | India lacked the decision table the other two had; only Ghana had the provenance table — an inconsistency, not a choice |
 | **v0.5** | Took all 10 assumed parameters back to primary sources: **4 resolved, 6 labelled NOT CONFIRMED** | "Not confirmed" now means *searched hard, no published figure exists* — not *unchecked* |
 | **v0.4** | Removed the **care-seeking double discount**; replaced the synthetic mortality chain with Visser's **observed** differential; corrected India's state death rates (deviated up to 300% from the published MDS table while being described as MDS values); corrected Ghana's forest rate (contradicted by Mensah 2016) | Six real errors, one of which v0.3 had explicitly denied existed |

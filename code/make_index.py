@@ -56,7 +56,7 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
  <a href="ghana-planner.html">Interactive budget planner — Ghana</a>
  <a href="nigeria-planner.html">Interactive budget planner — Nigeria</a>
  <a href="parameter-audit.txt">Parameter provenance audit</a>
- <a href="methods.md">Methods (v0.6)</a>
+ <a href="methods.html">Methods (v0.6)</a>
 </div>
 
 <h2>Three demonstrators, one engine</h2>

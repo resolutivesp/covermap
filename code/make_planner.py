@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Ghana interactive pre-positioning PLANNER — unified design system (viz_common), self-contained (no external JS)."""
 import json, pandas as pd, os
-from viz_common import BASE_CSS, b64
+from viz_common import BASE_CSS, b64, VERSION_TAG
 BASE="/home/claude/snakebite"; OUT=f"{BASE}/out2"
 S=json.load(open(f"{OUT}/impact_summary.json")); O=S['optimized']; P=S['model_params']
 cur=pd.read_csv(f"{OUT}/coverage_curve.csv"); plan=pd.read_csv(f"{OUT}/pre_positioning_plan.csv")
@@ -28,7 +28,7 @@ tr.off{opacity:.34} tr.on td{background:rgba(42,120,214,.06)}
 """
 html="<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
 html+="<title>CoverMap — antivenom pre-positioning planner (Ghana)</title><style>"+BASE_CSS+SUPP+"</style></head><body>"
-html+="<header><div class='wrap'><div class='badge'>FEASIBILITY DEMONSTRATOR · IML 2 · illustrative data · not clinical guidance</div>"
+html+=f"<header><div class='wrap'><div class='badge'>{VERSION_TAG} · FEASIBILITY DEMONSTRATOR · IML 2 · illustrative data · not clinical guidance</div>"
 html+="<h1>CoverMap — antivenom pre-positioning planner</h1><div class='sub'>For a national NTD programme or the WHO Antivenom Stockpile Programme: which WHO-assessed antivenom to place at which hospitals, how many vials each should hold, and how much of the burden it brings within reach. Ghana demonstrator.</div></div></header><div class='wrap'>"
 html+="<div class='kpis'>"
 html+=f"<div class='kpi'><b>{O['pct_protected']}%</b><span>of the carpet-viper burden brought <b>within reach</b> of the right antivenom (from ~0% today)</span></div>"
