@@ -12,7 +12,7 @@ NOT clinical guidance. Subnational stock unobservable -> we model placement CHOI
 """
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, os, json
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"; os.makedirs(OUT,exist_ok=True)
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"; os.makedirs(OUT,exist_ok=True)
 M="EPSG:32630"
 
 adm1=gpd.read_file(f"{DATA}/gha_ADM1.json")[['shapeName','geometry']].to_crs(4326)

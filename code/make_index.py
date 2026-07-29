@@ -2,8 +2,8 @@
 """CoverMap system index — presents the three country demonstrators as ONE tool, with the
 method, the honesty guardrails and the verification record. Self-contained HTML."""
 import json, os
-from viz_common import BASE_CSS, b64, VERSION_TAG, VERSION_NOTE
-BASE="/home/claude/snakebite"
+from viz_common import BASE_CSS, b64, VERSION, VERSION_TAG, VERSION_NOTE
+from _paths import BASE, SRC
 GH=json.load(open(f"{BASE}/out2/impact_summary.json"))
 NG=json.load(open(f"{BASE}/out_ng/impact_summary_ng.json"))
 IN=json.load(open(f"{BASE}/out_in/impact_summary_in.json"))
@@ -56,7 +56,7 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
  <a href="ghana-planner.html">Interactive budget planner — Ghana</a>
  <a href="nigeria-planner.html">Interactive budget planner — Nigeria</a>
  <a href="parameter-audit.txt">Parameter provenance audit</a>
- <a href="methods.html">Methods (v0.6)</a>
+ <a href="methods.html">Methods ({VERSION})</a>
 </div>
 
 <h2>Three demonstrators, one engine</h2>
@@ -115,7 +115,8 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
 <h2>Who it is for</h2>
 <p>The <b>WHO Antivenom Stockpile Programme</b> and <b>national NTD programmes</b> — the actors whose remit is exactly "which product, how much, where". The output is deliberately the thing they already have to produce: a costed pre-positioning plan with a demand forecast.</p>
 
-<footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br>CoverMap · MedInves project · July 2026. Coverage matrix from WHO risk-benefit-assessment product overviews + peer-reviewed preclinical literature. Base layers: geoBoundaries (CC BY); Maina 2019 <i>Sci Data</i> 6:134; Census of India 2011; Ghana Statistical Service 2021 PHC; NIC HealthGIS. Impact anchors: Habib 2015 <i>PLoS NTD</i> 9(1):e0003381 · Habib 2015 <i>PLoS NTD</i> 9(9):e0004088 · Habib 2013 <i>J Venom Anim Toxins</i> 19:27 · Suraweera 2020 <i>eLife</i> 9:e54076 · GBD 2019 via <i>Nat Commun</i> 2022 13:6160 · Visser 2008 <i>TRSTMH</i> 102:445. Feasibility demonstrator — illustrative, not clinical guidance.</footer>
+<footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br>CoverMap · MedInves project · July 2026. Coverage matrix from WHO risk-benefit-assessment product overviews + peer-reviewed preclinical literature. Base layers: <a href="https://www.geoboundaries.org/">geoBoundaries</a> (CC BY 4.0); <a href="https://www.worldpop.org/">WorldPop</a>/afripop2020 (CC BY 4.0); Maina 2019 <i>Sci Data</i> 6:134 (CC BY 4.0 / metadata CC0); Census of India 2011; Ghana Statistical Service 2021 PHC; NIC HealthGIS. Impact anchors: Habib 2015 <i>PLoS NTD</i> 9(1):e0003381 · Habib 2015 <i>PLoS NTD</i> 9(9):e0004088 · Habib 2013 <i>J Venom Anim Toxins</i> 19:27 · Suraweera 2020 <i>eLife</i> 9:e54076 · GBD 2019 via <i>Nat Commun</i> 2022 13:6160 · Visser 2008 <i>TRSTMH</i> 102:445. Feasibility demonstrator — illustrative, not clinical guidance.</footer>
 </div></body></html>"""
-open(f"{BASE}/covermap_index.html","w").write(html)
-print("index written:",os.path.getsize(f"{BASE}/covermap_index.html"),"bytes")
+SITE=BASE if os.path.exists(f"{BASE}/ghana.html") else f"{BASE}/repo"
+open(f"{SITE}/index.html","w").write(html)
+print("index written:",f"{SITE}/index.html",os.path.getsize(f"{SITE}/index.html"),"bytes")

@@ -3,7 +3,7 @@
 state-total invariance, and honesty guardrails."""
 import warnings; warnings.filterwarnings("ignore")
 import pandas as pd, numpy as np, json, re, sys, os
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"
 FAIL=[]
 def chk(n, ok, d=""):
     print(("  PASS  " if ok else "  FAIL  ")+n+(f"   {d}" if d else ""))
@@ -17,7 +17,7 @@ print("\n=== A. REPRODUCIBILITY ===")
 chk("canonical facility input persisted in repo", os.path.exists(f"{DATA}/in/facilities_hospitals_in.csv"))
 chk("census persisted", os.path.exists(f"{DATA}/in/census2011.csv"))
 chk("boundaries persisted", os.path.exists(f"{DATA}/in/ind_ADM1.json") and os.path.exists(f"{DATA}/in/ind_ADM2.json"))
-src=open(f"{BASE}/india_build.py").read()
+src=open(f"{SRC}/india_build.py").read()
 chk("build falls back to the persisted CSV (no hard dependency on the raw geojson)",
     "FAC_CSV" in src and "os.path.exists(FAC_RAW)" in src)
 chk("build de-duplicates facilities", "drop_duplicates" in src)
@@ -83,7 +83,7 @@ chk("rural death share == 0.94 as specified", abs(A['rural_share_of_modelled_dea
 chk("rural_share column exported for audit", 'rural_share' in d.columns)
 chk("rural_share within [0,1]", d['rural_share'].between(0,1).all())
 # the re-allocation MUST NOT change any state total
-srcb=open(f"{BASE}/india_build.py").read()
+srcb=open(f"{SRC}/india_build.py").read()
 chk("re-allocation is within-state by construction", "for cs,sub in adm2.groupby('cstate')" in srcb and "RURAL_DEATH_SHARE" in srcb)
 # priority list must now be rural-dominated
 top10=pri.head(10)
@@ -107,7 +107,7 @@ chk("false precision collapsed: at most 5 distinct adequacy tiers",
 chk("Kerala moved off the bite-weighted 0.55 (category-error fix)",
     abs(float(d.loc[d.cstate=='KERALA','adeq'].iloc[0])-0.55)>1e-6,
     f"Kerala adeq={float(d.loc[d.cstate=='KERALA','adeq'].iloc[0])}")
-srcA=open(f"{BASE}/india_build.py").read()
+srcA=open(f"{SRC}/india_build.py").read()
 chk("build documents the known gradient tension", "does not have that shape" in srcA)
 chk("build documents the Kerala category-error correction", "category error" in srcA)
 

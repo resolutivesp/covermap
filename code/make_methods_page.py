@@ -10,11 +10,16 @@ import re
 import markdown
 from viz_common import BASE_CSS, VERSION_TAG
 
-BASE = "/home/claude/snakebite"
-SRC = f"{BASE}/repo/methods.md"
-OUT = f"{BASE}/repo/methods.html"
+import os
+from _paths import BASE
 
-md = open(SRC, encoding="utf-8").read()
+# Two layouts: the published repo (methods.md at the root, code in code/) and the development
+# tree (site files under repo/). Resolve rather than assume.
+SITE = BASE if os.path.exists(f"{BASE}/methods.md") else f"{BASE}/repo"
+MD_IN = f"{SITE}/methods.md"
+OUT = f"{SITE}/methods.html"
+
+md = open(MD_IN, encoding="utf-8").read()
 
 # Drop the leading H1 — it becomes the page header instead, so it isn't printed twice.
 body_md = re.sub(r"^#\s+.*?\n", "", md, count=1)
@@ -77,7 +82,7 @@ open(OUT, "w", encoding="utf-8").write(html)
 print(f"wrote {OUT}  ({len(html):,} bytes)")
 
 # Repoint the index link: .md downloads, .html renders.
-idx_path = f"{BASE}/repo/index.html"
+idx_path = f"{SITE}/index.html"
 idx = open(idx_path, encoding="utf-8").read()
 before = idx.count('href="methods.md"')
 idx = idx.replace('href="methods.md"', 'href="methods.html"')

@@ -3,7 +3,7 @@
 then cross-checks every published artifact for consistency. Exit non-zero on any failure."""
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, json, re, sys
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"
 FAIL=[]; WARN=[]
 def chk(name, ok, detail=""):
     (print if ok else (lambda s: (FAIL.append(name), print(s))[1]))(("  PASS  " if ok else "  FAIL  ")+name+(f"   {detail}" if detail else ""))
@@ -43,7 +43,7 @@ chk("total Echis-severe matches summary", abs(ech.sum()-S['total_echis_yr'])<2, 
 chk("Echis-severe < all envenomings", ech.sum()<env.sum())
 
 print("\n=== C0. RATE PROVENANCE: base rates are ATTENDANCE, and each is labelled ===")
-src=open(f"{BASE}/build_v2.py").read()
+src=open(f"{SRC}/build_v2.py").read()
 chk("build declares the attendance frame explicitly", "ATTEND=" in src and "FACILITY SNAKEBITE ATTENDANCE" in src)
 chk("envenoming fraction is separated from attendance", "ENVENOM=0.647" in src)
 chk("north attendance rate is the Aglanu published value (55)", ATT['N_SAVANNA']==55)

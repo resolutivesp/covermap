@@ -2,7 +2,7 @@
 """Cross-country consistency: shared parameters must be IDENTICAL where the method is shared,
 and every country must satisfy the same honesty invariants."""
 import json, sys, os, re
-BASE="/home/claude/snakebite"
+from _paths import BASE, SRC
 FAIL=[]
 def chk(n, ok, d=""):
     print(("  PASS  " if ok else "  FAIL  ")+n+(f"   {d}" if d else ""))
@@ -41,7 +41,7 @@ chk("India: gap deaths are a strict subset of total", IN['gap_deaths_yr']<IN['bu
 chk("Ghana carries a burden anchor", 'burden_anchor' in GH and bool(GH['burden_anchor'].get('source')))
 chk("Nigeria carries a burden anchor", 'burden_anchor' in NG and bool(NG['burden_anchor'].get('published_rate_source')))
 chk("Nigeria admits its rates are a CONSTRUCTION (no per-zone published figure)",
-    'no published per-eco-zone snakebite rate exists' in open(f"{BASE}/nigeria_build.py").read())
+    'no published per-eco-zone snakebite rate exists' in open(f"{SRC}/nigeria_build.py").read())
 chk("Nigeria surfaces the mortality-gap tension rather than tuning it",
     'mortality_gap_exceeds_published_central' in NG['burden_anchor'])
 chk("India admits no published national gap anchor exists",
@@ -88,7 +88,8 @@ chk("Nigeria vial forecast current (post double-discount fix)", f"{NG['optimized
 chk("no artifact still advertises a care-seeking multiplier as part of the impact chain",
     all('care-seeking (15' not in open(p2).read() for p2 in arts.values()))
 chk("a parameter provenance audit ships alongside the verification suites",
-    os.path.exists(f"{BASE}/audit_parameters.py") and os.path.exists(f"{BASE}/PARAMETER_AUDIT.txt"))
+    os.path.exists(f"{SRC}/audit_parameters.py") and any(
+        os.path.exists(f"{BASE}/{n}") for n in ("PARAMETER_AUDIT.txt","parameter-audit.txt")))
 chk("Nigeria coverage current", f"{NG['optimized']['pct_protected']}%" in ng)
 chk("India gap current", f"{IN['pct_burden_in_asv_gap']}%" in ind)
 # guard against the specific historical regressions

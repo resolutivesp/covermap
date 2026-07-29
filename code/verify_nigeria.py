@@ -3,7 +3,7 @@
 and enforces the honesty guardrails (deaths bounded by published national mortality)."""
 import warnings; warnings.filterwarnings("ignore")
 import pandas as pd, numpy as np, json, re, sys, os
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_ng"
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_ng"
 FAIL=[]
 def chk(name, ok, detail=""):
     print(("  PASS  " if ok else "  FAIL  ")+name+(f"   {detail}" if detail else ""))
@@ -17,7 +17,7 @@ print("\n=== A. REPRODUCIBILITY (no /tmp dependency) ===")
 chk("population raster persisted in repo", os.path.exists(f"{DATA}/ng/afripop2020.tif"))
 chk("WHO facilities .rda persisted in repo", os.path.exists(f"{DATA}/ng/df_who_sites.rda"))
 chk("boundaries persisted", os.path.exists(f"{DATA}/ng/nga_ADM1.json") and os.path.exists(f"{DATA}/ng/nga_ADM2.json"))
-src=open(f"{BASE}/nigeria_build.py").read()
+src=open(f"{SRC}/nigeria_build.py").read()
 chk("build reads persisted raster first", 'RASTER=f"{DATA}/ng/afripop2020.tif"' in src)
 chk("build reads persisted rda first", 'RDA=f"{DATA}/ng/df_who_sites.rda"' in src)
 
@@ -76,7 +76,7 @@ chk("deaths formula reproduces (within-reach env x CFR differential, capped)",
 chk("deaths_lo < central < deaths_hi", O['deaths_lo']<O['deaths_central']<O['deaths_hi'])
 
 print("\n=== F2. PROVENANCE HONESTY: rates must be declared a CONSTRUCTION, tension surfaced ===")
-src2=open(f"{BASE}/nigeria_build.py").read()
+src2=open(f"{SRC}/nigeria_build.py").read()
 chk("build states no per-zone published rate exists", "no published per-eco-zone snakebite rate exists" in src2)
 chk("build discloses the possible gradient inversion (Malumfashi vs Benue)", "Malumfashi" in src2)
 chk("summary records the FMoH surveillance comparison", 'FMoH_surveillance_bites_per_100k' in A)

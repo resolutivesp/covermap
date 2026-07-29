@@ -6,7 +6,7 @@ import geopandas as gpd, pandas as pd, numpy as np, json, os
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from viz_common import PAL, BASE_CSS, mpl_theme, heat_cmap, b64, VERSION_TAG, VERSION_NOTE
 mpl_theme(); WARM=heat_cmap()
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"
 INK,SEC,MUT,GRID,BLUE,BLUED=PAL['ink'],PAL['sec'],PAL['mut'],PAL['grid'],PAL['blue'],PAL['blue_d']
 TITLE=dict(fontsize=12,weight='bold',color=INK,loc='left')
 g=gpd.read_file(f"{OUT}/district_in.geojson"); adm1=gpd.read_file(f"{DATA}/in/ind_ADM1.json")
@@ -116,6 +116,6 @@ H=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport
 <tr><td class=l>Facility layer coverage</td><td class=l>Partial</td><td class=l>NIC HealthGIS covers 25 of 36 states → the "far from care" figure is a floor, not a ceiling</td></tr>
 </tbody></table>
 
-<footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br>Boundaries geoBoundaries (CC BY); population Census of India 2011; facilities NIC HealthGIS (hospital-tier {S['n_hospital_tier']:,}); burden Suraweera 2020 <i>eLife</i> 9:e54076 (Million Death Study, ~58,000/yr; ~94% rural; 77% out-of-hospital) + GBD 2019 via <i>Nat Commun</i> 2022 13:6160 (India 51,100; UI 29,600–64,100); coverage Senji Laxme/Sunagar antivenomics + TRSTMH 2025. Feasibility demonstrator — illustrative, not clinical guidance.</footer></div></body></html>"""
+<footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br>Boundaries <a href="https://www.geoboundaries.org/">geoBoundaries</a> (CC BY 4.0); population Census of India 2011; facilities NIC HealthGIS (hospital-tier {S['n_hospital_tier']:,}); burden Suraweera 2020 <i>eLife</i> 9:e54076 (Million Death Study, ~58,000/yr; ~94% rural; 77% out-of-hospital) + GBD 2019 via <i>Nat Commun</i> 2022 13:6160 (India 51,100; UI 29,600–64,100); coverage Senji Laxme/Sunagar antivenomics + TRSTMH 2025. Feasibility demonstrator — illustrative, not clinical guidance.</footer></div></body></html>"""
 open(f"{OUT}/india_coverage_gap_brief.html","w").write(H)
 print("India outputs:",[f for f in os.listdir(OUT) if f.endswith(('.png','.html'))])

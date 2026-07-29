@@ -10,7 +10,7 @@ Headline = coverage/gap. Mortality is anchored to MDS (~58,000/yr) and never exc
 """
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, os, json, unicodedata, re
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"; os.makedirs(OUT,exist_ok=True)
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"; os.makedirs(OUT,exist_ok=True)
 M="EPSG:32644"  # UTM 44N (central India) — access distances approximate at edges
 
 def norm(s):

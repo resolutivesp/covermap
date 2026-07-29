@@ -22,7 +22,7 @@ import json, os, re, sys
 from PIL import Image
 import pytesseract
 
-BASE = "/home/claude/snakebite"
+from _paths import BASE, SRC
 
 COUNTRIES = {
     "GHANA": dict(

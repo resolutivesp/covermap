@@ -7,7 +7,7 @@ coverage matrix and product menu (PANAF-Premium recommended). NOT clinical guida
 """
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, os, json, subprocess
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_ng"; os.makedirs(OUT,exist_ok=True); os.makedirs(f"{DATA}/ng",exist_ok=True)
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_ng"; os.makedirs(OUT,exist_ok=True); os.makedirs(f"{DATA}/ng",exist_ok=True)
 M="EPSG:32632"  # UTM 32N covers Nigeria
 
 # ---- 1. boundaries (geoBoundaries via Git LFS host)

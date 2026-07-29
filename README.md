@@ -88,11 +88,15 @@ that is the audit's job, and the audit says 6 load-bearing numbers remain unconf
 
 ## Attribution
 
-Code: MIT (see [`LICENSE`](LICENSE)). **Input data carry their own licences:**
+Code: MIT (see [`LICENSE`](LICENSE)). **Input data carry their own licences** — checked against
+each publisher's own licence page and documented per file in [`data/README.md`](data/README.md):
 
-- Boundaries — [geoBoundaries](https://www.geoboundaries.org/) (CC BY)
-- Facilities — Maina et al. 2019, *Sci Data* 6:134 · NIC HealthGIS (India)
-- Population — Census of India 2011 · Ghana Statistical Service 2021 PHC · afripop2020
+- Boundaries — [geoBoundaries](https://www.geoboundaries.org/) (CC BY 4.0) · Runfola et al. 2020,
+  *PLoS ONE* 15(4): e0231866
+- Facilities — Maina et al. 2019, *Sci Data* 6:134 (article CC BY 4.0, metadata CC0 1.0) ·
+  NIC HealthGIS (India)
+- Population — Census of India 2011 · Ghana Statistical Service 2021 PHC ·
+  [WorldPop](https://www.worldpop.org/)/afripop2020 (CC BY 4.0)
 - Burden — Habib 2015 *PLoS NTD* 9(1):e0003381 · Suraweera 2020 *eLife* 9:e54076 ·
   GBD 2019 via *Nat Commun* 2022 13:6160 · Aglanu 2025 · Ceesay 2021
 - Coverage matrix — WHO risk-benefit-assessment product overviews + peer-reviewed preclinical

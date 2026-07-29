@@ -6,7 +6,7 @@ import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from viz_common import PAL, mpl_theme, heat_cmap, blue_cmap
 mpl_theme(); WARM=heat_cmap()
-BASE="/home/claude/snakebite"; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"
+from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"
 INK,SEC,MUT,GRID,BLUE,GOOD,CRIT,WARN,BLUED=PAL['ink'],PAL['sec'],PAL['mut'],PAL['grid'],PAL['blue'],PAL['good'],PAL['critical'],PAL['warning'],PAL['blue_d']
 g=gpd.read_file(f"{OUT}/district_v2.geojson"); adm1=gpd.read_file(f"{DATA}/gha_ADM1.json")
 allh=pd.read_csv(f"{DATA}/facilities_hospitals.csv"); plan=pd.read_csv(f"{OUT}/pre_positioning_plan.csv")

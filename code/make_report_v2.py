@@ -2,7 +2,7 @@
 """Ghana CoverMap brief — unified design system (viz_common). Headline = coverage; deaths = bounded decision-gap."""
 import json, pandas as pd, os
 from viz_common import BASE_CSS, b64, cov_cell_style, VERSION_TAG, VERSION_NOTE
-BASE="/home/claude/snakebite"; OUT2=f"{BASE}/out2"; DATA=f"{BASE}/data"
+from _paths import BASE, SRC; OUT2=f"{BASE}/out2"; DATA=f"{BASE}/data"
 S=json.load(open(f"{OUT2}/impact_summary.json")); cov=pd.read_csv(f"{DATA}/coverage_matrix.csv")
 A=S['burden_anchor']; O=S['optimized']; P=S['model_params']
 PROT_ENV=[v['protected_env'] for k,v in S['scenarios'].items() if k.startswith('C')][0]
@@ -81,7 +81,7 @@ html=f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
 <img src="data:image/png;base64,{b64(f'{OUT2}/fig2_protected.png')}" alt="Protected vs unprotected under optimized placement">
 
 <h2>Real data &amp; honest limits</h2>
-<p><b>Real inputs:</b> 190 hospitals with coordinates and level (Maina/WHO 2019); district population (afripop disaggregated to the 2021 census, 30.8 M); region envenoming incidence anchored to Ghana facility studies (north ~55/100k, Aglanu 2025; Volta ~24/100k, Ceesay 2021); an evidence-graded coverage matrix from WHO product overviews + peer-reviewed preclinical data; impact anchored to Habib (2015). Boundaries: geoBoundaries (CC BY).</p>
+<p><b>Real inputs:</b> 190 hospitals with coordinates and level (Maina/WHO 2019); district population (WorldPop/afripop2020 disaggregated to the 2021 census, 30.8 M); region envenoming incidence anchored to Ghana facility studies (north ~55/100k, Aglanu 2025; Volta ~24/100k, Ceesay 2021); an evidence-graded coverage matrix from WHO product overviews + peer-reviewed preclinical data; impact anchored to Habib (2015). Boundaries: <a href="https://www.geoboundaries.org/">geoBoundaries</a> (CC BY 4.0); population raster <a href="https://www.worldpop.org/">WorldPop</a>/afripop2020 (CC BY 4.0).</p>
 <div class="note"><b>Limits, by design.</b><ul>
 <li><b>Stock is unobservable</b> subnationally → the tool models procurement/placement <b>choices</b>, not a false inventory.</li>
 <li><b>The facility frame is a choice, and it bounds what the tool claims.</b> Outputs are <b>antivenom demand at facilities</b>, not total community burden — community incidence in northern Ghana is roughly 10× the facility rate (Musah 2019, ~580/100,000). This model deliberately does not estimate the unreached.</li>
@@ -109,7 +109,7 @@ html=f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
 <h2>Why this fits the prize</h2>
 <p>It is a <b>deployable decision-support solution</b> (in-scope: "use of data to improve the distribution of antivenom"), not basic research and not therapy development (both out of scope). <b>Innovation:</b> the evidence-graded coverage matrix + a pre-positioning optimiser with cold-chain and access — beyond today's hazard maps. <b>Impact:</b> a quantified, honestly-bounded coverage chain at the district resolution and seasonal cadence procurement actually uses. <b>End user:</b> the WHO Antivenom Stockpile Programme / national NTD programmes, whose remit is exactly this. <b>Maturity:</b> concept + feasibility demonstrated (IML 2); field-testing with a programme partner is the finalist-phase plan.</p>
 
-<footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br><p class="src"><b>Sources:</b> Visser 2008 TRSTMH 102:445 · Habib 2015 PLoS NTD 9(1):e0003381 (effectiveness 75%, untreated CFR 16%, cost/death $2,330.16, cost/DALY $99.61) · Hamza 2016 PLoS NTD 10(3):e0004568 · WHO risk-benefit-assessed antivenom product overviews · Maina 2019 Sci Data 6:134 (facilities) · Ghana Statistical Service 2021 PHC (30.8 M) · Aglanu 2025 / Ceesay 2021 (Ghana incidence) · Ghana Health Service NTD Programme (≈9,900 cases/yr) · geoBoundaries CC BY · GBIF. Open method, coverage matrix and code in the project repository.</p>
+<footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br><p class="src"><b>Sources:</b> Visser 2008 TRSTMH 102:445 · Habib 2015 PLoS NTD 9(1):e0003381 (effectiveness 75%, untreated CFR 16%, cost/death $2,330.16, cost/DALY $99.61) · Hamza 2016 PLoS NTD 10(3):e0004568 · WHO risk-benefit-assessed antivenom product overviews · Maina 2019 Sci Data 6:134 (facilities) · Ghana Statistical Service 2021 PHC (30.8 M) · Aglanu 2025 / Ceesay 2021 (Ghana incidence) · Ghana Health Service NTD Programme (≈9,900 cases/yr) · <a href="https://www.geoboundaries.org/">geoBoundaries</a> CC BY 4.0 · <a href="https://www.worldpop.org/">WorldPop</a>/afripop2020 CC BY 4.0. Open method, coverage matrix and code in the project repository.</p>
 <p class="src">Feasibility demonstrator for the MedInves project, July 2026. Species presence, access and stock layers are illustrative approximations for method demonstration; not clinical guidance.</p></footer>
 </div></body></html>"""
 open(f"{OUT2}/ghana_prepositioning_brief_v2.html","w").write(html)
