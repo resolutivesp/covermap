@@ -1,0 +1,26 @@
+priority,hospital,region,tier,lat,lon,envenomings_yr,treated_yr,vials_year,procure_usd_yr
+1,Bolgatanga Regional Hospital,Upper East,Tier3 provincial hospital,10.80737,-0.8612,230.5,230.5,433,34570
+2,Savelugu  District Hospital,Northern,Tier3 provincial hospital,9.61862,-0.82929,255.4,255.4,479,38310
+3,St. Joseph's District Hospital,Upper West,Tier3 provincial hospital,10.53334,-2.69916,94.1,94.1,177,14117
+4,Binde  Rural  Hospital,North East,Tier3 provincial hospital,10.56562,-0.02876,127.3,127.3,239,19093
+5,Yendi District Hospital,Northern,Tier3 provincial hospital,9.44604,-0.00402,151.1,151.1,284,22670
+6,Adoagire Hospital,Eastern,Tier3 provincial hospital,5.82287,-0.36002,125.9,125.9,236,18879
+7,Nkawie/Toase Hospital,Ashanti,Tier3 provincial hospital,6.66632,-1.812262,140.9,140.9,265,21130
+8,Bimbilla  District Hospital,Northern,Tier3 provincial hospital,8.85756,-0.05562,133.4,133.4,251,20013
+9,Gushegu  District Hospital,Northern,Tier3 provincial hospital,9.92814,-0.21489,100.1,100.1,188,15008
+10,Akatsi District Hospital,Volta,Tier3 provincial hospital,6.13877,0.80901,97.7,97.7,184,14653
+11,Bre Nye Kwa Hospital,Bono,Tier3 provincial hospital,7.44372,-2.59325,86.7,86.7,163,13010
+12,Kpando Margret Marquat District Hospital,Volta,Tier3 provincial hospital,6.99992,0.30312,78.6,78.6,148,11784
+13,Bawku Municipal Hospital,Upper East,Tier3 provincial hospital,11.06124,-0.23287,156.4,156.4,294,23466
+14,Salaga  District Hospital,Savannah,Tier3 provincial hospital,8.55733,-0.51437,72.7,72.7,137,10900
+15,Zabzugu Polyclinic,Northern,Tier4 central hospital,9.29565,0.37705,71.0,71.0,134,10657
+16,Holy Family Hospital,Bono East,Tier3 provincial hospital,7.59193,-1.93944,64.1,64.1,121,9613
+17,Ahmadiyya Mission Hospital,Western,Tier3 provincial hospital,5.13012,-1.65779,62.6,62.6,118,9388
+18,Tumu District Hospital,Upper West,Tier3 provincial hospital,10.87758,-1.98649,59.4,59.4,112,8907
+19,Walewale  District Hospital,North East,Tier3 provincial hospital,10.34633,-0.80854,56.7,56.7,107,8507
+20,Our Lady of Grace Hospital,Central,Tier3 provincial hospital,5.58063,-0.99655,69.4,69.4,131,10416
+21,Oti River Hospital,Northern,Tier3 provincial hospital,8.4505,-0.07582,44.2,44.2,83,6635
+22,Ahmadiya Mission Hospital,Upper West,Tier3 provincial hospital,10.1697,-2.54172,100.0,100.0,188,14995
+23,Atebubu Government District Hospital,Bono East,Tier3 provincial hospital,7.74807,-0.98197,38.6,38.6,73,5784
+24,Bole District Hospital,Savannah,Tier3 provincial hospital,9.0276,-2.49736,29.4,29.4,56,4411
+25,Krachi District Hospital,Oti,Tier3 provincial hospital,7.79476,-0.05729,28.0,28.0,53,4198

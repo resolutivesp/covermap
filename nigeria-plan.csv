@@ -1,0 +1,64 @@
+priority,hospital,state,tier,lat,lon,envenomings_yr,vials_year,procure_usd_yr
+1,Dawakin Kudu General Hospital,Kano,Tier3 provincial hospital,11.83970342,8.60135839,1264.0,2370,189593
+2,Sabon Wuse General Hospital,Niger,Tier3 provincial hospital,9.29985,7.2331,1069.3,2005,160388
+3,Turunku Rural Hospital,Kaduna,Tier3 provincial hospital,10.6467,7.346,775.2,1454,116279
+4,Makarfi General Hospital,Kaduna,Tier3 provincial hospital,11.362186,7.909904,360.3,676,54042
+5,Mani General Hospital,Katsina,Tier3 provincial hospital,12.861718999999999,7.878508,391.9,735,58783
+6,Boto General Hospital,Bauchi,Tier3 provincial hospital,9.723037,9.230223,258.8,486,38816
+7,Kafin Madaiki General Hospital,Jigawa,Tier3 provincial hospital,11.544257,9.822206,463.7,870,69551
+8,Kumo General Hospital,Gombe,Tier3 provincial hospital,10.050865,11.196544,530.1,995,79521
+9,Oro General Hospital,Kwara,Tier3 provincial hospital,8.230017,4.897512,520.1,976,78010
+10,Aliade General Hospital,Benue,Tier3 provincial hospital,7.29649,8.48702,396.1,743,59415
+11,Kaura Rural Hospital,Kaduna,Tier3 provincial hospital,10.09723,8.46561,339.3,637,50890
+12,Lemu Rural Hospital,Niger,Tier3 provincial hospital,9.4,6.03333,271.9,510,40792
+13,Ankpa General Hospital,Kogi,Tier3 provincial hospital,7.404127,7.631731,402.4,755,60355
+14,Agbaja Cottage Hospital,Kogi,Tier3 provincial hospital,7.993027,6.635398,395.5,742,59326
+15,Rabah General Hospital,Sokoto,Tier3 provincial hospital,13.123667,5.49891,344.1,646,51620
+16,Katagum General Hospital,Bauchi,Tier3 provincial hospital,12.287757,10.344803,390.1,732,58522
+17,Kazaure General Hospital,Jigawa,Tier3 provincial hospital,12.6517,8.4132,490.1,919,73509
+18,Hiitom Comprehensive Health Centre,Benue,Tier3 provincial hospital,6.92973,9.30242,310.5,583,46577
+19,Borrong Cottage Hospital,Adamawa,Tier3 provincial hospital,9.54156967,12.17257332,359.4,674,53909
+20,Akwanga General Hospital,Nasarawa,Tier3 provincial hospital,8.914487999999999,8.387563,356.9,670,53532
+21,Msw General Hospital,Katsina,Tier3 provincial hospital,12.1372,7.66856,405.3,760,60799
+22,Bene Hospital,Plateau,Tier3 provincial hospital,8.877077,9.54455,295.3,554,44291
+23,Bungudu General Hospital,Zamfara,Tier3 provincial hospital,12.22229,6.62268,299.0,561,44844
+24,Aliero General Hospital,Kebbi,Tier3 provincial hospital,12.294564,4.468149,294.1,552,44118
+25,Misau General Hospital,Bauchi,Tier3 provincial hospital,11.316313,10.472018,361.7,679,54261
+26,Mubi General Hospital,Adamawa,Tier3 provincial hospital,10.266442,13.267159,287.2,539,43075
+27,Panda General Hospital,Nasarawa,Tier3 provincial hospital,9.265697000000001,7.837021,351.1,659,52665
+28,Bajama Comprehensive Health Centre,Bauchi,Tier3 provincial hospital,9.957096,10.068255,273.7,514,41057
+29,Burra General Hospital,Bauchi,Tier3 provincial hospital,11.017443,8.900628,213.7,401,32055
+30,Ringim General Hospital,Jigawa,Tier3 provincial hospital,12.14666017,9.15502782,372.9,700,55939
+31,Idah General Hospital,Kogi,Tier3 provincial hospital,7.1,6.7333,245.7,461,36861
+32,Abaji General Hospital,Abuja Federal Capital Territory,Tier3 provincial hospital,8.486525,6.944094,232.7,437,34902
+33,Bolori (Health Facility 1),Borno,Tier3 provincial hospital,11.853499,13.143882,232.2,436,34828
+34,Itedoirunda General Hospital,Kogi,Tier3 provincial hospital,8.26666,5.83333,231.3,434,34692
+35,David Mercy Jebba Medical Centre,Kwara,Tier3 provincial hospital,9.113241,4.823378,225.4,423,33803
+36,Senchi General Hospital,Kebbi,Tier3 provincial hospital,11.36567,5.21513,224.3,421,33639
+37,Akpene Comprehensive Health Centre,Benue,Tier3 provincial hospital,7.6716,9.62892,288.6,542,43293
+38,"Kassa ""A"" Hospital",Taraba,Tier3 provincial hospital,8.872321,11.61788,218.9,411,32830
+39,Ngoshe General Hospital,Borno,Tier3 provincial hospital,11.14164,13.77493,196.7,369,29510
+40,Nafada General Hospital,Gombe,Tier3 provincial hospital,11.09206,11.34156,192.4,361,28860
+41,Batsari General Hospital,Katsina,Tier3 provincial hospital,12.85415,7.2009,236.0,443,35397
+42,Udei Comprehensive Health Centre,Benue,Tier3 provincial hospital,8.09734,8.520014,311.0,584,46655
+43,Kagara General Hospital,Zamfara,Tier3 provincial hospital,12.34716,6.13134,172.3,324,25845
+44,Gashua Sabon Gari General Hospital,Yobe,Tier3 provincial hospital,12.8603,10.834,171.3,322,25689
+45,"Bakori ""B"" Comprehensive Health Centre",Katsina,Tier3 provincial hospital,11.559722,7.427264,232.2,436,34826
+46,Riyom General Hospital,Plateau,Tier3 provincial hospital,9.550362,8.749732,388.6,729,58286
+47,Odomoke General Hospital,Ebonyi,Tier3 provincial hospital,6.50801,8.129903,159.7,300,23953
+48,Marama General Hospital,Borno,Tier3 provincial hospital,10.45487827,12.16203003,150.2,282,22525
+49,Damagum General Hospital,Yobe,Tier3 provincial hospital,11.6774,11.3345,146.0,274,21899
+50,Ganye II General Hospital,Adamawa,Tier3 provincial hospital,8.435606,12.062044,145.5,273,21818
+51,Tugunguna Rural Hospital,Niger,Tier3 provincial hospital,10.356317,6.10514,136.8,257,20516
+52,Maikaho General Hospital,Kebbi,Tier3 provincial hospital,10.56857,4.70205,128.5,241,19274
+53,Gambo Sawaba General Hospital,Kaduna,Tier3 provincial hospital,10.963717,8.392839,366.0,687,54907
+54,Jibrin Maigwari General Hospital,Kaduna,Tier3 provincial hospital,10.657913,6.537179,124.7,234,18701
+55,Idon Rural Hospital,Kaduna,Tier3 provincial hospital,10.1,7.9,123.8,233,18575
+56,Bukkuyum General Hospital,Zamfara,Tier3 provincial hospital,12.13769,5.46648,122.2,230,18324
+57,Toro General Hospital,Bauchi,Tier3 provincial hospital,10.056871,9.041898,328.9,617,49329
+58,Mongonu General Hospital,Borno,Tier3 provincial hospital,12.67863,13.60791,119.6,225,17946
+59,Dengi General Hospital,Plateau,Tier3 provincial hospital,9.369869,9.978193,160.8,302,24118
+60,Nepa Hospital Shiroro,Niger,Tier3 provincial hospital,9.74806,6.81584,303.0,569,45452
+61,Gumel General Hospital,Jigawa,Tier3 provincial hospital,12.6308,9.3932,115.2,216,17273
+62,Yabo General Hospital,Sokoto,Tier3 provincial hospital,12.73576,5.00781,160.0,300,23994
+63,Isa General Hospital,Sokoto,Tier3 provincial hospital,13.200875,6.39348,107.0,201,16047
