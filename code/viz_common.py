@@ -129,6 +129,7 @@ def cov_cell_style(coverage, grade):
     if c == "covered" and g == "B":   return ("#7dc47d","#0a3d0a","B")   # good (lighter), preclinical
     if c == "covered" and g == "C":   return ("#fde08a","#5a4500","C")   # weak/claim
     if c == "paraspecific-partial":   return ("#ec835a","#3a1400","~")   # serious/partial
-    if c == "not-covered":            return ("#d03b3b","#ffffff","✗")   # critical
+    if c == "failed":                 return ("#a01111","#ffffff","✗")   # PUBLISHED EVIDENCE AGAINST
+    if c == "not-covered":            return ("#d9a5a5","#5a0000","–")   # no activity claimed / out of scope
     if c == "unknown":                return ("#f2c9b4","#5a1500","?")
     return ("#eef1f4","#8a8a8a","·")                                     # no data

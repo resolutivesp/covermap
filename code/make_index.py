@@ -89,7 +89,7 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
 <h2>How it works</h2>
 <ol class=steps>
 <li><b>Species → district.</b> Which medically important snakes occur where, at eco-zone resolution.</li>
-<li><b>The novel core: an evidence-graded coverage matrix.</b> Which product is actually proven to neutralise which species, graded <b>A</b> (WHO risk-benefit-assessed) · <b>B</b> (peer-reviewed preclinical) · <b>C</b> (manufacturer claim) · <b>D</b> (no data). A label is never promoted to "covered". No public dataset provides this layer.</li>
+<li><b>The novel core: an evidence-graded coverage matrix.</b> Which product is actually proven to neutralise which species, graded <b>A</b> (WHO risk-benefit-assessed) · <b>B</b> (peer-reviewed preclinical) · <b>C</b> (manufacturer claim) · <b>~</b> (partial/paraspecific) · <b>✗</b> (published evidence AGAINST neutralisation) · <b>–</b> (no activity claimed) · <b>·</b> (no data). Two rules are enforced in code: a manufacturer label is never promoted to "covered", and published evidence of failure overrides every higher grade. Comparable evidence exists as literature; what did not is this cross-tabulation in machine-readable form, keyed to placement.</li>
 <li><b>Access.</b> Real facility coordinates and distance to care, so coverage means <i>reachable</i> coverage.</li>
 <li><b>Burden, anchored.</b> Population × published incidence/mortality — every country checked against a published national figure before anything else is computed.</li>
 <li><b>The decision.</b> A greedy maximal-coverage optimiser returns a named, priority-ordered, costed pre-positioning plan: which hospital, how many vials, what it costs — the demand forecast a stockpile programme needs.</li>

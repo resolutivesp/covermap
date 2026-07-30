@@ -72,7 +72,7 @@ html=f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
 
 <h2>The novel, reusable core: an evidence-graded coverage matrix</h2>
 <p>The clinically load-bearing layer no public dataset provides: which product actually neutralises which species, <b>graded by evidence</b> — never promoting a manufacturer label to "covered."</p>
-<div class="legend"><span><i class="sw" style="background:#0ca30c"></i>A — WHO-assessed</span><span><i class="sw" style="background:#7dc47d"></i>B — peer-reviewed preclinical</span><span><i class="sw" style="background:#fde08a"></i>C — claim / label</span><span><i class="sw" style="background:#ec835a"></i>~ partial (paraspecific)</span><span><i class="sw" style="background:#d03b3b"></i>✗ not covered</span><span><i class="sw" style="background:#eef1f4"></i>· no data</span></div>
+<div class="legend"><span><i class="sw" style="background:#0ca30c"></i>A — WHO-assessed</span><span><i class="sw" style="background:#7dc47d"></i>B — peer-reviewed preclinical</span><span><i class="sw" style="background:#fde08a"></i>C — claim / label</span><span><i class="sw" style="background:#ec835a"></i>~ partial (paraspecific)</span><span><i class="sw" style="background:#a01111"></i>✗ published evidence AGAINST neutralisation</span><span><i class="sw" style="background:#d9a5a5"></i>– no activity claimed / out of scope</span><span><i class="sw" style="background:#f2c9b4"></i>? claimed, no in-vivo datum</span><span><i class="sw" style="background:#eef1f4"></i>· no data</span></div>
 {cov_table}
 
 <h2>Grounded in the real procurement decision</h2>

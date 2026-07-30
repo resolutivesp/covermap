@@ -204,7 +204,7 @@ summary=dict(
  total_envenomings_yr=round(adm2['env_yr'].sum()), total_echis_yr=round(total_echis), n_hospitals=len(hosp),
  burden_anchor=dict(national_cases_reported_yr=9900, source="Ghana Health Service NTD Programme, avg 2015-2020 (Opare, via Graphic 2023)",
                     modelled_envenomings_yr=round(adm2['env_yr'].sum()),
-                    note="modelled ENVENOMINGS (severe, antivenom-relevant) are a conservative subset of all reported BITES; 5,811 < 9,900 as expected since many bites are dry/non-envenoming"),
+                    note=f"modelled ENVENOMINGS (severe, antivenom-relevant) are a conservative subset of all reported BITES; {round(adm2['env_yr'].sum()):,} < 9,900 as expected since many bites are dry/non-envenoming"),
  structural_gap_env=round(gap_b), pct_unreachable=round(100*gap_b/total_echis,1),
  optimized=dict(hospitals=len(chosen), pct_protected=round(100*opt_b/total_echis,1),
                 deaths_central=round(deaths(opt_b)), deaths_lo=round(deaths_lo(opt_b)), deaths_hi=round(deaths_hi(opt_b)),

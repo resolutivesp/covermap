@@ -40,7 +40,16 @@ Product × species, every cell graded and cited:
 - **B** — peer-reviewed preclinical (ED50 / antivenomics)
 - **C** — manufacturer claim or label only
 - **D** — no data
-- **✗** — documented failure
+- **~** — partial / paraspecific
+- **✗** — **published evidence AGAINST neutralisation** (overrides every higher grade)
+- **–** — no activity claimed / product out of scope for that species
+- **?** — claimed in the indication, no in-vivo datum
+- **·** — no data
+
+Two rules are enforced in code: a manufacturer label is never promoted to "covered", and published
+evidence of failure overrides every higher grade. **✗ and – are deliberately distinct**: "we tested
+it and it failed" is a different statement about a product than "nobody claims it works here", and
+conflating them would both overstate our knowledge and misrepresent a manufacturer.
 
 A manufacturer label is **never** promoted to "covered". No public dataset provides this layer; it is the reusable asset.
 
@@ -61,9 +70,9 @@ No country's burden is asserted without checking it against a published national
 
 | Country | Model | Published anchor | Status |
 |---|---|---|---|
-| Ghana | 3,760 envenomings/yr | Ghana Health Service ~9,900 **bites**/yr (avg 2015–20) | model sits **below** reported bites, as it must → conservative floor |
+| Ghana | 5,627 envenomings/yr | Ghana Health Service ~9,900 **bites**/yr (avg 2015–20) | model sits **below** reported bites, as it must → conservative floor |
 | Nigeria | implied **14.0**/100k envenomings | published West Africa **8.9–93.3**/100k (Habib 2013) | **inside** the published range — a *bound*, not a confirmation. Implied attendance (21.6/100k) is ~2.8× FMoH surveillance (7.6/100k), assuming substantial under-reporting |
-| India | 55,649 deaths/yr | MDS ~58,000 (Suraweera 2020); GBD 2019 51,100 (UI 29,600–64,100) | within **4.1%** of MDS, **inside** the GBD interval, using state rates **transcribed verbatim** from MDS Table 3 |
+| India | 55,656 deaths/yr | MDS ~58,000 (Suraweera 2020); GBD 2019 51,100 (UI 29,600–64,100) | within **4.0%** of MDS, **inside** the GBD interval, using state rates **transcribed verbatim** from MDS Table 3 |
 
 **⚠️ Correction in v0.4 (India).** The v0.3 state death rates were *approximations* described in the deliverables as "real Million Death Study state death rates". They deviated from the published table by up to **300%** (Kerala) and **140%** (Chhattisgarh); 12 of 17 states were off by ≥20%. They are now transcribed verbatim from Table 3 (column 2010–2014) and **locked by a verification check**.
 
@@ -73,24 +82,20 @@ No country's burden is asserted without checking it against a published national
 2. **Rural weighting (India).** The MDS finds **~94% of India's snakebite deaths occur in rural areas**. Distributing state mortality by *total* population implies city-dwellers die of snakebite at rural per-capita rates — contradicting the anchor source and pushing metros to the top of the priority list. Each state's mortality is therefore split **94% rural / 6% urban** using the census rural/urban household split. This is a *within-state re-allocation*: every state total and the national total are unchanged.
 3. **Reach.** A unit is within reach if ≤ **50 km** of a stocking facility (straight-line proxy for travel time).
 4. **Optimiser.** Greedy maximal-coverage: iteratively add the facility bringing the most not-yet-covered burden within reach.
-5. **Demand.** Each unit's burden is assigned to its nearest chosen facility; vials/yr = burden × care-seeking × vials/patient × (1 + buffer).
+5. **Demand.** Each unit's burden is assigned to its nearest chosen facility; vials/yr = facility attendance × envenoming fraction (0.647, Aglanu 2025) × *Echis* fraction × vials/patient × (1 + buffer). **No care-seeking multiplier is applied** — in the facility frame these patients have already reached care (see the v0.4 correction).
 
 ## 7. Grounded parameters (shared across Ghana and Nigeria — identical by construction, verified)
 
 | Parameter | Point | Range | Source |
 |---|---|---|---|
-| Reach radius | 50 km | 30–80 | proxy (finalist: MAP friction surface) |
+| Reach radius | 50 km | 30–80 | **PROXY.** The published accessibility standard is travel time, not straight-line distance (Longbottom 2018 *Lancet* 392:673), clinically justified by Habib & Abubakar (+1.01% mortality per hour of delay). **The threshold and the distance→time conversion are ours.** Finalist fix: MAP friction surface. |
 | ~~Care-seeking~~ | **REMOVED** | — | **deleted in v0.4 — it double-discounted; see the correction above** |
-| Reach radius | 50 km | — | **PROXY.** The published standard is **3 h travel time** (Longbottom 2018 *Lancet* 392:673), clinically justified by Habib & Abubakar (+1.01% mortality per hour of delay). The distance→time conversion is ours. |
 | Vials / patient | 1.5 | 1–3 | **WHO PANAF-Premium product overview: Echis initial dose "1–3 vials"**; observed mean 1.23 in Ghana's Oti region (Ketor 2024) |
-| Price / vial | $80 | $3.4–$315 | no authoritative price exists; $120/course sits inside the $100–153/dose baseline used in published supply modelling (Potet 2020) |
-| Safety buffer | 25% | — | **NOT CONFIRMED** — WHO/EPI sets stock in *months of stock*, not a percentage |
+| Price / vial | $80 | $18–200 | Brown 2012 — $80 is an assumption inside his range, **not** a Brown point estimate. No authoritative price exists; published quotes span $3.4–$315, and $120/course sits inside the $100–153/dose baseline used in supply modelling (Potet 2020). |
+| Safety buffer | 25% | — | **NOT CONFIRMED** — WHO/EPI sets stock in *months of stock*, not a percentage. A planning assumption, declared as such. |
 | Envenoming fraction | 0.647 | — | Aglanu 2025 (64.7% of attendances had abnormal clotting); assumed outside northern Ghana |
 | Product-choice CFR differential | **0.103** | 0.062–0.120 | **Visser 2008 — observed** (1.8% → 12.1%). Replaces the synthetic chain. |
 | Untreated CFR / effectiveness | 0.16 / 0.75 | — | Habib 2015 — retained for the sensitivity band only, no longer in headline figures |
-| Vials / treated patient | 1.5 | 1–3 | WHO overviews; Ghana Oti real 1.23 |
-| Price / vial | $80 | $18–200 | Brown 2012 ($80 is an assumption inside his range, not a Brown point estimate) |
-| Safety-stock buffer | 25% | — | planning assumption |
 
 ### ⚠️ CORRECTION IN v0.4 — this section previously contained a false claim
 
@@ -134,12 +139,12 @@ The three largest remaining exposures, stated plainly:
 ## 9. Sensitivity & robustness
 
 - Coverage-% is **invariant to uniform incidence scaling** (it is a ratio); absolute demand scales linearly.
-- **Placement is robust:** Ghana 23/25 and Nigeria 51/64 chosen facilities remain chosen when the north–south gradient is flattened.
+- **Placement is robust:** Ghana 24/25 and Nigeria 52/63 chosen facilities remain chosen when the north–south gradient is flattened.
 - India's priority list is rural-dominated by construction (top-10 mean rural share 0.80) and contains no metro district.
 
 ## 10. Honest limits
 
-1. **Care-seeking is the dominant uncertainty** (~5× swing) — hence a range, not a point. Published values measure different things ("ever reached a facility" vs "formal care as *first* contact").
+1. **Per-zone facility attendance is the dominant uncertainty.** It is a construction bracketed by national surveillance below and community surveys above, not a transcription of any published per-zone figure — hence a range, not a point. (The old care-seeking multiplier, previously listed here, was removed in v0.4.)
 2. **Access is straight-line**, not road travel time.
 3. **Species presence is eco-zone-level**; coverage rests largely on preincubation ED50/antivenomics, not clinical RCTs — grade B ≠ proven bedside efficacy.
 4. **India's facility layer covers 25 of 36 states** → the "far from care" figure is a floor, not a ceiling.
@@ -159,7 +164,7 @@ python3 verify_crosscountry.py # 67 checks — shared params, honesty invariants
 python3 audit_parameters.py    # provenance audit (not a pass/fail suite)
 ```
 
-All **245** pass. **They do not prove the model is correct** — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says 10 load-bearing numbers remain assumptions. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.
+All **256** pass (Ghana 54 · Nigeria 62 · India 73 · cross-country 67). **They do not prove the model is correct** — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says **6** of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.
 
 ## 12. Reproduce
 
