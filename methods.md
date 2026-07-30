@@ -1,6 +1,6 @@
-# CoverMap — Methods v0.6.1 (Ghana · Nigeria · India)
+# CoverMap — Methods v0.6.2 (Ghana · Nigeria · India)
 
-**Version:** v0.6.1 · July 2026 · **NOT clinical guidance.** Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.
+**Version:** v0.6.2 · July 2026 · **NOT clinical guidance.** Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.
 
 ---
 
@@ -8,6 +8,7 @@
 
 | Version | Change | Why |
 |---|---|---|
+| **v0.6.2** | The coverage matrix conflated **demonstrated failure** with **absence of data**. PANAF-Premium × *Naja katiensis* rendered as `~` partial cover while its own cell recorded a measured failure (Khochare 2024: 11.16 LD50/mL, below the ≥20 threshold); four untested *Atractaspis* cells rendered in the same red as documented failures. Split into `✗` failure · `–` no activity claimed · `·` no data, with failure overriding every higher grade. Corrected six stale figures in this methods page (Ghana anchor 3,760→**5,627**; India 55,649→**55,656**; robustness 23/25→**24/25** and 51/64→**52/63**; checks 245→**256**; deduplicated the parameter table). Added `code/publish.py` | **Both errors ran in opposite directions and both were wrong.** Showing a measured failure as partial cover understates risk in the unsafe direction for a stocking decision; showing untested as failed asserts something about a commercial product the evidence does not support. The methods page was also still publishing pre-v0.4 outputs, so the one externally-checkable number disagreed with the site |
 | **v0.6.1** | Corrected **three Ghana figure titles** that still displayed **87.5%** — the pre-v0.4 coverage value — while every text KPI on the same page said **86.0%**. Headline numbers in figures are now read from the model JSON. Added a **fifth verification suite** (`verify_figures.py`) that OCRs every shipped figure and requires each percentage it displays to be a value the model actually produced | The four existing suites (256 checks) all passed with the wrong number on screen: they check arithmetic and HTML *text*, but a number typed into a chart title is baked into a PNG and invisible to every string check — while being the first thing a reader sees |
 | **v0.6** | India gains a **targeting-scenario table** ("the decision it changes"); **all three** briefs gain a **parameter-provenance table**; version stamped inside every artifact | India lacked the decision table the other two had; only Ghana had the provenance table — an inconsistency, not a choice |
 | **v0.5** | Took all 10 assumed parameters back to primary sources: **4 resolved, 6 labelled NOT CONFIRMED** | "Not confirmed" now means *searched hard, no published figure exists* — not *unchecked* |

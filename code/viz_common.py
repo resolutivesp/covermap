@@ -19,9 +19,17 @@ import base64
 from matplotlib.colors import LinearSegmentedColormap
 
 # Single source of truth for the release stamp. Bump here; every brief picks it up.
-VERSION = "v0.6.1"
+VERSION = "v0.6.2"
 VERSION_DATE = "July 2026"
-VERSION_NOTE = ("v0.6.1 — corrects three Ghana figure titles that still displayed 87.5%, the "
+VERSION_NOTE = ("v0.6.2 — separates DEMONSTRATED FAILURE from ABSENCE OF DATA in the coverage "
+                "matrix. PANAF-Premium x Naja katiensis was rendering as partial cover while its "
+                "own cell recorded a measured failure (Khochare 2024, 11.16 LD50/mL, below the "
+                "20 threshold); four untested Atractaspis cells were rendering in the same red as "
+                "documented failures, asserting more than the evidence supports. Failure now "
+                "overrides every higher grade and is visually distinct from no-claim and no-data. "
+                "Also corrects six stale figures in the methods page and adds publish.py, which "
+                "diffs generated output against the published site instead of copying by hand. "
+                "v0.6.1 — corrects three Ghana figure titles that still displayed 87.5%, the "
                 "pre-v0.4 coverage value, while every text KPI on the same page said 86.0%; the "
                 "numbers are now read from the model JSON and a fifth verification suite OCRs "
                 "every shipped figure to keep image and text in agreement. v0.6 added the "
