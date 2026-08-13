@@ -19,9 +19,18 @@ import base64
 from matplotlib.colors import LinearSegmentedColormap
 
 # Single source of truth for the release stamp. Bump here; every brief picks it up.
-VERSION = "v0.7.0"
-VERSION_DATE = "July 2026"
-VERSION_NOTE = ("v0.7.0 — adds KENYA, the fourth demonstrator and third failure regime "
+VERSION = "v0.7.1"
+VERSION_DATE = "August 2026"
+VERSION_NOTE = ("v0.7.1 — documentation-only correction, no number moves. The README's "
+                "reproduce-it-yourself block listed four verification suites when there are five: "
+                "verify_kenya.py was missing, so anyone following the README ran 256 of the 285 "
+                "checks and never touched Kenya. It also said 11 shipped figures when the OCR "
+                "suite covers 13. The methods page's Current figures line still listed three "
+                "countries. And every page was date-stamped July 2026 while carrying an August "
+                "build. None of this changes a result; all of it breaks the one promise the "
+                "project actually makes, which is that a stranger can re-derive the numbers "
+                "without asking us anything. Logged rather than quietly overwritten. "
+                "v0.7.0 — adds KENYA, the fourth demonstrator and third failure regime "
                 "(availability and placement: the failing products were withdrawn in 2022 after "
                 "national QC testing). Built against a provenance sheet written before the code; "
                 "county populations pinned to the KNBS 2019 census; product rule enforces market "

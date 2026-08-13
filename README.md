@@ -76,8 +76,9 @@ Independent scripts re-derive every published number from raw inputs and fail lo
 python3 code/verify_ghana.py        # 54 checks
 python3 code/verify_nigeria.py      # 62 checks
 python3 code/verify_india.py        # 73 checks
+python3 code/verify_kenya.py        # 29 checks
 python3 code/verify_crosscountry.py # 67 checks
-python3 code/verify_figures.py      # OCRs all 11 shipped figures
+python3 code/verify_figures.py      # OCRs all 13 shipped figures
 python3 code/audit_parameters.py    # provenance audit (not pass/fail)
 ```
 
