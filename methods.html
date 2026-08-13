@@ -140,13 +140,14 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 <hr />
 <h2 id="1-objective">1. Objective</h2>
 <p>Tell an antivenom purchaser <strong>which product to pre-position at which facilities, in what quantity</strong> — by joining <em>what bites where</em> to <em>what each product is actually proven to neutralise</em> to <em>who can reach care</em> — and state the impact <strong>honestly</strong>.</p>
-<h2 id="2-one-engine-two-failure-regimes">2. One engine, two failure regimes</h2>
+<h2 id="2-one-engine-three-failure-regimes">2. One engine, three failure regimes</h2>
 <table>
 <thead>
 <tr>
 <th></th>
 <th>West Africa (Ghana, Nigeria)</th>
 <th>India</th>
+<th>Kenya (v0.7.0)</th>
 </tr>
 </thead>
 <tbody>
@@ -154,20 +155,23 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 <td>Binding gap</td>
 <td><strong>Which product</strong> is stocked, and where</td>
 <td><strong>Regional venom variation</strong> + non-Big-Four species</td>
+<td><strong>Availability &amp; placement</strong> — the product triage is already done</td>
 </tr>
 <tr>
 <td>Why</td>
 <td>Several products with wildly different <em>Echis</em> cover; some fail outright</td>
 <td>One southern-sourced polyvalent used nationwide</td>
+<td>The failing brands were withdrawn in 2022 after national QC testing; what remains is adequate but scarce and unevenly placed</td>
 </tr>
 <tr>
 <td>Output</td>
 <td>Named, costed pre-positioning plan</td>
 <td>Coverage-gap target list for region-specific antivenom</td>
+<td>Named, costed pre-positioning plan with per-facility product rule</td>
 </tr>
 </tbody>
 </table>
-<p>That the same engine expresses both regimes is the central evidence that the method generalises.</p>
+<p>That the same engine expresses all three regimes is the central evidence that the method generalises.</p>
 <h2 id="3-the-novel-core-an-evidence-graded-coverage-matrix">3. The novel core — an evidence-graded coverage matrix</h2>
 <p>Product × species, every cell graded and cited:</p>
 <ul>
@@ -376,7 +380,7 @@ python3 verify_nigeria.py      # 62 checks
 python3 verify_india.py        # 62 checks
 python3 verify_crosscountry.py # 67 checks — shared params, honesty invariants, no stale numbers
 python3 audit_parameters.py    # provenance audit (not a pass/fail suite)</code></p>
-<p>All <strong>256</strong> pass (Ghana 54 · Nigeria 62 · India 73 · cross-country 67). <strong>They do not prove the model is correct</strong> — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says <strong>6</strong> of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.</p>
+<p>All <strong>285</strong> pass (Ghana 54 · Nigeria 62 · India 73 · Kenya 29 · cross-country 67). <strong>They do not prove the model is correct</strong> — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says <strong>6</strong> of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.</p>
 <h2 id="12-reproduce">12. Reproduce</h2>
 <p><code>python3 build_v2.py &amp;&amp; python3 make_v2_visuals.py &amp;&amp; python3 make_report_v2.py &amp;&amp; python3 make_planner.py
 python3 nigeria_build.py &amp;&amp; python3 nigeria_outputs.py

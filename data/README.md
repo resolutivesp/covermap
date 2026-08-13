@@ -96,3 +96,16 @@ python3 code/audit_parameters.py
 
 The audit is the one that matters. It says six load-bearing numbers remain **NOT CONFIRMED** —
 searched for, not found in the literature. That is the honest state of this tool.
+
+
+## Kenya (`data/ke/`) — added v0.7.0
+
+| File | What it is | Source | Licence |
+|---|---|---|---|
+| `ken_ADM1.json` / `ken_ADM2.json` | County (47) and constituency (290) boundaries | geoBoundaries gbOpen (Runfola 2020) | CC BY 4.0 |
+| `county_census_2019.csv` | 2019 census population, all 47 counties; transcription verified by exact sum to the national total 47,564,296 | KNBS 2019 Census Vol I (via citypopulation.de transcription) | Kenyan public statistics; transcription checked against KNBS figures |
+| `kenya_facilities_who_raw.csv` | Hospital-tier extract (402 rows) for Kenya | Maina et al. 2019, WHO/KEMRI sub-Saharan facility database (`df_who_sites.rda`, shared file in `data/ng/`) | CC BY 4.0 |
+| `parameters_ke.py` | All Kenya model parameters with per-value provenance grades and citations | This project | MIT (project licence) |
+
+Population *distribution* within counties uses the shared continental raster (`data/ng/afripop2020.tif`,
+WorldPop, CC BY 4.0); county *totals* are pinned to the census figures above.

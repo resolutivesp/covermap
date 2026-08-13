@@ -24,15 +24,15 @@
 
 Tell an antivenom purchaser **which product to pre-position at which facilities, in what quantity** — by joining *what bites where* to *what each product is actually proven to neutralise* to *who can reach care* — and state the impact **honestly**.
 
-## 2. One engine, two failure regimes
+## 2. One engine, three failure regimes
 
-| | West Africa (Ghana, Nigeria) | India |
-|---|---|---|
-| Binding gap | **Which product** is stocked, and where | **Regional venom variation** + non-Big-Four species |
-| Why | Several products with wildly different *Echis* cover; some fail outright | One southern-sourced polyvalent used nationwide |
-| Output | Named, costed pre-positioning plan | Coverage-gap target list for region-specific antivenom |
+| | West Africa (Ghana, Nigeria) | India | Kenya (v0.7.0) |
+|---|---|---|---|
+| Binding gap | **Which product** is stocked, and where | **Regional venom variation** + non-Big-Four species | **Availability & placement** — the product triage is already done |
+| Why | Several products with wildly different *Echis* cover; some fail outright | One southern-sourced polyvalent used nationwide | The failing brands were withdrawn in 2022 after national QC testing; what remains is adequate but scarce and unevenly placed |
+| Output | Named, costed pre-positioning plan | Coverage-gap target list for region-specific antivenom | Named, costed pre-positioning plan with per-facility product rule |
 
-That the same engine expresses both regimes is the central evidence that the method generalises.
+That the same engine expresses all three regimes is the central evidence that the method generalises.
 
 ## 3. The novel core — an evidence-graded coverage matrix
 
@@ -166,7 +166,7 @@ python3 verify_crosscountry.py # 67 checks — shared params, honesty invariants
 python3 audit_parameters.py    # provenance audit (not a pass/fail suite)
 ```
 
-All **256** pass (Ghana 54 · Nigeria 62 · India 73 · cross-country 67). **They do not prove the model is correct** — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says **6** of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.
+All **285** pass (Ghana 54 · Nigeria 62 · India 73 · Kenya 29 · cross-country 67). **They do not prove the model is correct** — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says **6** of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.
 
 ## 12. Reproduce
 

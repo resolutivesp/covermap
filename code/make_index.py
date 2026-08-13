@@ -39,14 +39,14 @@ SUPP="""
 
 html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
 <title>CoverMap — matching antivenom to the snakes that actually bite</title><style>{BASE_CSS}{SUPP}</style></head><body>
-<header><div class=wrap><div class=badge>{VERSION_TAG} · FEASIBILITY DEMONSTRATOR · IML 2 · three countries · not clinical guidance</div>
+<header><div class=wrap><div class=badge>{VERSION_TAG} · FEASIBILITY DEMONSTRATOR · IML 2 · four countries · not clinical guidance</div>
 <h1>CoverMap — matching antivenom to the snakes that actually bite</h1>
-<div class=sub>Antivenom is species-specific: the wrong product does not save the patient. CoverMap joins <b>what bites where</b> to <b>what each product is actually proven to neutralise</b> to <b>who can reach care</b> — and turns it into a costed, named plan a procurement programme can act on. Demonstrated on three countries covering two different failure regimes.</div></div></header><div class=wrap>
+<div class=sub>Antivenom is species-specific: the wrong product does not save the patient. CoverMap joins <b>what bites where</b> to <b>what each product is actually proven to neutralise</b> to <b>who can reach care</b> — and turns it into a costed, named plan a procurement programme can act on. Demonstrated on four countries covering three different failure regimes.</div></div></header><div class=wrap>
 
 <div class='card lead'><p><b>The problem is a decision, not a discovery.</b> When rural Ghana substituted an unsuitable antivenom against the carpet viper, district case-fatality rose <b>1.8% → 12.1%</b> (Visser 2008). The people who buy and place antivenom must choose <i>which product</i> and <i>where</i> — with no tool that joins species range to evidence-graded product coverage to access. CoverMap is that tool.</p>
-<div class=anchor><b>One method, two regimes.</b> In West Africa the binding gap is <b>which product</b> is stocked and where (several products, wildly different <i>Echis</i> cover). In India a single southern-sourced polyvalent is used nationwide, so the gap is <b>regional venom variation and non-Big-Four species</b>. The same engine expresses both — which is the strongest evidence that it generalises.</div></div>
+<div class=anchor><b>One method, three regimes.</b> In West Africa the binding gap is <b>which product</b> is stocked and where (several products, wildly different <i>Echis</i> cover). In India a single southern-sourced polyvalent is used nationwide, so the gap is <b>regional venom variation and non-Big-Four species</b>. In Kenya the failing products were withdrawn in 2022 after national QC testing, so the gap is <b>availability and placement</b>. The same engine expresses all three — the strongest evidence that it generalises.</div></div>
 
-<h2>Read the three demonstrators</h2>
+<h2>Read the four demonstrators</h2>
 <div class=nav>
  <a href="ghana.html"><b>Ghana →</b><span>Placement: 25 named hospitals, 4,654 vials/yr, ~$371k. The best-sourced demonstrator.</span><span class=go>Open the brief</span></a>
  <a href="nigeria.html"><b>Nigeria →</b><span>Scale: 63 hospitals, 36,671 vials/yr against the largest West-African burden.</span><span class=go>Open the brief</span></a>
@@ -60,7 +60,7 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
  <a href="methods.html">Methods ({VERSION})</a>
 </div>
 
-<h2>Three demonstrators, one engine</h2>
+<h2>Four demonstrators, one engine</h2>
 <div class=grid3>
  <div class=cty><h3>GHANA · PLACEMENT</h3>
   <div class=big>{GH['optimized']['pct_protected']}%</div>
