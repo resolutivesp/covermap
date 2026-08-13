@@ -51,6 +51,7 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
  <a href="ghana.html"><b>Ghana →</b><span>Placement: 25 named hospitals, 4,654 vials/yr, ~$371k. The best-sourced demonstrator.</span><span class=go>Open the brief</span></a>
  <a href="nigeria.html"><b>Nigeria →</b><span>Scale: 63 hospitals, 36,671 vials/yr against the largest West-African burden.</span><span class=go>Open the brief</span></a>
  <a href="india.html"><b>India →</b><span>A different regime: where the standard antivenom underperforms, and where to target first.</span><span class=go>Open the brief</span></a>
+ <a href="kenya.html"><b>Kenya →</b><span>The third regime: failing products already withdrawn; 45 hospitals reach 86.6% — where should adequate stock sit.</span><span class=go>Open the brief</span></a>
 </div>
 <div class=subnav>
  <a href="ghana-planner.html">Interactive budget planner — Ghana</a>

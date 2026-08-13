@@ -1,0 +1,11 @@
+# CoverMap build + verification dependencies (undeclared until v0.7.0 - an
+# adversarial-review finding: the repo could not run from a clean clone without
+# these, the same class of obstacle as the absolute paths fixed in v0.6.1)
+geopandas>=1.0
+rasterstats>=0.19
+rdata>=0.9
+pandas>=2.0
+numpy>=1.26
+matplotlib>=3.8
+pillow>=10.0
+pytesseract>=0.3.10

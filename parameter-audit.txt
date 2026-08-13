@@ -91,6 +91,28 @@ PARAMETER PROVENANCE AUDIT — what is sourced vs what we chose
       source : Suraweera 2020; Nat Commun 2022 (both verified verbatim)
       impact : anchor
 
+----------------------------------------------------------------------------------------------------
+KENYA (v0.7.0) - separate table; grades live in data/ke/parameters_ke.py
+----------------------------------------------------------------------------------------------------
+  [CITED   ] zone attendance WEST 4.6/100k
+      source : Ochola 2018 PAMJ 29:217, Kakamega hospital-record rate
+  [PARTIAL ] zone attendance COAST 15/100k
+      source : Abouyannis 2023 paediatric admissions 11.3-29.1/100k-py; adult rate not published
+  [ASSUMED ] zone attendance ARID_NORTH 20 & RIFT 15
+      source : CONSTRUCTION bracketed by Coombs 1997 (1.9-67.9) and community surveys (Snow 151; Samburu ~440 derived)
+  [ASSUMED ] zone attendance CENTRAL_HIGHLANDS 2.0
+      source : NOT CONFIRMED - no published figure; direction from species ranges; placement robust 42/45 to halving
+  [CITED   ] treated fraction 0.252
+      source : Abouyannis 2023 verbatim: 'Antivenom was administered to 119 (25.2%)'
+  [DERIVED ] vials/treated 1.40
+      source : Abouyannis 2023 distribution 72/26/8; paediatric 2003-21 practice - likely a floor
+  [CITED   ] county populations
+      source : KNBS 2019 census, 47 county figures summing exactly to 47,564,296
+  [ASSUMED ] Echis county mapping
+      source : DECLARED mapping of Ochola 2018 Table 1 place names (row labelled E. carinatus = Kenyan carpet viper); unlisted plausible-range counties unflagged - WHO snake-DB check is finalist work
+  [ASSUMED ] price $80/vial, buffer 25%, reach 50 km
+      source : same planning assumptions as GH/NG, for comparability; Kenya patient prices (Ooms 2021) kept separate
+
 ====================================================================================================
 TOTAL 28   sourced/confirmed=13   unconfirmed=6   partial/flagged=9
 ====================================================================================================

@@ -69,6 +69,23 @@ def main():
             print(f"  {mark}{name}")
             print(f"      source : {src}")
             if impact!="-": print(f"      impact : {impact}")
+    print("\n" + "-"*100)
+    print("KENYA (v0.7.0) - separate table; grades live in data/ke/parameters_ke.py")
+    print("-"*100)
+    KE = [
+     ("kenya","zone attendance WEST 4.6/100k","CITED","Ochola 2018 PAMJ 29:217, Kakamega hospital-record rate","burden"),
+     ("kenya","zone attendance COAST 15/100k","PARTIAL","Abouyannis 2023 paediatric admissions 11.3-29.1/100k-py; adult rate not published","burden"),
+     ("kenya","zone attendance ARID_NORTH 20 & RIFT 15","ASSUMED","CONSTRUCTION bracketed by Coombs 1997 (1.9-67.9) and community surveys (Snow 151; Samburu ~440 derived)","burden"),
+     ("kenya","zone attendance CENTRAL_HIGHLANDS 2.0","ASSUMED","NOT CONFIRMED - no published figure; direction from species ranges; placement robust 42/45 to halving","burden"),
+     ("kenya","treated fraction 0.252","CITED","Abouyannis 2023 verbatim: 'Antivenom was administered to 119 (25.2%)'","vials"),
+     ("kenya","vials/treated 1.40","DERIVED","Abouyannis 2023 distribution 72/26/8; paediatric 2003-21 practice - likely a floor","vials"),
+     ("kenya","county populations","CITED","KNBS 2019 census, 47 county figures summing exactly to 47,564,296","denominator"),
+     ("kenya","Echis county mapping","ASSUMED","DECLARED mapping of Ochola 2018 Table 1 place names (row labelled E. carinatus = Kenyan carpet viper); unlisted plausible-range counties unflagged - WHO snake-DB check is finalist work","product rule"),
+     ("kenya","price $80/vial, buffer 25%, reach 50 km","ASSUMED","same planning assumptions as GH/NG, for comparability; Kenya patient prices (Ooms 2021) kept separate","cost"),
+    ]
+    for c,pname,st,note,impact in KE:
+        print(f"  [{st:8}] {pname}")
+        print(f"      source : {note}")
     print("\n"+"="*100)
     print(f"TOTAL {len(P)}   sourced/confirmed={n_c}   unconfirmed={n_a}   partial/flagged={n_d}")
     print("="*100)

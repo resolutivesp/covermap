@@ -1,0 +1,46 @@
+Facility name,Facility type,Ownership,county,zone,vials_yr,serves_echis_county,recommended_product
+Mariakani District Hospital,District Hospital,MoH,Kilifi,COAST,126,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Bishop Kioko Catholic Hospital,Mission Hospital,FBO,Machakos,RIFT_SEMIARID,145,True,PANAF-Premium
+Kanyakine District Hospital,District Hospital,MoH,Meru,RIFT_SEMIARID,69,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Gucha District Hospital,District Hospital,MoH,Kisii,WEST,87,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Ahmadiya Hospital,Mission Hospital,FBO,Kakamega,WEST,88,True,PANAF-Premium
+Ngong Rapha Hospital,Mission Hospital,FBO,Kajiado,RIFT_SEMIARID,91,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Kwanza Sub County Hospital,Sub-District Hospital,MoH,Trans Nzoia,WEST,48,True,PANAF-Premium
+Muhoroni Sub-District Hospital,Sub-District Hospital,MoH,Kisumu,WEST,48,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Kabarnet District Hospital,District Hospital,MoH,Baringo,RIFT_SEMIARID,45,True,PANAF-Premium
+Kauwi Sub-District Hospital,Sub-District Hospital,MoH,Kitui,RIFT_SEMIARID,56,True,PANAF-Premium
+Nyahururu District Hospital,District Hospital,MoH,Nyandarua,CENTRAL_HIGHLANDS,28,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Ololulunga District Hospital,District Hospital,MoH,Narok,RIFT_SEMIARID,26,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Kilifi District Hospital,District Hospital,MoH,Kilifi,COAST,38,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Maua Methodist Hospital,Mission Hospital,FBO,Meru,RIFT_SEMIARID,60,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Kianyaga Sub-District Hospital,Sub-District Hospital,MoH,Kirinyaga,CENTRAL_HIGHLANDS,45,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Katilu District Hospital,District Hospital,MoH,Turkana,ARID_NORTH,25,True,PANAF-Premium
+Makindu District Hospital,District Hospital,MoH,Makueni,RIFT_SEMIARID,23,True,PANAF-Premium
+Kakuma IRC  Hospital,Hospital,NGO,Turkana,ARID_NORTH,20,True,PANAF-Premium
+Garissa Provincial General Hospital,Provincial General Hospital,MoH,Garissa,ARID_NORTH,20,True,PANAF-Premium
+Bahati District Hospital,District Hospital,MoH,Nakuru,CENTRAL_HIGHLANDS,26,True,PANAF-Premium
+Likuyani Sub-District Hospital,Sub-District Hospital,MoH,Kakamega,WEST,40,True,PANAF-Premium
+Tot Sub-District Hospital,Sub-District Hospital,MoH,Elgeyo-Marakwet,RIFT_SEMIARID,28,True,PANAF-Premium
+Mutitu Sub-District Hospital,Sub-District Hospital,MoH,Kitui,RIFT_SEMIARID,17,True,PANAF-Premium
+Madiany Sub County Hospital,Sub-District Hospital,MoH,Siaya,WEST,29,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Dadaab Sub-District Hospital,Sub-District Hospital,MoH,Garissa,ARID_NORTH,16,True,PANAF-Premium
+Elwak District Hospital,District Hospital,MoH,Mandera,ARID_NORTH,16,True,PANAF-Premium
+Voi Moi District Hospital,District Hospital,MoH,Taita Taveta,COAST,15,True,PANAF-Premium
+Kinango District Hospital,District Hospital,MoH,Kwale,COAST,57,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Sigor Sub-District Hospital,Sub-District Hospital,MoH,Bomet,WEST,41,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Balambala Sub-District Hospital,Sub-District Hospital,MoH,Garissa,ARID_NORTH,14,True,PANAF-Premium
+Lorugum Sub County Hospital,Sub-District Hospital,MoH,Turkana,ARID_NORTH,14,True,PANAF-Premium
+Buna Sub-District Hospital,Sub-District Hospital,MoH,Wajir,ARID_NORTH,14,True,PANAF-Premium
+Lokitaung Sub County Hospital,Sub-District Hospital,MoH,Turkana,ARID_NORTH,13,True,PANAF-Premium
+Griftu District Hospital,District Hospital,MoH,Wajir,ARID_NORTH,13,True,PANAF-Premium
+Baragoi Sub-District Hospital,Sub-District Hospital,MoH,Samburu,ARID_NORTH,13,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Takaba District Hospital,District Hospital,MoH,Mandera,ARID_NORTH,12,True,PANAF-Premium
+Mandera District Hospital,District Hospital,MoH,Mandera,ARID_NORTH,12,True,PANAF-Premium
+Garbatulla District Hospital,District Hospital,MoH,Isiolo,ARID_NORTH,11,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Lodwar District Hospital,District Hospital,MoH,Turkana,ARID_NORTH,10,True,PANAF-Premium
+Lafey Sub-District Hospital,Sub-District Hospital,MoH,Mandera,ARID_NORTH,10,True,PANAF-Premium
+Banisa Sub County Hospital,Sub-District Hospital,MoH,Mandera,ARID_NORTH,10,True,PANAF-Premium
+Lamu District Hospital,District Hospital,MoH,Lamu,COAST,10,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Modogashe Sub-County Hospital,Sub-District Hospital,MoH,Garissa,ARID_NORTH,9,True,PANAF-Premium
+Engineer District Hospital,District Hospital,MoH,Nyandarua,CENTRAL_HIGHLANDS,13,False,PANAF-Premium (alt: SAIMR Polyvalent)
+Doldol Sub District Hospital,Sub-District Hospital,MoH,Laikipia,RIFT_SEMIARID,18,False,PANAF-Premium (alt: SAIMR Polyvalent)

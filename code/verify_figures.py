@@ -41,6 +41,11 @@ COUNTRIES = {
         figs=[f"{BASE}/out_in/{f}" for f in os.listdir(f"{BASE}/out_in")
               if f.endswith(".png")] if os.path.isdir(f"{BASE}/out_in") else [],
     ),
+    "KENYA": dict(
+        json=f"{BASE}/out_ke/impact_summary_ke.json",
+        figs=[f"{BASE}/out_ke/{f}" for f in os.listdir(f"{BASE}/out_ke")
+              if f.endswith(".png")] if os.path.isdir(f"{BASE}/out_ke") else [],
+    ),
 }
 
 

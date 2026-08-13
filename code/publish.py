@@ -34,6 +34,8 @@ MAP = {
     "out_ng/pre_positioning_plan_ng.csv":       "nigeria-plan.csv",
     "out_in/india_coverage_gap_brief.html":     "india.html",
     "out_in/priority_districts_in.csv":         "india-priority-districts.csv",
+    "out_ke/kenya_brief_rc2.html":              "kenya.html",
+    "out_ke/pre_positioning_plan_ke.csv":       "kenya-plan.csv",
 }
 
 def sha(p):

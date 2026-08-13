@@ -1,6 +1,6 @@
-# CoverMap — Methods v0.6.2 (Ghana · Nigeria · India)
+# CoverMap — Methods v0.7.0 (Ghana · Nigeria · India · Kenya)
 
-**Version:** v0.6.2 · July 2026 · **NOT clinical guidance.** Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.
+**Version:** v0.7.0 · August 2026 · **NOT clinical guidance.** Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.
 
 ---
 
@@ -8,6 +8,7 @@
 
 | Version | Change | Why |
 |---|---|---|
+| **v0.7.0** | **Kenya added** — fourth demonstrator, third failure regime (availability & placement: VINS and Inoserp were withdrawn from the Kenyan market in 2022 after national QC testing, verbatim in Toxins 2026;18(2):106). Facility frame, same as Ghana/Nigeria (no care-seeking multiplier); county populations pinned to the KNBS 2019 census (47 figures summing exactly to 47,564,296); zone attendance rates anchored to published area studies (Ochola 2018, Abouyannis 2023) with construction declared; product rule enforces Kenyan market availability (AFRIVEN potent in QC but not commercialised - never recommended; Inoserp failed 3 of 5 - excluded). 29-check verification suite incl. tokenizer-level frame check and independent allocation recomputation | **Three review rounds, errors in all three** - a county-centroid coarseness rejection (self-caught), a failed adversarial review (population-distribution artifact inflating Nairobi +122% while starving Turkana -59%, 9 of 36 sites artifacts; treated fraction 0.182 contradicting its source's verbatim 25.2%), and a passing re-review with every number reproduced independently end-to-end. The corrections are carried here, not deleted |
 | **v0.6.2** | The coverage matrix conflated **demonstrated failure** with **absence of data**. PANAF-Premium × *Naja katiensis* rendered as `~` partial cover while its own cell recorded a measured failure (Khochare 2024: 11.16 LD50/mL, below the ≥20 threshold); four untested *Atractaspis* cells rendered in the same red as documented failures. Split into `✗` failure · `–` no activity claimed · `·` no data, with failure overriding every higher grade. Corrected six stale figures in this methods page (Ghana anchor 3,760→**5,627**; India 55,649→**55,656**; robustness 23/25→**24/25** and 51/64→**52/63**; checks 245→**256**; deduplicated the parameter table). Added `code/publish.py` | **Both errors ran in opposite directions and both were wrong.** Showing a measured failure as partial cover understates risk in the unsafe direction for a stocking decision; showing untested as failed asserts something about a commercial product the evidence does not support. The methods page was also still publishing pre-v0.4 outputs, so the one externally-checkable number disagreed with the site |
 | **v0.6.1** | Corrected **three Ghana figure titles** that still displayed **87.5%** — the pre-v0.4 coverage value — while every text KPI on the same page said **86.0%**. Headline numbers in figures are now read from the model JSON. Added a **fifth verification suite** (`verify_figures.py`) that OCRs every shipped figure and requires each percentage it displays to be a value the model actually produced | The four existing suites (256 checks) all passed with the wrong number on screen: they check arithmetic and HTML *text*, but a number typed into a chart title is baked into a PNG and invisible to every string check — while being the first thing a reader sees |
 | **v0.6** | India gains a **targeting-scenario table** ("the decision it changes"); **all three** briefs gain a **parameter-provenance table**; version stamped inside every artifact | India lacked the decision table the other two had; only Ghana had the provenance table — an inconsistency, not a choice |
@@ -185,3 +186,24 @@ python3 verify_ghana.py && python3 verify_nigeria.py && python3 verify_india.py 
 - **Wrong-antivenom mortality:** Visser 2008, *TRSTMH* 102(5):445 — CFR **1.8% → 12.1%** ("sixfold").
 - **Coverage matrix:** WHO risk-benefit-assessment product overviews (PANAF-Premium, EchiTAbG, Antivipmyn Africa) · Ainsworth 2018/2020 · Khochare 2024 *IJMS* 25:4213 · Edge 2025 *PLoS NTD* · Warrell 2008 · Senji Laxme/Sunagar antivenomics (India) · TRSTMH 2025.
 - **Base layers:** geoBoundaries (CC BY) · Maina 2019 *Sci Data* 6:134 · Census of India 2011 · Ghana Statistical Service 2021 PHC · NIC HealthGIS · afripop2020 · GBIF.
+
+
+## 12. Kenya (v0.7.0) — the fourth demonstrator
+
+Kenya runs in the same facility frame as Ghana and Nigeria (no care-seeking multiplier). What is
+different: **county populations are pinned to the KNBS 2019 census** (the 47 published county
+figures, which sum exactly to the national 47,564,296; the coarse continental raster is used only
+for within-county distribution, declared approximate) — and the **zone attendance rates carry
+direct published area anchors** (Ochola 2018 hospital-record rates; Abouyannis 2023 paediatric
+admissions), with the remaining zones a declared construction bracketed by Coombs 1997 (1.9–67.9
+per 100k) and the community-side surveys (Snow 1994 coast 151/100k; Tianyi 2024 Samburu ≈440/100k
+derived). The treated fraction (25.2%) is the verbatim figure of Abouyannis 2023; vials/treated
+(1.40) is derived from its published distribution and is likely a floor. The product rule enforces
+market availability: PANAF-Premium (WHO risk–benefit assessed; PPB-approved) is required for
+facilities serving *Echis pyramidum* counties; SAIMR Polyvalent is the marketed alternative
+elsewhere; AFRIVEN is potent in the QC panel but not commercialised in Kenya and is never
+recommended; Inoserp failed three of five venoms and was withdrawn in 2022. Full parameter
+provenance lives in `data/ke/parameters_ke.py`; the 29-check suite is `code/verify_kenya.py`;
+the brief is `kenya.html`. Result: **45 hospitals → 86.6% of expected attendances within 50 km ·
+1,569 vials/yr (~$125,520 at the $80/vial planning price)** · robustness 42/45 under halving of the
+one NOT-CONFIRMED zone rate.

@@ -1,0 +1,110 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>CoverMap Kenya — the fourth demonstrator</title>
+<style>
+body{font:15px/1.55 system-ui,sans-serif;color:#1c2733;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:24px}
+header{background:#0b3d2e;color:#fff;padding:26px 0}
+h1{margin:0 0 6px;font-size:26px} .sub{opacity:.85}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.kpi{background:#f4f7f6;border:1px solid #dde5e2;border-radius:10px;padding:12px}
+.kpi b{font-size:24px;display:block}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:10px 0}
+td,th{border:1px solid #d8dee3;padding:6px 8px;text-align:left}
+th{background:#eef2f0}
+.note{background:#fff8e6;border:1px solid #eadf9e;border-radius:8px;padding:10px 14px;margin:14px 0;font-size:14px}
+.warn{background:#fdecec;border:1px solid #f3b8b8}
+footer{margin:30px 0 10px;padding-top:14px;border-top:1px solid #ccc;font-size:12.5px;color:#555}
+img{max-width:100%;border:1px solid #e3e6e9;border-radius:8px;margin:8px 0}
+</style></head><body>
+<header><div class="wrap"><h1>CoverMap Kenya — the fourth demonstrator</h1>
+<div class="sub">Which WHO-assessed antivenom at which hospitals, how many vials, at what cost —
+replicated for Kenya with the host organisation whose fieldwork documented the problem.</div>
+</div></header><div class="wrap">
+
+<div class="note"><b>Review history — carried, not deleted.</b> This demonstrator went through
+three review rounds before release: a county-centroid draft rejected in first-pass review as too
+coarse; an rc1 that <b>failed</b> independent adversarial review on two critical findings (a
+population-distribution artifact that inflated Nairobi by +122% while starving Turkana by −59% —
+nine of its 36 sites were artifacts — and a treated fraction contradicting its source's verbatim
+25.2%); and a re-review of the rebuilt rc2 in which every number was reproduced end-to-end by an
+independent implementation. Five further minor findings were fixed in rc3, including removing a
+recommended alternative that is not commercialised in Kenya. Not clinical guidance.</div>
+
+<div class="kpis">
+<div class="kpi"><b>86.6%</b>of expected snakebite attendances within
+50 km of a zone-adequate product</div>
+<div class="kpi"><b>45</b>hospitals selected from 401
+hospital-tier facilities</div>
+<div class="kpi"><b>1,569</b>vials/yr demand forecast
+(~$125,520/yr at the $80/vial planning assumption)</div>
+<div class="kpi"><b>8.7</b>implied
+national attendances/100k — inside the published multi-area range
+(1.9–67.9, Coombs 1997)</div>
+</div>
+
+<img src="fig1_placement_ke.png" alt="placement map">
+<img src="fig2_curve_ke.png" alt="coverage curve">
+
+<h2>Why Kenya is a different failure regime</h2>
+<p>Ghana and Nigeria show a <i>product-selection</i> failure. Kenya has already run that triage:
+the Kenya Snakebite Research &amp; Intervention Centre's preclinical assays — the work establishing
+the National Antivenom Quality Control Laboratory — found the two dominant products wanting, and,
+verbatim from that paper: <i>"Both products were withdrawn from the Kenyan market in 2022 after
+performing poorly in our preclinical efficacy assays using Kenyan venoms [...] and failing to
+achieve a positive review in the WHO's risk-benefit assessment process"</i> — the assays being the
+same group's earlier published work, cited in the QC-lab paper. (The two: VINS Snake Venom
+Antiserum African — 66.7% of stocking public facilities in the 2019–20 survey — and Inoserp,
+33.3%.) What remains on the market: SAIMR Polyvalent — potent across the Big Five in the QC panel
+but costly ($315 per vial, framed by the paper as "of potential use" regionally — and with no
+<i>Echis</i> cover — and PANAF-Premium, WHO risk–benefit assessed and since approved by the
+Pharmacy and Poisons Board. AFRIVEN, VINS's reformulation, was also potent across the Big Five in
+the panel but <i>"has yet to be commercialised in Kenya"</i>, so this plan never recommends it.
+Kenya's failure today is therefore <i>availability and placement</i>: antivenom in 44.7% of public
+facilities and 20.0% stocked out in a year (13.6 days mean) — 2019–20 survey figures,
+pre-withdrawal; today's picture is unlikely to be better. The product triage is done; CoverMap
+answers what follows — where the adequate products should sit, and in what quantity.</p>
+
+<h2>Product rule (enforced in code, verified)</h2>
+<p>PANAF-Premium required for facilities serving Echis pyramidum counties (only marketed product whose E. pyramidum cover is WHO Schedule-2 listed - grade A under our published scheme); SAIMR Polyvalent the marketed alternative elsewhere (QC 2026: potent vs all Big Five; no Echis cover). AFRIVEN was potent vs the Big Five in the QC panel but has yet to be commercialised in Kenya - not recommendable. Inoserp excluded (failed 3 of 5; withdrawn 2022).</p>
+<div class="note">Evidence: the Kenya QC-laboratory study (Toxins 2026;18(2):106) tested the four
+products previously or currently available in Kenya against the Big Five venoms (challenge dose 5×;
+3× and 2× where marked in its Figure 4). PANAF-Premium's <i>Echis pyramidum</i> cover is listed in
+its WHO Schedule 2 — grade A under this project's published grading scheme; the WHO document itself
+carries no grading. No other product has a Kenyan <i>Echis</i> datum — an unknown is never promoted
+to coverage. Echis-county mapping follows the only Kenya-specific published range list (Ochola 2018
+Table 1, a Bio-Ken compilation whose row is labelled <i>Echis carinatus</i> — the compilation's
+name for the Kenyan carpet viper, <i>E. pyramidum</i> complex; the equation is ours). Place names
+are mapped to counties by us: for listed places inclusion errs safe, but counties absent from the
+compilation (Samburu, Isiolo, Marsabit — plausible range) default to unflagged, which for the
+<i>alternative</i> recommendation is the unsafe direction. Declared; the WHO snake-distribution
+database check is a named finalist-phase task.</div>
+
+<h2>The plan</h2>
+<table><tr><th>Facility</th><th>County</th><th>Zone</th><th>Vials/yr</th><th>Recommended product</th></tr>
+<!-- serves_echis_county drives the recommendation; see product rule -->
+<tr><td>Mariakani District Hospital</td><td>Kilifi</td><td>COAST</td><td style='text-align:right'>126</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Bishop Kioko Catholic Hospital</td><td>Machakos</td><td>RIFT_SEMIARID</td><td style='text-align:right'>145</td><td>PANAF-Premium</td></tr><tr><td>Kanyakine District Hospital</td><td>Meru</td><td>RIFT_SEMIARID</td><td style='text-align:right'>69</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Gucha District Hospital</td><td>Kisii</td><td>WEST</td><td style='text-align:right'>87</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Ahmadiya Hospital</td><td>Kakamega</td><td>WEST</td><td style='text-align:right'>88</td><td>PANAF-Premium</td></tr><tr><td>Ngong Rapha Hospital</td><td>Kajiado</td><td>RIFT_SEMIARID</td><td style='text-align:right'>91</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Kwanza Sub County Hospital</td><td>Trans Nzoia</td><td>WEST</td><td style='text-align:right'>48</td><td>PANAF-Premium</td></tr><tr><td>Muhoroni Sub-District Hospital</td><td>Kisumu</td><td>WEST</td><td style='text-align:right'>48</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Kabarnet District Hospital</td><td>Baringo</td><td>RIFT_SEMIARID</td><td style='text-align:right'>45</td><td>PANAF-Premium</td></tr><tr><td>Kauwi Sub-District Hospital</td><td>Kitui</td><td>RIFT_SEMIARID</td><td style='text-align:right'>56</td><td>PANAF-Premium</td></tr><tr><td>Nyahururu District Hospital</td><td>Nyandarua</td><td>CENTRAL_HIGHLANDS</td><td style='text-align:right'>28</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Ololulunga District Hospital</td><td>Narok</td><td>RIFT_SEMIARID</td><td style='text-align:right'>26</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Kilifi District Hospital</td><td>Kilifi</td><td>COAST</td><td style='text-align:right'>38</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Maua Methodist Hospital</td><td>Meru</td><td>RIFT_SEMIARID</td><td style='text-align:right'>60</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Kianyaga Sub-District Hospital</td><td>Kirinyaga</td><td>CENTRAL_HIGHLANDS</td><td style='text-align:right'>45</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Katilu District Hospital</td><td>Turkana</td><td>ARID_NORTH</td><td style='text-align:right'>25</td><td>PANAF-Premium</td></tr><tr><td>Makindu District Hospital</td><td>Makueni</td><td>RIFT_SEMIARID</td><td style='text-align:right'>23</td><td>PANAF-Premium</td></tr><tr><td>Kakuma IRC  Hospital</td><td>Turkana</td><td>ARID_NORTH</td><td style='text-align:right'>20</td><td>PANAF-Premium</td></tr><tr><td>Garissa Provincial General Hospital</td><td>Garissa</td><td>ARID_NORTH</td><td style='text-align:right'>20</td><td>PANAF-Premium</td></tr><tr><td>Bahati District Hospital</td><td>Nakuru</td><td>CENTRAL_HIGHLANDS</td><td style='text-align:right'>26</td><td>PANAF-Premium</td></tr><tr><td>Likuyani Sub-District Hospital</td><td>Kakamega</td><td>WEST</td><td style='text-align:right'>40</td><td>PANAF-Premium</td></tr><tr><td>Tot Sub-District Hospital</td><td>Elgeyo-Marakwet</td><td>RIFT_SEMIARID</td><td style='text-align:right'>28</td><td>PANAF-Premium</td></tr><tr><td>Mutitu Sub-District Hospital</td><td>Kitui</td><td>RIFT_SEMIARID</td><td style='text-align:right'>17</td><td>PANAF-Premium</td></tr><tr><td>Madiany Sub County Hospital</td><td>Siaya</td><td>WEST</td><td style='text-align:right'>29</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Dadaab Sub-District Hospital</td><td>Garissa</td><td>ARID_NORTH</td><td style='text-align:right'>16</td><td>PANAF-Premium</td></tr><tr><td>Elwak District Hospital</td><td>Mandera</td><td>ARID_NORTH</td><td style='text-align:right'>16</td><td>PANAF-Premium</td></tr><tr><td>Voi Moi District Hospital</td><td>Taita Taveta</td><td>COAST</td><td style='text-align:right'>15</td><td>PANAF-Premium</td></tr><tr><td>Kinango District Hospital</td><td>Kwale</td><td>COAST</td><td style='text-align:right'>57</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Sigor Sub-District Hospital</td><td>Bomet</td><td>WEST</td><td style='text-align:right'>41</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Balambala Sub-District Hospital</td><td>Garissa</td><td>ARID_NORTH</td><td style='text-align:right'>14</td><td>PANAF-Premium</td></tr><tr><td>Lorugum Sub County Hospital</td><td>Turkana</td><td>ARID_NORTH</td><td style='text-align:right'>14</td><td>PANAF-Premium</td></tr><tr><td>Buna Sub-District Hospital</td><td>Wajir</td><td>ARID_NORTH</td><td style='text-align:right'>14</td><td>PANAF-Premium</td></tr><tr><td>Lokitaung Sub County Hospital</td><td>Turkana</td><td>ARID_NORTH</td><td style='text-align:right'>13</td><td>PANAF-Premium</td></tr><tr><td>Griftu District Hospital</td><td>Wajir</td><td>ARID_NORTH</td><td style='text-align:right'>13</td><td>PANAF-Premium</td></tr><tr><td>Baragoi Sub-District Hospital</td><td>Samburu</td><td>ARID_NORTH</td><td style='text-align:right'>13</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Takaba District Hospital</td><td>Mandera</td><td>ARID_NORTH</td><td style='text-align:right'>12</td><td>PANAF-Premium</td></tr><tr><td>Mandera District Hospital</td><td>Mandera</td><td>ARID_NORTH</td><td style='text-align:right'>12</td><td>PANAF-Premium</td></tr><tr><td>Garbatulla District Hospital</td><td>Isiolo</td><td>ARID_NORTH</td><td style='text-align:right'>11</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Lodwar District Hospital</td><td>Turkana</td><td>ARID_NORTH</td><td style='text-align:right'>10</td><td>PANAF-Premium</td></tr><tr><td>Lafey Sub-District Hospital</td><td>Mandera</td><td>ARID_NORTH</td><td style='text-align:right'>10</td><td>PANAF-Premium</td></tr><tr><td>Banisa Sub County Hospital</td><td>Mandera</td><td>ARID_NORTH</td><td style='text-align:right'>10</td><td>PANAF-Premium</td></tr><tr><td>Lamu District Hospital</td><td>Lamu</td><td>COAST</td><td style='text-align:right'>10</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Modogashe Sub-County Hospital</td><td>Garissa</td><td>ARID_NORTH</td><td style='text-align:right'>9</td><td>PANAF-Premium</td></tr><tr><td>Engineer District Hospital</td><td>Nyandarua</td><td>CENTRAL_HIGHLANDS</td><td style='text-align:right'>13</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr><tr><td>Doldol Sub District Hospital</td><td>Laikipia</td><td>RIFT_SEMIARID</td><td style='text-align:right'>18</td><td>PANAF-Premium (alt: SAIMR Polyvalent)</td></tr></table>
+
+<h2>Zone attendance rates — provenance first</h2>
+<table><tr><th>Zone</th><th>Rate /100k/yr</th><th>Status</th></tr><tr><td>ARID_NORTH</td><td style='text-align:right'>20.0</td><td>CONSTRUCTION</td></tr><tr><td>RIFT_SEMIARID</td><td style='text-align:right'>15.0</td><td>CONSTRUCTION</td></tr><tr><td>COAST</td><td style='text-align:right'>15.0</td><td>PARTIAL</td></tr><tr><td>WEST</td><td style='text-align:right'>4.6</td><td>SOURCED-ANCHORED</td></tr><tr><td>CENTRAL_HIGHLANDS</td><td style='text-align:right'>2.0</td><td>NOT_CONFIRMED</td></tr></table>
+<div class="note"><b>Honest limits.</b> Two zone rates carry direct published anchors (WEST:
+Ochola 2018 Kakamega; COAST: Abouyannis 2023 paediatric admissions — children only). ARID_NORTH and
+RIFT are constructions bracketed by Coombs 1997 (1.9–67.9) and the community-side surveys (Snow
+1994 coast 151/100k; Samburu 2024 ≈440/100k derived). CENTRAL_HIGHLANDS is NOT CONFIRMED — no
+published figure exists; the level is set low with direction from species ranges.
+<b>Robustness:</b> halving that unconfirmed rate leaves 42 of
+45 selected hospitals unchanged. The treated fraction (25.2%) is the paper's own figure
+(Abouyannis 2023); vials/patient (1.40) is derived from its published distribution and encodes
+2003–21 paediatric practice with since-withdrawn products — likely a <i>floor</i> against current
+dosing guidance for the products now advised. Both come from one coastal paediatric series and are
+first on the list to replace with adult data. Reach is straight-line 50 km, a declared
+proxy for travel time. Facility coordinates inherit the WHO/KEMRI 2019 layer, including its known
+geocoding imperfections — an upstream limitation we carry, not hide; one of 402 hospital-tier
+facilities (Mother Solbritt, Migori) carries no coordinates and is dropped, declared here and in the
+model output. Within-county population is split by a coarse raster and is approximate — county
+totals are exact (census); the split inside each county is not.</div>
+
+<footer>CoverMap v0.7.0 · Kenya demonstrator · built 290 subcounty units,
+47 counties · population pinned to KNBS 2019 census (47,564,296) ·
+facility layer WHO/KEMRI (Maina 2019) · FEASIBILITY DEMONSTRATOR · not clinical guidance ·
+all figures read from impact_summary_ke.json — never typed</footer>
+</div></body></html>

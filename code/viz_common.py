@@ -19,9 +19,17 @@ import base64
 from matplotlib.colors import LinearSegmentedColormap
 
 # Single source of truth for the release stamp. Bump here; every brief picks it up.
-VERSION = "v0.6.2"
+VERSION = "v0.7.0"
 VERSION_DATE = "July 2026"
-VERSION_NOTE = ("v0.6.2 — separates DEMONSTRATED FAILURE from ABSENCE OF DATA in the coverage "
+VERSION_NOTE = ("v0.7.0 — adds KENYA, the fourth demonstrator and third failure regime "
+                "(availability and placement: the failing products were withdrawn in 2022 after "
+                "national QC testing). Built against a provenance sheet written before the code; "
+                "county populations pinned to the KNBS 2019 census; product rule enforces market "
+                "availability. Three review rounds: a self-caught coarseness rejection, a FAILED "
+                "independent adversarial review (two critical errors - a population-distribution "
+                "artifact and a treated fraction contradicting its source - both corrected), and a "
+                "passing re-review with all numbers reproduced end-to-end independently. "
+                "v0.6.2 — separates DEMONSTRATED FAILURE from ABSENCE OF DATA in the coverage "
                 "matrix. PANAF-Premium x Naja katiensis was rendering as partial cover while its "
                 "own cell recorded a measured failure (Khochare 2024, 11.16 LD50/mL, below the "
                 "20 threshold); four untested Atractaspis cells were rendering in the same red as "
