@@ -19,9 +19,18 @@ import base64
 from matplotlib.colors import LinearSegmentedColormap
 
 # Single source of truth for the release stamp. Bump here; every brief picks it up.
-VERSION = "v0.7.1"
+VERSION = "v0.7.2"
 VERSION_DATE = "August 2026"
-VERSION_NOTE = ("v0.7.1 — documentation-only correction, no number moves. The README's "
+VERSION_NOTE = ("v0.7.2 — the front page catches up with the project, no number moves. The "
+                "index's verification table still listed four suites with pre-Kenya counts "
+                "(India 62, cross-country 34) and its 'four demonstrators' grid showed three "
+                "countries — while the README beside it said six suites and 285 checks. Both now "
+                "match the shipped reality (285 checks + a 13-figure OCR pass; Kenya card added). "
+                "Adds a four-map overview so the plan is visible at a glance. Also ships the two "
+                "Kenya brief figures the v0.7.0 upload omitted — kenya.html had displayed broken "
+                "images in production. Same lesson as v0.7.1, one door further in: checks prove "
+                "arithmetic, not that the published page shows it. "
+                "v0.7.1 — documentation-only correction, no number moves. The README's "
                 "reproduce-it-yourself block listed four verification suites when there are five: "
                 "verify_kenya.py was missing, so anyone following the README ran 256 of the 285 "
                 "checks and never touched Kenya. It also said 11 shipped figures when the OCR "

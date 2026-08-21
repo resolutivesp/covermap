@@ -7,9 +7,30 @@ from _paths import BASE, SRC
 GH=json.load(open(f"{BASE}/out2/impact_summary.json"))
 NG=json.load(open(f"{BASE}/out_ng/impact_summary_ng.json"))
 IN=json.load(open(f"{BASE}/out_in/impact_summary_in.json"))
+KE=json.load(open(f"{BASE}/out_ke/impact_summary_ke.json"))
+
+# Four maps for the at-a-glance band — the same OCR-verified figures the briefs ship.
+MAPS=[
+ (b64(f"{BASE}/out2/fig1_placement.png"),
+  "ghana.html", "Ghana — 25 named hospitals put 86.0% of the carpet-viper burden within reach."),
+ (b64(f"{BASE}/out_ng/fig1_placement_ng.png"),
+  "nigeria.html", "Nigeria — 63 of 1,309 registered hospitals reach 85.5% at national scale."),
+ (b64(f"{BASE}/out_in/fig2_priority_in.png"),
+  "india.html", "India — where the standard antivenom likely fails the local snakes: a targeting list."),
+ (b64(f"{BASE}/out_ke/fig1_placement_ke.png"),
+  "kenya.html", "Kenya — 45 hospitals reach 86.6% of expected attendances; the question is placement."),
+]
 
 SUPP="""
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+.maps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0;align-items:start}
+.maps a{display:block;background:var(--surface);border:1px solid var(--grid);border-radius:12px;
+ padding:10px;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.maps a:hover{border-color:var(--blue);box-shadow:0 2px 10px rgba(42,120,214,.10)}
+.maps img{width:100%;height:auto;border-radius:7px;display:block}
+.maps .cap{font-size:12.5px;color:var(--sec);padding:9px 4px 2px;line-height:1.45}
+.maps .cap b{color:var(--blue-d)}
+@media(max-width:820px){.maps{grid-template-columns:1fr}}
+.grid3{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:18px 0}
 .cty{background:var(--surface);border:1px solid var(--grid);border-radius:13px;padding:18px;display:flex;flex-direction:column}
 .cty h3{margin:0 0 2px;color:var(--brand1);font-size:12px;letter-spacing:.6px}
 .cty .big{font-size:30px;font-weight:700;color:var(--blue-d);line-height:1.05;margin:6px 0 2px}
@@ -45,6 +66,12 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
 
 <div class='card lead'><p><b>The problem is a decision, not a discovery.</b> When rural Ghana substituted an unsuitable antivenom against the carpet viper, district case-fatality rose <b>1.8% → 12.1%</b> (Visser 2008). The people who buy and place antivenom must choose <i>which product</i> and <i>where</i> — with no tool that joins species range to evidence-graded product coverage to access. CoverMap is that tool.</p>
 <div class=anchor><b>One method, three regimes.</b> In West Africa the binding gap is <b>which product</b> is stocked and where (several products, wildly different <i>Echis</i> cover). In India a single southern-sourced polyvalent is used nationwide, so the gap is <b>regional venom variation and non-Big-Four species</b>. In Kenya the failing products were withdrawn in 2022 after national QC testing, so the gap is <b>availability and placement</b>. The same engine expresses all three — the strongest evidence that it generalises.</div></div>
+
+<h2>The plan, at a glance</h2>
+<p class=muted>Red is expected burden. Blue marks the named hospitals the optimiser selects. Every figure below is re-derived from open data and OCR-checked against the model — click any map to open the full country brief.</p>
+<div class=maps>
+{"".join(f'<a href="{href}"><img src="data:image/png;base64,{img}" alt="{cap}" loading=lazy><div class=cap><b>{cap.split(" — ")[0]}</b> — {cap.split(" — ",1)[1]}</div></a>' for img,href,cap in MAPS)}
+</div>
 
 <h2>Read the four demonstrators</h2>
 <div class=nav>
@@ -85,6 +112,14 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
       <li>Mortality weighted <b>94% rural</b>, per the MDS's own finding</li>
       <li>{IN['n_hospital_tier']:,} hospital-tier facilities; only {IN['pct_far']}% of burden &gt;50 km from one</li></ul>
   <div class=tag>Anchor: modelled {IN['burden_anchor']['modelled_deaths_yr']:,} within {IN['burden_anchor']['within_MDS_pct']}% of MDS, inside GBD UI {IN['burden_anchor']['GBD2019_ui'][0]:,}–{IN['burden_anchor']['GBD2019_ui'][1]:,}</div></div>
+
+ <div class=cty><h3>KENYA · AVAILABILITY</h3>
+  <div class=big>{KE['optimized']['pct_covered']}%</div>
+  <div class=lab>of expected snakebite attendances within reach via {KE['optimized']['hospitals']} of {KE['n_hospital_tier']} hospital-tier facilities — the failing products were withdrawn (2022 QC); the open question is <b>where adequate stock sits</b></div>
+  <ul><li><b>{KE['optimized']['vials_yr']:,} vials/yr</b> demand forecast (~${KE['optimized']['procure_usd_yr']:,})</li>
+      <li>County populations pinned to the KNBS 2019 census, exactly</li>
+      <li>{KE['placement_robustness']['highlands_rate_halved_overlap']}/{KE['placement_robustness']['of']} hospitals stay chosen with the unconfirmed highlands rate halved</li></ul>
+  <div class=tag>Anchor: implied {KE['burden_anchor']['implied_national_attendance_per_100k']}/100k national attendances, inside Coombs 1997's multi-area {KE['burden_anchor']['coombs_multiarea_rate']}/100k</div></div>
 </div>
 
 <h2>How it works</h2>
@@ -104,13 +139,15 @@ html=f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewp
 <div class=note><b>Artifacts are disclosed and quantified, not hidden.</b> Urban units inherit their zone's rural incidence, which overstates city burden. In Nigeria we show the consequence and prove it doesn't drive the plan (only {NG['urban_artifact']['pct_vials_to_FCT_or_Lagos']}% of vials go to the FCT or Lagos). In India we fixed it at the source, weighting mortality 94% rural per the Million Death Study.</div>
 <div class=note><b>Stock is unobservable subnationally</b> — so CoverMap models placement <b>choices</b>, never a false inventory. Access is straight-line ≤50 km, a documented proxy for travel time. Coverage rests largely on preincubation ED50/antivenomics, not clinical trials — grade B is not proven bedside efficacy. <b>Not clinical guidance.</b></div>
 
-<h2>Verification record</h2>
-<p class=muted>Every number in every artifact is re-derived from raw inputs by an independent script that fails loudly on any mismatch. All three pipelines reproduce from data committed in the repository — no network, no temporary files.</p>
+<h2>Verification record — 285 checks, six suites</h2>
+<p class=muted>Every number in every artifact is re-derived from raw inputs by an independent script that fails loudly on any mismatch. All four pipelines reproduce from data committed in the repository — no network, no temporary files.</p>
 <table class='t vtable'><thead><tr><th class=l>Suite</th><th>Checks</th><th>Result</th><th class=l>Covers</th></tr></thead><tbody>
 <tr><td class=l>verify_ghana.py</td><td>54</td><td class=ok>PASS</td><td class=l>population vs census, burden re-derivation, optimiser, demand arithmetic, mortality ceiling, artifact consistency, citations</td></tr>
 <tr><td class=l>verify_nigeria.py</td><td>62</td><td class=ok>PASS</td><td class=l>reproducibility, scaled population (guards the 550k regression), rates declared a construction, death ceiling, the flagged mortality-gap tension, urban artifact</td></tr>
-<tr><td class=l>verify_india.py</td><td>62</td><td class=ok>PASS</td><td class=l>state rates locked to the published MDS table verbatim, exact state populations, 94/6 rural weighting, ordinal-tier disclosure, published sub-national anchors carried</td></tr>
-<tr><td class=l>verify_crosscountry.py</td><td>34</td><td class=ok>PASS</td><td class=l>shared parameters identical, honesty invariants hold everywhere, no stale or contradictory numbers</td></tr>
+<tr><td class=l>verify_india.py</td><td>73</td><td class=ok>PASS</td><td class=l>state rates locked to the published MDS table verbatim, exact state populations, 94/6 rural weighting, ordinal-tier disclosure, published sub-national anchors carried</td></tr>
+<tr><td class=l>verify_kenya.py</td><td>29</td><td class=ok>PASS</td><td class=l>county populations pinned to the KNBS 2019 census, frame guard (no care-seeking multiplier), market-availability product rule, cut-rule bilateral check, per-hospital reassignment from raw geometry</td></tr>
+<tr><td class=l>verify_crosscountry.py</td><td>67</td><td class=ok>PASS</td><td class=l>shared parameters identical, honesty invariants hold everywhere, no stale or contradictory numbers</td></tr>
+<tr><td class=l>verify_figures.py</td><td>13 figs</td><td class=ok>PASS</td><td class=l>OCRs every shipped figure and requires every percentage displayed to be a value the model actually produced — text checks cannot see a number baked into a PNG</td></tr>
 </tbody></table>
 
 <h2>Who it is for</h2>

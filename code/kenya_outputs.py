@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, f"{BASE}/data/ke"); import parameters_ke as P
-sys.path.insert(0, f"{BASE}/code"); from viz_common import VERSION
+sys.path.insert(0, f"{BASE}/code"); from viz_common import VERSION, b64
 OUT = f"{BASE}/out_ke"
 
 S = json.load(open(f"{OUT}/impact_summary_ke.json"))
@@ -100,8 +100,8 @@ national attendances/100k — inside the published multi-area range
 ({S['burden_anchor']['coombs_range'][0]}–{S['burden_anchor']['coombs_range'][1]}, Coombs 1997)</div>
 </div>
 
-<img src="fig1_placement_ke.png" alt="placement map">
-<img src="fig2_curve_ke.png" alt="coverage curve">
+<img src="data:image/png;base64,{b64(f"{OUT}/fig1_placement_ke.png")}" alt="placement map">
+<img src="data:image/png;base64,{b64(f"{OUT}/fig2_curve_ke.png")}" alt="coverage curve">
 
 <h2>Why Kenya is a different failure regime</h2>
 <p>Ghana and Nigeria show a <i>product-selection</i> failure. Kenya has already run that triage:
