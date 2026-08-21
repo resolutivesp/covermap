@@ -11,7 +11,10 @@ CoverMap joins **what bites where** → **what each product is actually proven t
 **who can reach care**, and returns a named, costed pre-positioning plan: which facility should
 stock which antivenom, how many vials, at what annual cost.
 
-**→ [Read the demonstrators](https://resolutivesp.github.io/covermap/)**
+**→ [Open the live tool](https://resolutivesp.github.io/covermap/)** — four countries, every number re-derived from open data.
+
+[![The plan, at a glance: burden in red, selected hospitals in blue — Ghana, Nigeria, India, Kenya](figures/overview.png)](https://resolutivesp.github.io/covermap/)
+*Red is expected burden. Blue marks the named hospitals the optimiser selects. Click the maps to open the live tool.*
 
 ---
 
