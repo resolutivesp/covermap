@@ -21,7 +21,7 @@ stock which antivenom, how many vials, at what annual cost.
 |---|---|---|
 | **Ghana** | **86.0%** of the carpet-viper burden brought within reach via 25 hospitals | 4,654 vials/yr (~$371,114) |
 | **Nigeria** | **85.5%** via 63 hospitals — the same method against the largest West-African burden | 36,671 vials/yr (~$2,931,101) |
-| **India** | **36.8%** of burden where the standard ASV likely underperforms (~20,484 deaths/yr inside that gap) | targeting list, not placement |
+| **India** | **36.8%** of burden where the standard ASV likely underperforms (~20,484 deaths/yr inside that gap) | targeting list |
 | **Kenya** | **86.6%** of expected attendances via 45 hospitals — the failing products were already withdrawn (2022); the gap is availability and placement | 1,569 vials/yr (~$125,520) |
 
 In West Africa the binding gap is **which product** is stocked and where. In India a single
