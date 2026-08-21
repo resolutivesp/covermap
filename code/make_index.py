@@ -22,11 +22,12 @@ MAPS=[
 ]
 
 SUPP="""
-.maps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0;align-items:start}
-.maps a{display:block;background:var(--surface);border:1px solid var(--grid);border-radius:12px;
- padding:10px;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.maps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0}
+.maps a{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--grid);
+ border-radius:12px;padding:10px;text-decoration:none;transition:border-color .15s,box-shadow .15s}
 .maps a:hover{border-color:var(--blue);box-shadow:0 2px 10px rgba(42,120,214,.10)}
-.maps img{width:100%;height:auto;border-radius:7px;display:block}
+.maps img{width:100%;height:560px;object-fit:contain;border-radius:7px;display:block;background:#fbfbf9}
+@media(max-width:820px){.maps img{height:auto}}
 .maps .cap{font-size:12.5px;color:var(--sec);padding:9px 4px 2px;line-height:1.45}
 .maps .cap b{color:var(--blue-d)}
 @media(max-width:820px){.maps{grid-template-columns:1fr}}
