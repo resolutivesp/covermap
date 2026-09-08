@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang=en><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>CoverMap — Methods v0.7.2</title>
+<title>CoverMap — Methods v0.7.4</title>
 <style>
 :root{
  --surface:#fcfcfb; --plane:#f6f7f9; --ink:#0b0b0b; --sec:#52514e; --mut:#898781;
@@ -78,8 +78,8 @@ footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--grid);font-si
 @media(max-width:820px){.doc{padding:18px 16px}.doc table{font-size:11.6px}}
 </style></head><body>
 <header><div class=wrap>
-<div class=badge>CoverMap v0.7.2 · August 2026 · METHODS · what the model does and what it assumes</div>
-<h1>Methods — Ghana · Nigeria · India</h1>
+<div class=badge>CoverMap v0.7.4 · September 2026 · METHODS · what the model does and what it assumes · not clinical guidance — informs procurement and placement only</div>
+<h1>Methods — Ghana · Nigeria · India · Kenya</h1>
 <div class=sub>The full method, every load-bearing parameter, and an explicit record of what is
 sourced versus what we chose. Read alongside the
 <a href="parameter-audit.txt" style="color:#fff;text-decoration:underline">parameter provenance audit</a>,
@@ -87,7 +87,7 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 </div></header><div class=wrap>
 <p><a class=back href="index.html">← Back to CoverMap</a></p>
 <div class=doc>
-<p><strong>Version:</strong> v0.7.0 · August 2026 · <strong>NOT clinical guidance.</strong> Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.</p>
+<p><strong>Version:</strong> v0.7.4 · September 2026 · <strong>NOT clinical guidance — informs procurement and placement only.</strong> Feasibility demonstrator (IML 2). Several layers are deliberate, cited approximations, each disclosed below.</p>
 <hr />
 <h2 id="0-changelog-what-changed-and-why">0. Changelog — what changed and why</h2>
 <table>
@@ -99,6 +99,21 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><strong>v0.7.4</strong></td>
+<td><strong>Product-layer correction; no coverage percentage or vial count moves.</strong> A second pre-submission adversarial review, simulating the prize's published judging panel (including an antivenom manufacturer), found errors in how named products were characterised — every one against a product we do not recommend. Checked on 5 Sep 2026 against the WHO risk-benefit list and the cited papers: (1) Inoserp Pan-Africa was labelled "assessment TERMINATED / no longer WHO-endorsed" — it is listed as <em>undergoing</em> assessment with no decision and never held an endorsement. (2) Antivipmyn Africa was recorded as a 2–8 °C liquid ("urban only") — the WHO overview says lyophilised, below 30 °C, 24 months; the recommendation of PANAF-Premium now rests on its stated grounds (48-month shelf life; the only WHO-positive product also indicated for cobras and mambas). (3) The India brief's own correction said seven South-Asian products "are WHO risk-benefit-assessed": eight are in the process (NIH Pakistan was missing) and none has an outcome. (4) The Ghana worst-case comparator rested on an uncited "AFRIVEN/VINS fails Echis": it now rests on a matrix cell — VINS Pan Africa, ED50 &gt;4000 µl/mg vs <em>E. ocellatus</em> (Ainsworth 2020); AFRIVEN (no <em>Echis</em> datum) is no longer named; KPIs say "worst case", not "from ~0% today". (5) Six grade-C cells carried <code>coverage=covered</code>, contradicting the rule that a label is never promoted: now <code>claimed</code>, enforced by a check on the data file. PANAF × <em>N. katiensis</em> returns from ✗ to partial (11.16 LD50/mL is neutralisation below threshold, not evidence against — reversing the v0.6.2 move, which went the wrong way). Grade B now covers peer-reviewed clinical outcome series, so Chippaux 2023 is no longer filed as a manufacturer claim. VINS Pan Africa × <em>Echis</em> and EchiTAb-Plus-ICP rows added; the <em>Echis</em> flags the optimisers use are now derived from the matrix file, not hand-typed. (6) Procurement cost = whole vials bought × price (Ghana $372,320; Nigeria $2,933,680), replacing unrounded demand × price. (7) Stale figures on this page: 1.9% → 1.2% (FCT/Lagos vials), body version stamp, title; Kerala <em>Hypnale</em> anchor quoted as the source states it (15.4%); Andaman anchor framed against the label's actual claim; plan CSVs stamped. Nigeria brief states its known limits (treatment centres not seeded; EchiTAb products not yet in the menu; coarse raster).</td>
+<td>The layer that makes this tool novel is the layer a manufacturer can falsify from primary sources; it has to be right, and errors that flatter or damage named products must be corrected in public, dated.</td>
+</tr>
+<tr>
+<td><strong>v0.7.3</strong></td>
+<td><strong>Documentation-only correction; no number moves.</strong> Front page and Ghana brief said <em>district</em> case-fatality rose 1.8% → 12.1% (Visser 2008): it was one hospital, among treated patients. Methods §11/§12 listed four suites (245 of 285 checks); methods page lacked the non-clinical-guidance badge.</td>
+<td>A single-centre observation inflated into a population statistic is the overclaim this project says it refuses to make.</td>
+</tr>
+<tr>
+<td><strong>v0.7.2</strong></td>
+<td>Front page caught up with the project (six suites, 285 checks, four demonstrators shown); uniform map band.</td>
+<td>Stale front page beside a current README.</td>
+</tr>
 <tr>
 <td><strong>v0.7.1</strong></td>
 <td><strong>Documentation-only correction; no number moves.</strong> The README's reproduce-it-yourself block listed four verification suites when there are five — <code>verify_kenya.py</code> was missing, so anyone following the README ran <strong>256 of the 285</strong> checks and never touched Kenya. It also claimed <strong>11</strong> shipped figures when the OCR suite covers <strong>13</strong>. The <em>Current figures</em> line above still listed three countries. Every page was date-stamped <strong>July 2026</strong> while carrying an August build</td>
@@ -141,7 +156,7 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 </tr>
 </tbody>
 </table>
-<p><strong>Current figures:</strong> Ghana 86.0% coverage · 4,654 vials/yr · $371,114 — Nigeria 85.5% · 36,671 vials/yr · $2,931,101 — India 36.8% coverage-gap · 20,484 gap-deaths/yr · 55,656 modelled mortality — Kenya 86.6% coverage · 1,569 vials/yr · $125,520.</p>
+<p><strong>Current figures:</strong> Ghana 86.0% coverage · 4,654 vials/yr · $372,320 — Nigeria 85.5% · 36,671 vials/yr · $2,933,680 — India 36.8% coverage-gap · 20,484 gap-deaths/yr · 55,656 modelled mortality — Kenya 86.6% coverage · 1,569 vials/yr · $125,520.</p>
 <hr />
 <h2 id="1-objective">1. Objective</h2>
 <p>Tell an antivenom purchaser <strong>which product to pre-position at which facilities, in what quantity</strong> — by joining <em>what bites where</em> to <em>what each product is actually proven to neutralise</em> to <em>who can reach care</em> — and state the impact <strong>honestly</strong>.</p>
@@ -176,13 +191,13 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 </tr>
 </tbody>
 </table>
-<p>That the same engine expresses all three regimes is the central evidence that the method generalises.</p>
+<p>That one method expresses all three regimes is the central evidence that it generalises. (Precision: Ghana, Nigeria and Kenya share the placement optimiser; India has no product-placement optimiser — its output is a targeting list — and Kenya carries its own parameter file and demand frame, §12.)</p>
 <h2 id="3-the-novel-core-an-evidence-graded-coverage-matrix">3. The novel core — an evidence-graded coverage matrix</h2>
 <p>Product × species, every cell graded and cited:</p>
 <ul>
 <li><strong>A</strong> — WHO risk-benefit-assessed (product overview)</li>
-<li><strong>B</strong> — peer-reviewed preclinical (ED50 / antivenomics)</li>
-<li><strong>C</strong> — manufacturer claim or label only</li>
+<li><strong>B</strong> — peer-reviewed evidence: preclinical (ED50 / antivenomics) or clinical outcome series (v0.7.4)</li>
+<li><strong>C</strong> — manufacturer claim or label only — recorded in the data file as <code>claimed</code>, never as <code>covered</code> (v0.7.4)</li>
 <li><strong>D</strong> — no data</li>
 <li><strong>~</strong> — partial / paraspecific</li>
 <li><strong>✗</strong> — <strong>published evidence AGAINST neutralisation</strong> (overrides every higher grade)</li>
@@ -190,7 +205,7 @@ which labels each input SOURCED, DERIVED, PARTIAL or NOT CONFIRMED.</div>
 <li><strong>?</strong> — claimed in the indication, no in-vivo datum</li>
 <li><strong>·</strong> — no data</li>
 </ul>
-<p>Two rules are enforced in code: a manufacturer label is never promoted to "covered", and published
+<p>Two rules are enforced in code: a manufacturer label is never promoted to "covered" (a data-file check in <code>verify_ghana.py</code> fails if any grade-C cell carries <code>coverage=covered</code>, and the optimisers derive a product's <em>Echis</em> flag from the matrix — covered at grade A/B only), and published
 evidence of failure overrides every higher grade. <strong>✗ and – are deliberately distinct</strong>: "we tested
 it and it failed" is a different statement about a product than "nobody claims it works here", and
 conflating them would both overstate our knowledge and misrepresent a manufacturer.</p>
@@ -272,7 +287,8 @@ conflating them would both overstate our knowledge and misrepresent a manufactur
 <li><strong>Rural weighting (India).</strong> The MDS finds <strong>~94% of India's snakebite deaths occur in rural areas</strong>. Distributing state mortality by <em>total</em> population implies city-dwellers die of snakebite at rural per-capita rates — contradicting the anchor source and pushing metros to the top of the priority list. Each state's mortality is therefore split <strong>94% rural / 6% urban</strong> using the census rural/urban household split. This is a <em>within-state re-allocation</em>: every state total and the national total are unchanged.</li>
 <li><strong>Reach.</strong> A unit is within reach if ≤ <strong>50 km</strong> of a stocking facility (straight-line proxy for travel time).</li>
 <li><strong>Optimiser.</strong> Greedy maximal-coverage: iteratively add the facility bringing the most not-yet-covered burden within reach.</li>
-<li><strong>Demand.</strong> Each unit's burden is assigned to its nearest chosen facility; vials/yr = facility attendance × envenoming fraction (0.647, Aglanu 2025) × <em>Echis</em> fraction × vials/patient × (1 + buffer). <strong>No care-seeking multiplier is applied</strong> — in the facility frame these patients have already reached care (see the v0.4 correction).</li>
+<li><strong>Demand.</strong> Each unit's burden is assigned to its nearest chosen facility; vials/yr = facility attendance × envenoming fraction (0.647, Aglanu 2025) × <em>Echis</em> fraction × vials/patient × (1 + buffer). <strong>No care-seeking multiplier is applied</strong> — in the facility frame these patients have already reached care (see the v0.4 correction). Per-site vials are rounded <strong>up</strong> to whole vials, so the plan total (Ghana 4,654; Nigeria 36,671) exceeds the unrounded scenario-table demand (4,639; 36,639); procurement cost = whole vials × $80 (v0.7.4). The demand priced is the <em>Echis</em>-attributable share of envenomings, and vials/patient (1.5) sits inside the WHO initial-dose range; repeat dosing is not modelled.</li>
+<li><strong>Stopping rule (stated, v0.7.4).</strong> The number of sites is a cut on the coverage curve, not a cost optimum: Ghana K = 25 (chosen); Nigeria the first K reaching ≥ 85%; Kenya the point where marginal gain falls below 0.5%. The full curve is published for every country so a buyer can choose a different cut; stocking every hospital (scenario D) reaches 94.4% in Ghana for ~10% more procurement cost.</li>
 </ol>
 <h2 id="7-grounded-parameters-shared-across-ghana-and-nigeria-identical-by-construction-verified">7. Grounded parameters (shared across Ghana and Nigeria — identical by construction, verified)</h2>
 <table>
@@ -358,9 +374,9 @@ conflating them would both overstate our knowledge and misrepresent a manufactur
 <li><strong>Headline is coverage</strong>, not deaths. Coverage is what the tool controls.</li>
 <li><strong>Deaths are a bounded decision-gap</strong> versus a worst case (ineffective product everywhere) — explicitly <em>not</em> extra lives versus today, since effective antivenom already reaches some patients.</li>
 <li><strong>No impact figure may exceed total national mortality.</strong> Nigeria's upper bound is hard-capped at the highest published estimate (2,640; GBD 2019 UI upper) and the cap is disclosed wherever it binds. <em>This caught a real error:</em> the uncapped ceiling scenario produced 2,955 — an impossible number.</li>
-<li><strong>Artifacts are quantified, not hidden.</strong> Urban units inherit rural zone rates. Nigeria: disclosed, and shown not to drive the plan (only 1.9% of vials to FCT/Lagos). India: fixed at source via the 94/6 rural weighting.</li>
+<li><strong>Artifacts are quantified, not hidden.</strong> Urban units inherit rural zone rates. Nigeria: disclosed; only 1.2% of vials are placed at facilities in the FCT or Lagos, but city demand is routed to peri-urban sites, so the direction of the plan is robust and the near-city rankings are not (stated on the brief). India: fixed at source via the 94/6 rural weighting. The population rasters for Ghana and Nigeria are coarse (afripop 0.167°): 52 of 260 Ghanaian districts and 139 of 774 Nigerian LGAs resolve to zero population and their people land in neighbours — disclosed, and finalist work (1-km WorldPop).</li>
 <li><strong>Stock is unobservable</strong> subnationally → placement <em>choices</em> are modelled, never a false inventory.</li>
-<li><strong>Corrections are carried, not dropped.</strong> The brief states prominently that an earlier draft wrongly claimed no South-Asian products were WHO-assessed (seven are), and explains why the finding survives: assessment covers the Big-Four label, not regional variation or non-Big-Four species.</li>
+<li><strong>Corrections are carried, not dropped.</strong> The India brief states prominently that an earlier draft wrongly claimed no South-Asian products were in WHO's assessment; eight are undergoing it, none with a final outcome — and that our first correction (a count of seven, described as assessed) was itself wrong, in the manufacturers' favour. The finding survives: assessment covers the Big-Four label, not regional variation or non-Big-Four species.</li>
 </ol>
 <h2 id="9-sensitivity-robustness">9. Sensitivity &amp; robustness</h2>
 <ul>
@@ -380,18 +396,22 @@ conflating them would both overstate our knowledge and misrepresent a manufactur
 </ol>
 <h2 id="11-verification">11. Verification</h2>
 <p>Independent scripts re-derive every published number from raw inputs and fail loudly on mismatch.</p>
-<p><code>python3 verify_ghana.py        # 54 checks
+<p><code>python3 verify_ghana.py        # 66 checks
 python3 verify_nigeria.py      # 62 checks
-python3 verify_india.py        # 62 checks
-python3 verify_crosscountry.py # 67 checks — shared params, honesty invariants, no stale numbers
+python3 verify_india.py        # 74 checks
+python3 verify_kenya.py        # 29 checks
+python3 verify_crosscountry.py # 88 checks — shared params, honesty invariants, no stale numbers, methods/README drift
+python3 verify_figures.py      # OCRs all 13 shipped figures
 python3 audit_parameters.py    # provenance audit (not a pass/fail suite)</code></p>
-<p>All <strong>285</strong> pass (Ghana 54 · Nigeria 62 · India 73 · Kenya 29 · cross-country 67). <strong>They do not prove the model is correct</strong> — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says <strong>6</strong> of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.</p>
+<p>All <strong>319</strong> pass (Ghana 66 · Nigeria 62 · India 74 · Kenya 29 · cross-country 88; 34 added in v0.7.4 for the coverage-matrix rules, cost arithmetic, CSV stamps and methods/README drift). <strong>They do not prove the model is correct</strong> — they prove the arithmetic is consistent with the inputs and that specific past errors cannot recur. Input validity is the audit's job, and the audit says <strong>6</strong> of 28 load-bearing numbers remain NOT CONFIRMED. They also act as regression guards on the specific historical errors: the Nigeria 550k population bug, the "deaths averted" overstatement, the "Hospitaltal" upstream typo, and the false "zero South-Asia WHO-assessed products" claim.</p>
 <h2 id="12-reproduce">12. Reproduce</h2>
 <p><code>python3 build_v2.py &amp;&amp; python3 make_v2_visuals.py &amp;&amp; python3 make_report_v2.py &amp;&amp; python3 make_planner.py
 python3 nigeria_build.py &amp;&amp; python3 nigeria_outputs.py
 python3 india_build.py &amp;&amp; python3 india_outputs.py
+python3 kenya_build.py &amp;&amp; python3 kenya_outputs.py
 python3 make_index.py
-python3 verify_ghana.py &amp;&amp; python3 verify_nigeria.py &amp;&amp; python3 verify_india.py &amp;&amp; python3 verify_crosscountry.py</code></p>
+python3 verify_ghana.py &amp;&amp; python3 verify_nigeria.py &amp;&amp; python3 verify_india.py \
+  &amp;&amp; python3 verify_kenya.py &amp;&amp; python3 verify_crosscountry.py &amp;&amp; python3 verify_figures.py</code></p>
 <h2 id="13-sources-verified-against-primary-sources-julyaugust-2026">13. Sources (verified against primary sources, July–August 2026)</h2>
 <ul>
 <li><strong>Cost-effectiveness / impact:</strong> Habib 2015, <em>PLoS NTD</em> 9(1):e0003381 — effectiveness <strong>75%</strong>, untreated CFR <strong>16%</strong>, cost/death <strong>$2,330.16</strong>, cost/DALY <strong>$99.61</strong> discounted / <strong>$56.88</strong> undiscounted <em>(all verified verbatim)</em> · Hamza 2016, <em>PLoS NTD</em> 10(3):e0004568 (16-country; $83–281/DALY). <em>Cite each for its own figure.</em></li>

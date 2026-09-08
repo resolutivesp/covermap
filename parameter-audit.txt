@@ -85,7 +85,7 @@ PARAMETER PROVENANCE AUDIT — what is sourced vs what we chose
       source : the tiers imply a distance decay; the data does not have that shape. For N. naja the ASV met its claim in only ONE tested population (Andhra Pradesh 0.80) and sat at 0.28-0.38 in Punjab, West Bengal, Madhya Pradesh and Maharashtra alike -- the Gangetic belt neutralises as poorly as the NW. The mainland tier survives only because D. russelii and E. carinatus dominate mortality there and ARE covered.
       impact : structural caveat, disclosed
   [SOURCED] published sub-national anchors
-      source : 68.4% clinical ASV non-response in NW India (Gopalakrishnan 2025, 63/92); 66.19% non-Big-Four share of identified venomous bites in Assam (Menon 2025); ~0.25 ASV potency vs claim in the Andamans (Attarde 2021); 32.6% Hypnale share of identified Kerala bites (Menon 2025).
+      source : 68.4% clinical ASV non-response in NW India (Gopalakrishnan 2025, 63/92); 66.19% non-Big-Four share of identified venomous bites in Assam (Menon 2025); Bharat ASV 0.151 mg/ml vs N. sagittifera in the Andamans, a species outside its Big-Four label — a coverage gap, not a failed claim (Attarde 2021); 15.4% Hypnale share of Kerala cases with species known (Menon 2025; an earlier audit line re-based this to 32.6%, which the source does not state).
       impact : the hard evidence the case rests on
   [SOURCED] MDS ~58,000 / GBD UI 29,600-64,100
       source : Suraweera 2020; Nat Commun 2022 (both verified verbatim)

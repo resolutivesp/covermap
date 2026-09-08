@@ -22,8 +22,8 @@ stock which antivenom, how many vials, at what annual cost.
 
 | | Headline | Demand forecast |
 |---|---|---|
-| **Ghana** | **86.0%** of the carpet-viper burden brought within reach via 25 hospitals | 4,654 vials/yr (~$371,114) |
-| **Nigeria** | **85.5%** via 63 hospitals — the same method against the largest West-African burden | 36,671 vials/yr (~$2,931,101) |
+| **Ghana** | **86.0%** of the carpet-viper burden brought within reach via 25 hospitals | 4,654 vials/yr (~$372,320) |
+| **Nigeria** | **85.5%** via 63 hospitals — the same method against the largest West-African burden | 36,671 vials/yr (~$2,933,680) |
 | **India** | **36.8%** of burden where the standard ASV likely underperforms (~20,484 deaths/yr inside that gap) | targeting list |
 | **Kenya** | **86.6%** of expected attendances via 45 hospitals — the failing products were already withdrawn (2022); the gap is availability and placement | 1,569 vials/yr (~$125,520) |
 
@@ -76,16 +76,16 @@ python3 code/make_index.py                                            # site
 Independent scripts re-derive every published number from raw inputs and fail loudly on mismatch.
 
 ```bash
-python3 code/verify_ghana.py        # 54 checks
+python3 code/verify_ghana.py        # 66 checks
 python3 code/verify_nigeria.py      # 62 checks
-python3 code/verify_india.py        # 73 checks
+python3 code/verify_india.py        # 74 checks
 python3 code/verify_kenya.py        # 29 checks
-python3 code/verify_crosscountry.py # 67 checks
+python3 code/verify_crosscountry.py # 88 checks
 python3 code/verify_figures.py      # OCRs all 13 shipped figures
 python3 code/audit_parameters.py    # provenance audit (not pass/fail)
 ```
 
-**285 checks across five country suites (Ghana 54 · Nigeria 62 · India 73 · Kenya 29 · cross-country 67), plus an OCR pass over every figure.** The OCR suite exists because the others
+**319 checks across five suites (Ghana 66 · Nigeria 62 · India 74 · Kenya 29 · cross-country 88), plus an OCR pass over every figure.** (v0.7.4 added 34 checks: coverage-matrix rules enforced on the data file, cost arithmetic, CSV stamps, and methods/README drift against the model.) The OCR suite exists because the others
 all passed while three Ghana charts displayed `87.5%` — a pre-v0.4 value — and every text KPI on
 the same page said `86.0%`. String checks cannot see a number baked into a PNG, which is the first
 thing a reader sees. `verify_figures.py` reads each chart back with OCR and requires every
