@@ -24,22 +24,22 @@ PANAF-Premium,Naja nigricollis,covered,A,WHO product overview 2023; Khochare 202
 PANAF-Premium,Naja haje,covered,A,WHO product overview 2023,immunogen + neutralization
 PANAF-Premium,Naja melanoleuca,covered,A,WHO product overview 2023,immunogen; >=20 LD50/mL
 PANAF-Premium,Naja senegalensis,covered,B,Khochare 2024 IJMS 25:4213,"paraspecific, exceeded claim (>=20 LD50s)"
-PANAF-Premium,Naja katiensis,failed,B,Khochare 2024 IJMS 25:4213,"11.16 LD50s/mL - TESTED below >=20 threshold (demonstrated gap, not untested)"
+PANAF-Premium,Naja katiensis,paraspecific-partial,B,Khochare 2024 IJMS 25:4213,"11.16 LD50s/mL - neutralisation demonstrated but below the >=20 LD50/mL threshold; species not in the WHO indication (partial cover, not evidence against; regraded v0.7.4 from a wrongly assigned failure)"
 PANAF-Premium,Naja subfulva,unknown,C,WHO 2023 indication list,in 24-sp indication; no in-vivo datum
 PANAF-Premium,Dendroaspis polylepis,covered,A,WHO product overview 2023; Khochare 2024; Ainsworth 2018,28 LD50s/mL
 PANAF-Premium,Dendroaspis viridis,covered,A,WHO product overview 2023; Ainsworth 2018,highly effective
 PANAF-Premium,Dendroaspis jamesoni,covered,A,WHO product overview 2023,immunogen; independent in-vivo data limited
 PANAF-Premium,Atractaspis,no-data,D,-,Untested
 PANAF-Premium,Causus maculatus,not-covered,D,-,Not in immunogen
-Inoserp Pan-Africa,Echis ocellatus,covered,C,Chippaux 2023 PLoS NTD e0011707,clinical; NOT WHO-assessed; weak public preclinical ED50 (Ainsworth 2020)
-Inoserp Pan-Africa,Bitis arietans,covered,C,Chippaux 2023 PLoS NTD e0011707,clinical; cytotoxic edema poorly responsive
-Inoserp Pan-Africa,Naja nigricollis,covered,C,Chippaux 2023 PLoS NTD e0011707,clinical neurotoxicity response
-Inoserp Pan-Africa,Dendroaspis polylepis,failed,B,Kenya QC lab 2026; Inosan not WHO-assessed,failed at manufacturer-claimed dose; assessment terminated
-Inoserp Pan-Africa,Dendroaspis viridis,covered,C,label/immunogen,not resolved in Ainsworth 2018 summary
+Inoserp Pan-Africa,Echis ocellatus,covered,B,Chippaux 2023 PLoS NTD e0011707 (clinical observational; 447 patients; Cameroon),clinical outcome series; under WHO assessment with no outcome; weak public preclinical ED50 (Ainsworth 2020: 885-1887 ul/mg)
+Inoserp Pan-Africa,Bitis arietans,covered,B,Chippaux 2023 PLoS NTD e0011707 (clinical observational),clinical outcome series; cytotoxic edema poorly responsive
+Inoserp Pan-Africa,Naja nigricollis,covered,B,Chippaux 2023 PLoS NTD e0011707 (clinical observational),clinical neurotoxicity response
+Inoserp Pan-Africa,Dendroaspis polylepis,failed,B,Kenya QC lab 2026 (Toxins 18:106),failed at manufacturer-claimed dose in the Kenyan panel; withdrawn from Kenya 2022; under WHO assessment with no positive review
+Inoserp Pan-Africa,Dendroaspis viridis,claimed,C,label/immunogen,label claim only - never counted as covered; not resolved in Ainsworth 2018 summary
 Inoserp Pan-Africa,Atractaspis,no-data,D,-,Untested
 SAIMR Polyvalent,Bitis arietans,covered,B,Ainsworth 2020 PLoS NTD e0008579,southern Africa reference product
-SAIMR Polyvalent,Bitis gabonica,covered,C,SAVP label; clinical,immunogen
-SAIMR Polyvalent,Naja subfulva,covered,C,SAVP label; clinical,immunogen (forest cobra)
+SAIMR Polyvalent,Bitis gabonica,claimed,C,SAVP label,label claim only - never counted as covered; immunogen
+SAIMR Polyvalent,Naja subfulva,claimed,C,SAVP label,label claim only - never counted as covered; immunogen (forest cobra)
 SAIMR Polyvalent,Dendroaspis polylepis,covered,B,Ainsworth 2018 J Proteomics 172:173,moderate (ED50 ~5.26 mg/mL)
 SAIMR Polyvalent,Dendroaspis viridis,unknown,C,SAVP label,SAIMR carries D. angusticeps NOT D. viridis; West African cross-reactivity unvalidated
 SAIMR Polyvalent,Naja nigricollis,covered,B,Ainsworth 2020 PLoS NTD e0008579,preclinical neutralisation (southern Africa reference product)
@@ -51,3 +51,7 @@ Fav-Afrique,Dendroaspis viridis,covered,B,Ainsworth 2018 J Proteomics 172:173,hi
 Asna Antivenom C (Bharat),Echis ocellatus,failed,B,Visser 2008 TRSTMH 102:445,CFR 1.8%->12.1% (~6x); clinical failure in rural Ghana
 VINS polyvalent,Dendroaspis polylepis,failed,B,Ainsworth 2018 J Proteomics 172:173,ineffective
 VINS polyvalent,Dendroaspis viridis,failed,B,Ainsworth 2018 J Proteomics 172:173,ineffective
+VINS Snake Venom Antiserum (Pan Africa),Echis ocellatus,failed,B,Ainsworth 2020 PLoS NTD e0008579 (citing a 2016 ED50 study),ED50 >4000 ul/mg - lack of preclinical efficacy against E. ocellatus although indicated for it; added v0.7.4 (the Ghana comparator previously rested on an uncited assertion)
+EchiTAb-Plus-ICP,Echis ocellatus,covered,B,Abubakar 2010 PLoS NTD e0000767 (RCT; Nigeria); Ainsworth 2020 (ED50 216.9-350.9 ul/mg across five studies),Polyspecific (ICP); under WHO assessment with no outcome; a Nigerian federal-programme product; added v0.7.4
+EchiTAb-Plus-ICP,Bitis arietans,claimed,C,ICP label/immunogen,immunogen; no independent West African in-vivo datum in our sources; added v0.7.4
+EchiTAb-Plus-ICP,Naja nigricollis,claimed,C,ICP label/immunogen,immunogen; no independent in-vivo datum in our sources; added v0.7.4

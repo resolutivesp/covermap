@@ -22,7 +22,8 @@ against the publisher's own licence page, not assumed from convention.
 | `gha_ADM1.json`, `gha_ADM2.json` | Region and district boundaries | [geoBoundaries](https://www.geoboundaries.org/) | CC BY 4.0 |
 | `facilities_hospitals.csv` | 190 hospital-tier facilities with coordinates | Derived from Maina et al. 2019, *Sci Data* 6:134 | Article CC BY 4.0 · metadata CC0 1.0 |
 | `ghana_facilities_who.csv` | The **unfiltered** WHO/KEMRI facility list the above is derived from | Maina et al. 2019, *Sci Data* 6:134 | Article CC BY 4.0 · metadata CC0 1.0 |
-| `district_pop.csv`, `region_pop.csv` | District and region population | Ghana Statistical Service, 2021 Population & Housing Census | Ghana government open statistics |
+| `region_pop.csv` | Region population totals (16 regions) | Ghana Statistical Service, 2021 Population & Housing Census | Ghana government open statistics |
+| `district_pop.csv` | District population — **derived, not census**: the continental afripop 0.167° raster (`ng/afripop2020.tif`) summed per district and scaled to the census region totals above. At that resolution 52 of 260 districts (small urban units) resolve to zero and their people land in neighbouring districts — a known artifact, disclosed on the Ghana brief and in `impact_summary.json` (`known_limits`). Corrected attribution v0.7.4: an earlier README wrongly credited this file to the census. Finalist work: 1-km WorldPop | Derived from WorldPop/AfriPop (CC BY 4.0) + GSS totals |
 
 > **Known gap.** `facilities_hospitals.csv` is the hospital-tier filter applied to
 > `ghana_facilities_who.csv`, but the script that performed that filter is not in this repo — it
