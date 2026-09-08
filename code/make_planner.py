@@ -31,7 +31,7 @@ html+="<title>CoverMap — antivenom pre-positioning planner (Ghana)</title><sty
 html+=f"<header><div class='wrap'><div class='badge'>{VERSION_TAG} · FEASIBILITY DEMONSTRATOR · IML 2 · illustrative data · not clinical guidance</div>"
 html+="<h1>CoverMap — antivenom pre-positioning planner</h1><div class='sub'>For a national NTD programme or the WHO Antivenom Stockpile Programme: which WHO-assessed antivenom to place at which hospitals, how many vials each should hold, and how much of the burden it brings within reach. Ghana demonstrator.</div></div></header><div class='wrap'>"
 html+="<div class='kpis'>"
-html+=f"<div class='kpi'><b>{O['pct_protected']}%</b><span>of the carpet-viper burden brought <b>within reach</b> of the right antivenom (from ~0% today)</span></div>"
+html+=f"<div class='kpi'><b>{O['pct_protected']}%</b><span>of the carpet-viper burden brought <b>within reach</b> of the right antivenom (versus a worst case of ~0% — an assumption, not an audit)</span></div>"
 html+=f"<div class='kpi'><b>~{firstC:,}</b><span>carpet-viper envenomings/yr brought <b>within reach</b> of the right antivenom (of ~{S['total_echis_yr']:,} nationally)</span></div>"
 html+=f"<div class='kpi'><b>{O['vials_yr']:,}</b><span>vials / year to pre-position — a concrete demand forecast</span></div>"
 html+=f"<div class='kpi'><b>${O['procure_usd_yr']:,}</b><span>annual antivenom procurement cost for the plan</span></div>"

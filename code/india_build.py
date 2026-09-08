@@ -11,6 +11,9 @@ Headline = coverage/gap. Mortality is anchored to MDS (~58,000/yr) and never exc
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, os, json, unicodedata, re
 from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_in"; os.makedirs(OUT,exist_ok=True)
+import sys as _sys; _sys.path.insert(0, SRC)
+from viz_common import VERSION as _V, VERSION_DATE as _VD
+_NOTE='CoverMap feasibility demonstrator (IML 2) - NOT clinical guidance; informs procurement and placement only; not yet reviewed by the national programme'
 M="EPSG:32644"  # UTM 44N (central India) — access distances approximate at edges
 
 def norm(s):
@@ -274,8 +277,8 @@ summary=dict(country='India', boundary_source='geoBoundaries IND (36 states / %d
    published_subnational_anchors=[
      dict(value="68.4%", what="clinical ASV non-response in E. c. sochureki envenoming, NW India (63/92 patients; median 22 vials; all 9 deaths were non-responders)", source="Gopalakrishnan 2025, Trans R Soc Trop Med Hyg 119(8):943"),
      dict(value="66.19%", what="share of identified venomous bites caused by green pit viper / Salazar's pit viper (NO ASV label coverage), Demow CHC, Assam", source="Menon 2025, Trans R Soc Trop Med Hyg 119(9):1016"),
-     dict(value="~0.25", what="Bharat ASV potency vs N. sagittifera relative to its 0.6 mg/ml marketed claim, Andaman & Nicobar (Premium Serums: completely ineffective)", source="Attarde 2021, Front Pharmacol 12:768210"),
-     dict(value="32.6%", what="Hypnale hypnale share of species-identified snakebites, Kerala (a non-Big-Four species with no ASV coverage)", source="Menon 2025 citing a Kerala tertiary series")],
+     dict(value="0.151 mg/ml", what="Bharat ASV neutralising potency vs N. sagittifera (Andaman cobra), a species outside its Big-Four label — the 0.60 mg/ml marketed claim is for N. naja/N. kaouthia, so this is a coverage gap, not a failed claim; Premium Serums' Indian polyvalent: completely ineffective; a Thai N. kaouthia monovalent (QSMI) also underperformed at 0.140 mg/ml", source="Attarde 2021, Front Pharmacol 12:768210"),
+     dict(value="15.4%", what="Hypnale hypnale share of cases with the snake species known, Kerala tertiary series (a non-Big-Four species with no ASV coverage); an earlier version re-based this to 32.6%, which the source does not state (v0.7.4)", source="Menon 2025 (TRSTMH 119(9):1016) citing a Kerala tertiary series")],
    rural_death_share=RURAL_DEATH_SHARE,
    rural_share_of_modelled_deaths=round(float(adm2['deaths_rural'].sum()/adm2['deaths_yr'].sum()),3),
    rural_note="mortality is distributed within each state 94/6 rural:urban per Suraweera 2020 (MDS: ~94% of snakebite deaths are rural); state and national totals are unchanged by this re-allocation",
@@ -286,7 +289,10 @@ json.dump(summary,open(f"{OUT}/impact_summary_in.json","w"),indent=2)
 keep=['shapeName','cstate','pop','rural_share','rural_pop','rate','deaths_yr','adeq','gap','gap_deaths','nearest_km','access_known','priority','matched']
 adm2[keep].to_csv(f"{OUT}/district_in.csv",index=False)
 adm2[keep+['geometry']].to_file(f"{OUT}/district_in.geojson",driver="GeoJSON")
-priority_sorted[['shapeName','cstate','deaths_yr','adeq','gap_deaths','nearest_km','priority']].head(40).to_csv(f"{OUT}/priority_districts_in.csv",index=False)
+_pr=priority_sorted[['shapeName','cstate','deaths_yr','adeq','gap_deaths','nearest_km','priority']].head(40).copy()
+for _c in ['deaths_yr','gap_deaths','nearest_km']: _pr[_c]=_pr[_c].round(1)   # v0.7.4: one decimal — no false precision in a downloadable
+_pr['version']=_V; _pr['plan_dated']=_VD; _pr['note']=_NOTE+'; a targeting list, not a placement plan; state-tier adequacy values are ordinal, not measured'
+_pr.to_csv(f"{OUT}/priority_districts_in.csv",index=False)
 
 print("=== INDIA ===")
 print(f"districts:{len(adm2)} | pop-join match:{match_rate:.1f}% | pop total:{adm2['pop'].sum():,.0f}")

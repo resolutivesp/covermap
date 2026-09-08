@@ -19,9 +19,59 @@ import base64
 from matplotlib.colors import LinearSegmentedColormap
 
 # Single source of truth for the release stamp. Bump here; every brief picks it up.
-VERSION = "v0.7.2"
-VERSION_DATE = "August 2026"
-VERSION_NOTE = ("v0.7.2 — the front page catches up with the project, no number moves. The "
+VERSION = "v0.7.4"
+VERSION_DATE = "September 2026"
+VERSION_NOTE = ("v0.7.4 — product-layer correction from a second adversarial review before submission, "
+                "this one simulating the prize's published judging panel, including an antivenom "
+                "manufacturer. Every item below was checked against the WHO risk-benefit list on "
+                "5 September 2026 or against the cited paper, and every one ran against a product "
+                "we do not recommend — the direction this project claims never to err in. "
+                "(1) The Ghana product table said Inoserp Pan-Africa's WHO assessment was "
+                "'TERMINATED' and that it was 'no longer WHO-endorsed'. Wrong: it is listed as "
+                "undergoing assessment with no final decision, and never held an endorsement. "
+                "(2) The same table said Antivipmyn Africa is a liquid needing 2–8 °C cold chain, "
+                "'urban only'. The WHO product overview says lyophilised, store below 30 °C, no "
+                "refrigeration, 24 months. That false attribute was the stated reason for excluding "
+                "it from rural placement. The recommendation (PANAF-Premium) stands on other grounds "
+                "— 48-month shelf life and the only WHO-positive product also indicated for cobras "
+                "and mambas — and the page now says so. (3) The India brief's own correction said "
+                "seven South-Asian products 'are WHO risk-benefit-assessed'. Eight are in the "
+                "process (NIH Pakistan was missing) and none has an outcome yet; a correction that "
+                "over-credited seven manufacturers is corrected again, on the page. (4) The Ghana "
+                "worst-case comparator ('fails Echis') rested on an uncited sentence; it now rests "
+                "on a matrix cell: VINS Pan Africa ED50 >4000 µl/mg against E. ocellatus (Ainsworth "
+                "2020). AFRIVEN, which has no Echis datum, is no longer named in it, and the KPI no "
+                "longer says 'from ~0% today' — it says what it is, a worst case. (5) Six matrix "
+                "cells graded C ('label only') carried coverage='covered', contradicting the rule "
+                "that a label is never promoted; they are now 'claimed', and a verification check "
+                "enforces the rule on the data file. PANAF × N. katiensis moves from ✗ to partial: "
+                "11.16 LD50/mL is neutralisation below threshold, not evidence against. Grade B now "
+                "reads 'peer-reviewed preclinical or clinical outcome series', so Chippaux 2023 "
+                "(447 patients) is no longer filed as a manufacturer claim. VINS Pan Africa × Echis "
+                "and EchiTAb-Plus-ICP rows are added; the Nigeria brief now states that neither "
+                "EchiTAb product nor the existing treatment centres (Kaltungo, Zamko) are yet in "
+                "its menu or seeded in its plan. (6) Procurement cost is now the whole vials bought "
+                "× price (Ghana 4,654 × $80 = $372,320; Nigeria 36,671 × $80 = $2,933,680); it was "
+                "the unrounded demand × price, a mismatch a calculator finds. (7) The methods page "
+                "carried 1.9% for the FCT/Lagos vial share (the model says 1.2%), a stale body "
+                "version stamp, and a title without Kenya; the Kerala Hypnale anchor is quoted as "
+                "the source states it (15.4%); the Andaman anchor is framed against the label's "
+                "actual claim; downloadable plan CSVs now carry version, date, product and a "
+                "not-clinical-guidance note. No coverage percentage or vial count moves.\n\n"
+"v0.7.3 — documentation-only correction found by an adversarial review before "
+                "submission; no number moves. Two defects, both of the same family the project "
+                "keeps logging. (1) The front page and the Ghana brief both said district "
+                "case-fatality rose 1.8% to 12.1%. "
+                "It was one hospital, and it was case fatality among treated patients — a "
+                "single-centre observation inflated into a population statistic, which is the "
+                "precise overclaim this project says it refuses to make. The README and the methods "
+                "page had it right; the two pages a reader lands on first did not. (2) The methods "
+                "reproduce block still listed four suites with India at 62, omitting verify_kenya "
+                "and verify_figures — so a reader following it ran 245 of the 285 checks. That is "
+                "the same defect v0.7.1 corrected in the README and left standing two pages away. "
+                "The lesson is logged again because it recurred: a correction has to sweep the "
+                "whole site, not the file where the symptom was found.\n\n"
+"v0.7.2 — the front page catches up with the project, no number moves. The "
                 "index's verification table still listed four suites with pre-Kenya counts "
                 "(India 62, cross-country 34) and its 'four demonstrators' grid showed three "
                 "countries — while the README beside it said six suites and 285 checks. Both now "
@@ -161,7 +211,8 @@ def cov_cell_style(coverage, grade):
     c, g = str(coverage), str(grade)
     if c == "covered" and g == "A":   return ("#0ca30c","#ffffff","A")   # good, WHO-assessed
     if c == "covered" and g == "B":   return ("#7dc47d","#0a3d0a","B")   # good (lighter), preclinical
-    if c == "covered" and g == "C":   return ("#fde08a","#5a4500","C")   # weak/claim
+    if c == "claimed":                return ("#fde08a","#5a4500","C")   # label/claim only — never counted as covered
+    if c == "covered" and g == "C":   return ("#fde08a","#5a4500","C")   # legacy guard: should not occur (verified)
     if c == "paraspecific-partial":   return ("#ec835a","#3a1400","~")   # serious/partial
     if c == "failed":                 return ("#a01111","#ffffff","✗")   # PUBLISHED EVIDENCE AGAINST
     if c == "not-covered":            return ("#d9a5a5","#5a0000","–")   # no activity claimed / out of scope

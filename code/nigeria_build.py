@@ -8,6 +8,9 @@ coverage matrix and product menu (PANAF-Premium recommended). NOT clinical guida
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, os, json, subprocess
 from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out_ng"; os.makedirs(OUT,exist_ok=True); os.makedirs(f"{DATA}/ng",exist_ok=True)
+import sys as _sys; _sys.path.insert(0, SRC)
+from viz_common import VERSION as _V, VERSION_DATE as _VD
+_NOTE='CoverMap feasibility demonstrator (IML 2) - NOT clinical guidance; informs procurement and placement only; not yet reviewed by the national programme'
 M="EPSG:32632"  # UTM 32N covers Nigeria
 
 # ---- 1. boundaries (geoBoundaries via Git LFS host)
@@ -107,7 +110,14 @@ REACH=50.0; adm2['nearest_km']=DX.min(axis=1); Rmat=DX<=REACH
 echis_w=adm2['echis_yr'].values; total_echis=float(echis_w.sum())
 
 # ---- 7. product menu + params (same West-African regime as Ghana; Habib is Nigerian)
-GOOD='PANAF-Premium'; PROD_echis={'PANAF-Premium':1}
+GOOD='PANAF-Premium'
+# v0.7.4: the Echis flag is derived from data/coverage_matrix.csv (covered at grade A/B), not hand-typed.
+_MX=pd.read_csv(f"{DATA}/coverage_matrix.csv")
+def _echis_flag(product):
+    r=_MX[(_MX['product']==product)&(_MX['species']=='Echis ocellatus')]
+    return 0 if r.empty else int(r.iloc[0]['coverage']=='covered' and str(r.iloc[0]['evidence_grade']) in ('A','B'))
+PROD_echis={p:_echis_flag(p) for p in ['PANAF-Premium','EchiTAbG','EchiTAb-Plus-ICP','Antivipmyn Africa','VINS Snake Venom Antiserum (Pan Africa)']}
+assert PROD_echis['PANAF-Premium']==1
 # Impact: same correction as Ghana -- the facility frame means care-seeking has already happened,
 # so multiplying by it again was a double discount. Mortality uses the OBSERVED product-choice
 # differential (Visser 2008, rural Ghana: treated-patient CFR 1.8% -> 12.1% under a failing product).
@@ -172,8 +182,8 @@ def row(pb): return dict(protected_env=round(pb),pct=round(100*pb/total_echis,1)
     deaths_lo=round(deaths(pb,D_LO)),deaths_hi=round(deaths(pb,D_HI)),
     deaths_hi_capped=bool(capped(pb,D_HI)),treated_yr=round(pb),
     vials_yr=round(pb*VIALS*(1+BUFFER)),procure_usd_yr=round(pb*VIALS*(1+BUFFER)*PRICE))
-scen={'A. Status quo — product that FAILS Echis (Bharat/Indian polyvalent)':row(0.0),
-      f'B. Naive — good product only at {len(naive_idx)} tertiary/central hospitals':row(naive_b),
+scen={'A. Worst case — a product without Echis efficacy (assumption, not audited)':row(0.0),
+      f'B. Naive — good product only at the {len(naive_idx)} facilities the registry tags "central hospital" (Maina Tier 4 — teaching hospitals, state hospitals and polyclinics, so a weak comparator)':row(naive_b),
       f'C. Optimized — {GOOD} at {len(chosen)} hospitals':row(opt_b),
       'D. Structural ceiling — good product at all hospitals':row(ceil_b)}
 
@@ -184,8 +194,13 @@ for ci,jx in enumerate(chosen):
     m=served==ci; env=float(echis_w[m].sum()); tr=env   # facility frame: no care-seeking multiplier
     plan.append(dict(priority=ci+1,hospital=str(hosp['name'].iloc[jx]),state=str(hosp['state'].iloc[jx]),
         tier=str(hosp['tier'].iloc[jx]),lat=float(hosp['lat'].iloc[jx]),lon=float(hosp['lon'].iloc[jx]),
-        envenomings_yr=round(env,1),vials_year=int(np.ceil(tr*VIALS*(1+BUFFER))),procure_usd_yr=int(round(tr*VIALS*(1+BUFFER)*PRICE))))
-plan_df=pd.DataFrame(plan).sort_values('priority').reset_index(drop=True); plan_df.to_csv(f"{OUT}/pre_positioning_plan_ng.csv",index=False)
+        envenomings_yr=round(env,1),vials_year=int(np.ceil(tr*VIALS*(1+BUFFER))),procure_usd_yr=int(np.ceil(tr*VIALS*(1+BUFFER)))*int(PRICE)))  # v0.7.4: cost = whole vials bought x price
+plan_df=pd.DataFrame(plan).sort_values('priority').reset_index(drop=True)
+_kC=[k for k in scen if k.startswith('C.')][0]   # v0.7.4: scenario C is the plan -> whole-vial totals
+scen[_kC]['vials_yr']=int(plan_df['vials_year'].sum()); scen[_kC]['procure_usd_yr']=int(plan_df['procure_usd_yr'].sum())
+plan_df['product']=GOOD
+plan_df['version']=_V; plan_df['plan_dated']=_VD; plan_df['note']=_NOTE  # v0.7.4: every downloadable output carries its stamp
+plan_df.to_csv(f"{OUT}/pre_positioning_plan_ng.csv",index=False)
 
 # robustness: flatter gradient
 RATE_F={'MIDDLE_BELT':20,'SUDAN_SAVANNA':15,'SOUTH_FOREST':10}
@@ -203,6 +218,10 @@ summary=dict(country='Nigeria',model_params=dict(reach_km=REACH,frame='facility 
     CFR_untreated=CFR_U,effectiveness=EFF,vials_per_patient=VIALS,usd_per_vial=PRICE,buffer=BUFFER,recommended_product=GOOD),
     population_total=round(adm2['pop'].sum()),total_envenomings_yr=round(adm2['env_yr'].sum()),total_echis_yr=round(total_echis),
     n_states=len(adm1),n_lgas=len(adm2),n_hospitals=len(hosp),structural_gap_env=round(gap_b),pct_unreachable=round(100*gap_b/total_echis,1),
+    product_echis_flags_from_matrix=PROD_echis,
+    known_limits=["existing designated snakebite treatment centres (Kaltungo GH, JUTH CHC Zamko) are in the facility list but not seeded as fixed sites; the greedy placed Kumo GH and Bene Hospital nearby instead (finalist work: seed them)",
+                  "EchiTAbG and EchiTAb-Plus-ICP, the federal programme's products, are graded in the matrix but not yet evaluated as the placed product; the plan is costed on PANAF-Premium",
+                  "population raster is coarse (afripop 0.167 deg): 139 of 774 LGAs resolve to zero population and their people land in neighbours (urban artifact, disclosed)"],
     optimized=dict(hospitals=len(chosen),pct_protected=round(100*opt_b/total_echis,1),deaths_central=round(deaths(opt_b)),
         deaths_lo=round(deaths(opt_b,D_LO)),deaths_hi=round(deaths(opt_b,D_HI)),
         vials_yr=int(plan_df['vials_year'].sum()),procure_usd_yr=int(plan_df['procure_usd_yr'].sum())),

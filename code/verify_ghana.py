@@ -132,6 +132,31 @@ chk("Habib CFR 16% + effectiveness 75% cited", "16%" in html and "75%" in html)
 chk("Visser CFR 1.8->12.1 cited", "1.8%" in html and "12.1%" in html)
 chk("PANAF heat-stability claim present", "lyophilis" in html.lower())
 
+print("\n=== I. COVERAGE-MATRIX RULES (v0.7.4: enforced on the data file, not promised in prose) ===")
+mx=pd.read_csv(f"{DATA}/coverage_matrix.csv")
+chk("no grade-C (label/claim only) cell is recorded as covered", int(((mx['coverage']=='covered')&(mx['evidence_grade']=='C')).sum())==0,
+    f"{int(((mx['coverage']=='covered')&(mx['evidence_grade']=='C')).sum())} offending rows")
+chk("label-only cells use the 'claimed' state", int((mx['coverage']=='claimed').sum())>=3)
+chk("every 'covered' cell is grade A or B", bool(mx[mx['coverage']=='covered']['evidence_grade'].isin(['A','B']).all()))
+chk("every 'failed' cell carries a citation", bool((mx[mx['coverage']=='failed']['citation'].astype(str).str.len()>5).all()))
+pm=S.get('product_menu',{})
+def _flag(prod):
+    r=mx[(mx['product']==prod)&(mx['species']=='Echis ocellatus')]
+    return 0 if r.empty else int(r.iloc[0]['coverage']=='covered' and str(r.iloc[0]['evidence_grade']) in ('A','B'))
+chk("product Echis flags used by the optimiser equal the matrix-derived rule for every product",
+    bool(pm) and all(int(v['echis_flag_from_matrix'])==_flag(pn) for pn,v in pm.items()), str({pn:v['echis_flag_from_matrix'] for pn,v in pm.items()}))
+chk("the worst-case comparator product has an Echis 'failed' cell with a citation (not an uncited assertion)",
+    not mx[(mx['product']=='VINS Snake Venom Antiserum (Pan Africa)')&(mx['species']=='Echis ocellatus')&(mx['coverage']=='failed')].empty)
+chk("plan cost equals whole vials x price at every site", bool((plan['procure_usd_yr']==plan['vials_year']*int(S['model_params']['usd_per_vial'])).all()))
+chk("summary cost equals plan vial total x price", O['procure_usd_yr']==O['vials_yr']*int(S['model_params']['usd_per_vial']), f"{O['procure_usd_yr']} vs {O['vials_yr']}x{S['model_params']['usd_per_vial']}")
+chk("plan CSV carries version, date, product and not-clinical-guidance note", all(c in plan.columns for c in ['version','plan_dated','product','note']) and 'not clinical guidance' in str(plan['note'].iloc[0]).lower())
+sys.path.insert(0, SRC)
+from viz_common import VERSION_NOTE as _VN
+_body=html.replace(_VN,'')   # the public changelog quotes the old errors verbatim; the page body must not repeat them
+chk("Ghana brief body does not claim 'from ~0% today' as a fact", "from ~0% today" not in _body)
+chk("Ghana brief body does not call Inoserp's WHO assessment terminated", "assessment terminated" not in _body.lower() and "no longer who-endorsed" not in _body.lower())
+chk("Ghana brief records Antivipmyn Africa as lyophilised (WHO overview)", "antivipmyn africa" in html.lower() and "24-mo" in html)
+
 print("\n"+"="*64)
 if FAIL:
     print(f"RESULT: {len(FAIL)} FAILURE(S)"); [print("   x",f) for f in FAIL]; sys.exit(1)

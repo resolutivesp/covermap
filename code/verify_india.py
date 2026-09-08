@@ -165,8 +165,9 @@ _only_as_correction = (not _m35) or ("ambiguous" in low)
 chk("brief states the Punjab figures in full (0.39 vs 0.84-0.99 vs claim 0.60)", _corrected)
 chk("any residual '-35%' appears only as a flagged correction, never as a claim", _only_as_correction)
 chk("brief admits the gradient tension", "does not have that shape" in low)
-chk("brief carries the WHO-assessment CORRECTION prominently", "seven are" in low or "correction carried" in low)
-chk("correction names the seven products", all(x in html for x in ["Bharat","Biological E","Haffkine","VINS"]))
+chk("brief carries the WHO-assessment CORRECTION prominently", "correction carried" in low)
+chk("correction names the eight products and states no final WHO outcome", all(x in html for x in ["Bharat","Biological E","Haffkine","NIH Pakistan","Premium","VINS"]) and "none of the eight has a final who outcome" in low)
+chk("brief body does not claim South-Asian products are WHO risk-benefit-assessed", "seven are (bharat" not in low)
 chk("brief explicitly disclaims deaths-averted", "do <b>not</b> claim deaths averted" in html or "not</b> claim deaths averted" in html)
 for bad in ["deaths averted per year","lives saved versus today","will save"]:
     occ=[m.start() for m in re.finditer(re.escape(bad),low)]

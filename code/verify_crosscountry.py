@@ -99,6 +99,34 @@ chk("India brief does NOT claim zero South-Asia WHO-assessed products",
 chk("no artifact contains the old 'Hospitaltal' typo", all("Hospitaltal" not in open(p).read() for p in arts.values()))
 chk("India brief reflects the corrected facility count", f"{IN['n_hospital_tier']:,}" in ind)
 
+print("\n=== E. METHODS PAGE / README CANNOT DRIFT FROM THE MODEL (v0.7.4: hand-typed numbers are the recurring defect) ===")
+sys.path.insert(0, SRC)
+from viz_common import VERSION
+from viz_common import VERSION_NOTE as _VN
+meth_md=open(f"{BASE}/methods.md").read(); meth_html=open(f"{BASE}/methods.html").read(); readme=open(f"{BASE}/README.md").read()
+_i0=meth_md.find("## 0. Changelog"); _i1=meth_md.find("## 1. Objective")
+meth_body=meth_md[:_i0]+meth_md[_i1:] if _i0>=0 and _i1>_i0 else meth_md   # the changelog quotes old errors verbatim, by design
+share=f"{NG['urban_artifact']['pct_vials_to_FCT_or_Lagos']}%"
+chk("methods.md body FCT/Lagos vial share equals the model", share in meth_body and "1.9%" not in meth_body, share)
+chk("methods.md body carries no 'seven are' WHO-assessed claim", "seven are" not in meth_body.lower())
+chk("methods.md version line is the current release", f"**Version:** {VERSION}" in meth_md, VERSION)
+chk("methods.html title names all four countries", "Ghana · Nigeria · India · Kenya" in meth_html)
+chk("methods.md 'current figures' carry the model's Ghana and Nigeria costs",
+    f"${GH['optimized']['procure_usd_yr']:,}" in meth_md and f"${NG['optimized']['procure_usd_yr']:,}" in meth_md,
+    f"{GH['optimized']['procure_usd_yr']:,} / {NG['optimized']['procure_usd_yr']:,}")
+chk("README carries the model's Ghana and Nigeria costs",
+    f"{GH['optimized']['procure_usd_yr']:,}" in readme and f"{NG['optimized']['procure_usd_yr']:,}" in readme)
+chk("Ghana and Nigeria cost = whole vials x price (no unrounded-demand mismatch)",
+    GH['optimized']['procure_usd_yr']==GH['optimized']['vials_yr']*int(GH['model_params']['usd_per_vial']) and
+    NG['optimized']['procure_usd_yr']==NG['optimized']['vials_yr']*int(NG['model_params']['usd_per_vial']))
+for name,path in arts.items():
+    t=open(path).read().replace(_VN,'')
+    chk(f"{name}: body has no 'from ~0% today' baseline stated as fact", "from ~0% today" not in t)
+    chk(f"{name}: body has no 'assessment terminated' claim about any product", "assessment terminated" not in t.lower())
+for csvname in ['ghana-plan.csv','nigeria-plan.csv','kenya-plan.csv','india-priority-districts.csv']:
+    head=open(f"{BASE}/{csvname}").readline()
+    chk(f"{csvname} carries version/date/note columns", all(c in head for c in ['version','plan_dated','note']))
+
 print("\n"+"="*64)
 if FAIL:
     print(f"RESULT: {len(FAIL)} FAILURE(S)"); [print("   x",f) for f in FAIL]; sys.exit(1)

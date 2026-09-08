@@ -13,6 +13,9 @@ NOT clinical guidance. Subnational stock unobservable -> we model placement CHOI
 import warnings; warnings.filterwarnings("ignore")
 import geopandas as gpd, pandas as pd, numpy as np, os, json
 from _paths import BASE, SRC; DATA=f"{BASE}/data"; OUT=f"{BASE}/out2"; os.makedirs(OUT,exist_ok=True)
+import sys as _sys; _sys.path.insert(0, SRC)
+from viz_common import VERSION as _V, VERSION_DATE as _VD
+_NOTE='CoverMap feasibility demonstrator (IML 2) - NOT clinical guidance; informs procurement and placement only; not yet reviewed by the national programme'
 M="EPSG:32630"
 
 adm1=gpd.read_file(f"{DATA}/gha_ADM1.json")[['shapeName','geometry']].to_crs(4326)
@@ -82,15 +85,28 @@ Rmat=DX<=REACH
 echis_w=adm2['echis_yr'].values
 total_echis=float(echis_w.sum())
 
-# ---- product menu (real; cold-chain corrected: EchiTAbG is LIQUID 2-8C; PANAF is lyophilised, no refrigeration)
+# ---- product menu. Storage/shelf-life attributes are transcribed from the WHO product overviews
+# (v0.7.4 correction: Antivipmyn Africa is LYOPHILISED, store below 30 C, 24-mo — an earlier
+# version wrongly recorded it as a 2-8 C liquid and excluded it from rural placement on that basis).
+# The Echis flag is NOT hand-typed: it is derived from data/coverage_matrix.csv by the rule the
+# project states — a product counts as covering E. ocellatus only if its matrix cell is 'covered'
+# at grade A or B; 'claimed' (label only), 'failed', 'unknown' and absent cells all count as 0.
+_MX=pd.read_csv(f"{DATA}/coverage_matrix.csv")
+def _echis_flag(product):
+    r=_MX[(_MX['product']==product)&(_MX['species']=='Echis ocellatus')]
+    if r.empty: return 0
+    return int(r.iloc[0]['coverage']=='covered' and str(r.iloc[0]['evidence_grade']) in ('A','B'))
 PROD={
- 'PANAF-Premium':     dict(assessed=1, echis=1, cold='lyophilised (no refrigeration; 48-mo)', poly=1),
- 'EchiTAbG':          dict(assessed=1, echis=1, cold='liquid (2-8 C; 12-mo)',                 poly=0),
- 'Antivipmyn Africa': dict(assessed=1, echis=1, cold='liquid (2-8 C)',                        poly=1),
- 'Inoserp Pan-Africa':dict(assessed=0, echis=1, cold='liquid',                                poly=1),  # WHO assessment TERMINATED
- 'AFRIVEN/VINS':      dict(assessed=0, echis=0, cold='liquid',                                poly=1),  # documented Echis failure
+ 'PANAF-Premium':     dict(assessed=1, cold='lyophilised (below 30 C, no refrigeration; 48-mo)', poly=1),
+ 'EchiTAbG':          dict(assessed=1, cold='liquid (2-8 C; 12-mo)',                             poly=0),
+ 'Antivipmyn Africa': dict(assessed=1, cold='lyophilised (below 30 C, no refrigeration; 24-mo)', poly=1),
+ 'EchiTAb-Plus-ICP':  dict(assessed=0, cold='liquid (2-8 C)',                                    poly=1),  # under WHO assessment, no outcome
+ 'Inoserp Pan-Africa':dict(assessed=0, cold='liquid',                                            poly=1),  # under WHO assessment, no outcome
+ 'VINS Snake Venom Antiserum (Pan Africa)': dict(assessed=0, cold='liquid',                      poly=1),  # E. ocellatus ED50 >4000 ul/mg (Ainsworth 2020)
 }
-GOOD='PANAF-Premium'   # WHO-assessed, broad, heat-stable -> the pre-positioning product for the rural north
+for _p in PROD: PROD[_p]['echis']=_echis_flag(_p)
+assert PROD['PANAF-Premium']['echis']==1 and PROD['VINS Snake Venom Antiserum (Pan Africa)']['echis']==0, "matrix-derived Echis flags changed unexpectedly"
+GOOD='PANAF-Premium'   # WHO-positive, indicated for vipers AND cobras/mambas, 48-mo shelf life -> the pre-positioning product for the rural north
 
 # ---- grounded parameters (Habib 2015/16 + care-seeking cascade; see METHODS)
 # ---- impact, re-anchored (v0.4) --------------------------------------------------------------
@@ -162,8 +178,8 @@ def row(pb):
         deaths_central=round(deaths(pb)), deaths_lo=round(deaths_lo(pb)), deaths_hi=round(deaths_hi(pb)),
         treated_yr=round(pb), vials_yr=round(pb*VIALS*(1+BUFFER)), procure_usd_yr=round(pb*VIALS*(1+BUFFER)*PRICE))
 scen={
- 'A. Status quo — non-assessed product that FAILS Echis (VINS/AFRIVEN)': row(0.0),
- f'B. Naive — good product only at {len(naive_idx)} tertiary/central hospitals': row(naive_b),
+ 'A. Worst case — a product without Echis efficacy (VINS Pan Africa, ED50 >4000 ul/mg; assumption, not audited)': row(0.0),
+ f'B. Naive — good product only at the {len(naive_idx)} facilities the registry tags "central hospital" (Maina Tier 4 — mostly polyclinics, so a weak comparator)': row(naive_b),
  f'C. Optimized — {GOOD} at {len(chosen)} hospitals': row(opt_b),
  'D. Structural ceiling — good product at all 190 hospitals': row(ceil_b),
 }
@@ -177,8 +193,14 @@ for ci,j in enumerate(chosen):
     plan.append(dict(priority=ci+1, hospital=str(hosp['name'].iloc[j]), region=str(hosp['region'].iloc[j]), tier=str(hosp['tier'].iloc[j]),
         lat=float(hosp['lat'].iloc[j]), lon=float(hosp['lon'].iloc[j]),
         envenomings_yr=round(env,1), treated_yr=round(treated,1),
-        vials_year=int(np.ceil(treated*VIALS*(1+BUFFER))), procure_usd_yr=int(round(treated*VIALS*(1+BUFFER)*PRICE))))
+        vials_year=int(np.ceil(treated*VIALS*(1+BUFFER))), procure_usd_yr=int(np.ceil(treated*VIALS*(1+BUFFER)))*int(PRICE)))  # v0.7.4: cost = whole vials bought x price
 plan_df=pd.DataFrame(plan).sort_values('priority').reset_index(drop=True)
+# v0.7.4: scenario C IS the plan, so its vials and cost are the plan's whole-vial totals (per-site ceilings x price);
+# scenarios A/B/D remain unrounded estimates of hypothetical placements.
+_kC=[k for k in scen if k.startswith('C.')][0]
+scen[_kC]['vials_yr']=int(plan_df['vials_year'].sum()); scen[_kC]['procure_usd_yr']=int(plan_df['procure_usd_yr'].sum())
+plan_df['product']=GOOD
+plan_df['version']=_V; plan_df['plan_dated']=_VD; plan_df['note']=_NOTE  # v0.7.4: every downloadable output carries its stamp
 plan_df.to_csv(f"{OUT}/pre_positioning_plan.csv", index=False)
 
 # ---- SENSITIVITY
@@ -211,6 +233,12 @@ summary=dict(
                 vials_yr=int(plan_df['vials_year'].sum()), procure_usd_yr=int(plan_df['procure_usd_yr'].sum())),
  scenarios=scen, sensitivity_deaths=sens_deaths,
  placement_robustness=dict(flat_gradient_overlap_of_25=overlap, north_transition_hospitals_of_25=north_share),
+ product_menu={p:dict(assessed=v['assessed'], echis_flag_from_matrix=v['echis'], storage=v['cold']) for p,v in PROD.items()},
+ known_limits=["population raster is coarse (afripop 0.167 deg, scaled to region totals): 52 of 260 districts resolve to zero population and their people land in neighbours (urban artifact, disclosed; finalist work: 1-km WorldPop)",
+               "no existing treatment centre is seeded as a fixed site; the plan is coverage geometry only (finalist work)",
+               "the number of sites (25) is a chosen cut on the coverage curve, not a cost optimum: stocking all 190 hospitals reaches 94.4% for ~10% more procurement cost (scenario D) — the curve is published so a buyer can choose"],
+ product_rule="Echis flag derived from data/coverage_matrix.csv: covered at grade A/B only; claimed/failed/unknown/absent = 0 (v0.7.4)",
+ cost_rule="procure_usd_yr = sum over sites of whole vials bought x usd_per_vial (v0.7.4); scenario rows use unrounded demand",
  eight_country_scaleup_envenomings_yr=70712)
 json.dump(summary, open(f"{OUT}/impact_summary.json","w"), indent=2)
 adm2.drop(columns='geometry').to_csv(f"{OUT}/district_v2.csv", index=False)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Ghana CoverMap brief — unified design system (viz_common). Headline = coverage; deaths = bounded decision-gap."""
 import json, pandas as pd, os
-from viz_common import BASE_CSS, b64, cov_cell_style, VERSION_TAG, VERSION_NOTE
+from viz_common import BASE_CSS, b64, cov_cell_style, VERSION_DATE, VERSION_TAG, VERSION_NOTE
 from _paths import BASE, SRC; OUT2=f"{BASE}/out2"; DATA=f"{BASE}/data"
 S=json.load(open(f"{OUT2}/impact_summary.json")); cov=pd.read_csv(f"{DATA}/coverage_matrix.csv")
 A=S['burden_anchor']; O=S['optimized']; P=S['model_params']
@@ -14,16 +14,17 @@ for k,v in S['scenarios'].items():
 scen_table=f"<table class='t'><thead><tr><th class=l>Procurement / placement choice</th><th>Burden within reach</th><th>Envenomings/yr</th><th>Decision-gap deaths/yr (vs worst-case)</th><th>Procurement/yr</th></tr></thead><tbody>{srows}</tbody></table>"
 
 # ---- product menu
-PROD=[("PANAF-Premium","WHO-assessed","✓ polyvalent","Lyophilised — no refrigeration (48-mo)","★ RECOMMENDED: broad + heat-stable → rural pre-positioning; in Ghana supply"),
-      ("EchiTAbG","WHO-assessed","✓✓ Echis only","Liquid (2–8 °C; 12-mo)","Echis-specific but needs cold chain"),
-      ("Antivipmyn Africa","WHO-assessed","✓ polyvalent","Liquid (2–8 °C)","Needs cold chain → urban only"),
-      ("Inoserp Pan-Africa","Assessment TERMINATED","claim","Liquid","No longer WHO-endorsed"),
-      ("AFRIVEN / VINS","Not assessed","✗ fails Echis","Liquid","In Ghana supply; documented Echis failure")]
+PROD=[("PANAF-Premium","Positive risk-benefit assessment","✓ polyvalent (A)","Lyophilised — store below 30 °C, no refrigeration (48-mo)","★ RECOMMENDED: the only WHO-positive product also indicated for cobras and mambas; 48-month shelf life → rural pre-positioning"),
+      ("EchiTAbG","Positive risk-benefit assessment","✓✓ Echis only (A)","Liquid (2–8 °C; 12-mo)","Echis-specialist; needs cold chain; Edge 2025 notes reduced durability vs Ghanaian E. ocellatus s.s."),
+      ("Antivipmyn Africa","Positive risk-benefit assessment","✓ polyvalent vipers (A)","Lyophilised — store below 30 °C, no refrigeration (24-mo)","WHO makes no cobra/mamba recommendation for it; 24-month shelf life. (v0.7.4: an earlier version wrongly listed it as a 2–8 °C liquid)"),
+      ("EchiTAb-Plus-ICP","Under WHO assessment — no final decision","✓ Echis (B: RCT, Nigeria)","Liquid (2–8 °C)","Nigerian federal-programme product; not yet evaluated as the placed product here"),
+      ("Inoserp Pan-Africa","Under WHO assessment — no final decision","clinical series (B); weak preclinical ED50","Liquid","Withdrawn from Kenya in 2022 after poor preclinical performance vs Kenyan venoms; no WHO positive outcome. (v0.7.4: an earlier version mis-stated its WHO status; see the changelog)"),
+      ("VINS Snake Venom Antiserum (Pan Africa)","Not on the WHO positive list","✗ Echis: ED50 >4000 µl/mg (B)","not asserted here","Lack of preclinical efficacy vs E. ocellatus although indicated for it (Ainsworth 2020) — the worst-case comparator; whether it is on Ghanaian shelves today is an assumption, not an audit")]
 prows="".join(f"<tr><td class=l><b>{p[0]}</b></td><td>{p[1]}</td><td>{p[2]}</td><td>{p[3]}</td><td class=l>{p[4]}</td></tr>" for p in PROD)
 prod_table=f"<table class='t'><thead><tr><th class=l>Product</th><th>WHO status</th><th>Echis coverage</th><th>Cold chain</th><th class=l>Placement implication</th></tr></thead><tbody>{prows}</tbody></table>"
 
 # ---- evidence-graded coverage matrix
-PRODC=[("PANAF-Premium","PANAF"),("Antivipmyn Africa","Antivipmyn"),("EchiTAbG","EchiTAbG"),("Inoserp Pan-Africa","Inoserp"),("SAIMR Polyvalent","SAIMR"),("Asna Antivenom C (Bharat)","Indian polyv.")]
+PRODC=[("PANAF-Premium","PANAF"),("Antivipmyn Africa","Antivipmyn"),("EchiTAbG","EchiTAbG"),("EchiTAb-Plus-ICP","EchiTAb+ICP"),("Inoserp Pan-Africa","Inoserp"),("SAIMR Polyvalent","SAIMR"),("VINS Snake Venom Antiserum (Pan Africa)","VINS PanAf"),("Asna Antivenom C (Bharat)","Asna C (2004)")]
 SPP=["Echis ocellatus","Bitis arietans","Bitis rhinoceros","Naja nigricollis","Naja katiensis","Naja senegalensis","Naja melanoleuca","Dendroaspis polylepis","Dendroaspis viridis","Atractaspis","Causus maculatus"]
 def cell(sp,pr):
     r=cov[(cov['species']==sp)&(cov['product']==pr)]
@@ -45,9 +46,9 @@ html=f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
 <div class="sub">A decision-support tool that tells antivenom purchasers <b>which WHO-assessed product to place at which hospitals</b> — matching the snakes that bite each district to the antivenoms proven to neutralise them, and to how far patients must travel — so scarce vials protect the most lives. Ghana demonstrator, built on public data.</div></div></header>
 <div class="wrap">
 
-<div class="card lead"><p><b>Antivenom is species-specific — the wrong product does not save the patient.</b> When rural Ghana substituted an unsuitable antivenom against the carpet viper, district case-fatality rose <b>1.8% → 12.1%</b> (Visser 2008). Effective antivenom also concentrates in cities while the burden concentrates in the rural north. Yet the actors who buy and place antivenom decide <b>which product, and where</b> with no tool that joins <i>what bites where</i> to <i>what each product neutralises</i> to <i>who can reach care</i>. CoverMap is that tool — a deployable decision support, not a database and not a therapy.</p>
+<div class="card lead"><p><b>Antivenom is species-specific — the wrong product does not save the patient.</b> When one rural Ghanaian hospital substituted an unsuitable antivenom against the carpet viper, case-fatality among treated patients rose <b>1.8% → 12.1%</b> (Visser 2008). Effective antivenom also concentrates in cities while the burden concentrates in the rural north. Yet the actors who buy and place antivenom decide <b>which product, and where</b> with no tool that joins <i>what bites where</i> to <i>what each product neutralises</i> to <i>who can reach care</i>. CoverMap is that tool — a deployable decision support, not a database and not a therapy.</p>
 <div class="kpis">
-<div class="kpi"><b>{O['pct_protected']}%</b><span>of the carpet-viper burden brought <b>within reach</b> of the right antivenom (from ~0% today), via {O['hospitals']} hospitals</span></div>
+<div class="kpi"><b>{O['pct_protected']}%</b><span>of the carpet-viper burden brought <b>within reach</b> of the right antivenom (versus a worst case of ~0% under a product without <i>Echis</i> efficacy — an assumption, not an audit), via {O['hospitals']} hospitals</span></div>
 <div class="kpi"><b>~{PROT_ENV:,}</b><span>carpet-viper envenomings/yr brought <b>within reach</b> of the right antivenom (of ~{S['total_echis_yr']:,})</span></div>
 <div class="kpi"><b>{O['vials_yr']:,}</b><span>vials/yr to pre-position: a concrete demand forecast (~${O['procure_usd_yr']:,}/yr procurement)</span></div>
 <div class="kpi bad"><b>{S['pct_unreachable']}%</b><span>of burden beyond 50 km of ANY hospital — a structural gap stocking alone can't close (shown, not hidden)</span></div>
@@ -72,11 +73,11 @@ html=f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
 
 <h2>The novel, reusable core: an evidence-graded coverage matrix</h2>
 <p>The clinically load-bearing layer no public dataset provides: which product actually neutralises which species, <b>graded by evidence</b> — never promoting a manufacturer label to "covered."</p>
-<div class="legend"><span><i class="sw" style="background:#0ca30c"></i>A — WHO-assessed</span><span><i class="sw" style="background:#7dc47d"></i>B — peer-reviewed preclinical</span><span><i class="sw" style="background:#fde08a"></i>C — claim / label</span><span><i class="sw" style="background:#ec835a"></i>~ partial (paraspecific)</span><span><i class="sw" style="background:#a01111"></i>✗ published evidence AGAINST neutralisation</span><span><i class="sw" style="background:#d9a5a5"></i>– no activity claimed / out of scope</span><span><i class="sw" style="background:#f2c9b4"></i>? claimed, no in-vivo datum</span><span><i class="sw" style="background:#eef1f4"></i>· no data</span></div>
+<div class="legend"><span><i class="sw" style="background:#0ca30c"></i>A — WHO-assessed</span><span><i class="sw" style="background:#7dc47d"></i>B — peer-reviewed: preclinical or clinical outcome series</span><span><i class="sw" style="background:#fde08a"></i>C — claim / label (recorded as "claimed", never as covered)</span><span><i class="sw" style="background:#ec835a"></i>~ partial (paraspecific)</span><span><i class="sw" style="background:#a01111"></i>✗ published evidence AGAINST neutralisation</span><span><i class="sw" style="background:#d9a5a5"></i>– no activity claimed / out of scope</span><span><i class="sw" style="background:#f2c9b4"></i>? claimed, no in-vivo datum</span><span><i class="sw" style="background:#eef1f4"></i>· no data</span></div>
 {cov_table}
 
 <h2>Grounded in the real procurement decision</h2>
-<p>The product menu is real, and so is the constraint that decides what survives in the rural north — <b>cold chain</b>. Only three antivenoms have passed WHO risk-benefit assessment for sub-Saharan Africa; of the products Ghana actually registers, only PANAF-Premium is among them. Independent verification confirms PANAF-Premium as the best <i>single</i> choice — the only WHO-assessed product covering both vipers <b>and</b> elapids, and heat-stable; the strongest <i>programme</i> is PANAF as the thermostable backbone plus EchiTAbG as an <i>Echis</i>-specialist top-up in the highest carpet-viper zones. (Inoserp failed independent testing and is not WHO-assessed; SAIMR is a Southern-African product with no <i>Echis</i> cover.)</p>
+<p>The product menu is real, and the attributes in the table are transcribed from the WHO product overviews and the WHO assessment-outcomes list as of 5 September 2026. Only three antivenoms hold a positive WHO risk-benefit assessment for sub-Saharan Africa: EchiTAbG, Antivipmyn Africa and PANAF-Premium. Two of the three are thermostable; PANAF-Premium is the single choice this demonstrator places because it is the only WHO-positive product also indicated for cobras and mambas, with a 48-month shelf life. The strongest <i>programme</i> is PANAF as the backbone plus EchiTAbG as an <i>Echis</i>-specialist top-up in the highest carpet-viper zones — subject to the durability caveat in the matrix. Registration in Ghana must be confirmed against the FDA Ghana register before any tender; we do not assert it here. (SAIMR is a Southern-African product with no <i>Echis</i> cover; Inoserp is under WHO assessment with no outcome and VINS Pan Africa is not on the positive list; EchiTAb-Plus-ICP, Nigeria's federal-programme product, is graded but not yet evaluated as the placed product.)</p>
 {prod_table}
 <img src="data:image/png;base64,{b64(f'{OUT2}/fig2_protected.png')}" alt="Protected vs unprotected under optimized placement">
 
@@ -110,7 +111,7 @@ html=f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
 <p>It is a <b>deployable decision-support solution</b> (in-scope: "use of data to improve the distribution of antivenom"), not basic research and not therapy development (both out of scope). <b>Innovation:</b> the evidence-graded coverage matrix + a pre-positioning optimiser with cold-chain and access — beyond today's hazard maps. <b>Impact:</b> a quantified, honestly-bounded coverage chain at the district resolution and seasonal cadence procurement actually uses. <b>End user:</b> the WHO Antivenom Stockpile Programme / national NTD programmes, whose remit is exactly this. <b>Maturity:</b> concept + feasibility demonstrated (IML 2); field-testing with a programme partner is the finalist-phase plan.</p>
 
 <footer><b>{VERSION_TAG}</b> — {VERSION_NOTE}<br><br><p class="src"><b>Sources:</b> Visser 2008 TRSTMH 102:445 · Habib 2015 PLoS NTD 9(1):e0003381 (effectiveness 75%, untreated CFR 16%, cost/death $2,330.16, cost/DALY $99.61) · Hamza 2016 PLoS NTD 10(3):e0004568 · WHO risk-benefit-assessed antivenom product overviews · Maina 2019 Sci Data 6:134 (facilities) · Ghana Statistical Service 2021 PHC (30.8 M) · Aglanu 2025 / Ceesay 2021 (Ghana incidence) · Ghana Health Service NTD Programme (≈9,900 cases/yr) · <a href="https://www.geoboundaries.org/">geoBoundaries</a> CC BY 4.0 · <a href="https://www.worldpop.org/">WorldPop</a>/afripop2020 CC BY 4.0. Open method, coverage matrix and code in the project repository.</p>
-<p class="src">Feasibility demonstrator for the MedInves project, August 2026. Species presence, access and stock layers are illustrative approximations for method demonstration; not clinical guidance.</p></footer>
+<p class="src">Feasibility demonstrator for the MedInves project, {VERSION_DATE}. Species presence, access and stock layers are illustrative approximations for method demonstration; not clinical guidance.</p></footer>
 </div></body></html>"""
 open(f"{OUT2}/ghana_prepositioning_brief_v2.html","w").write(html)
 print("Ghana brief written:", os.path.getsize(f"{OUT2}/ghana_prepositioning_brief_v2.html"),"bytes")

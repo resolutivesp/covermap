@@ -13,6 +13,9 @@ from rasterstats import zonal_stats
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, "data", "ke"))
 import parameters_ke as P
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from viz_common import VERSION as _V, VERSION_DATE as _VD
+_NOTE='CoverMap feasibility demonstrator (IML 2) - NOT clinical guidance; informs procurement and placement only; not yet reviewed by the county or national programme; costed at the PANAF-Premium price - the SAIMR alternative is ~$315/vial (Toxins 2026)'
 
 OUT = os.path.join(BASE, "out_ke"); os.makedirs(OUT, exist_ok=True)
 
@@ -212,6 +215,7 @@ summary = {
 json.dump(summary, open(f"{OUT}/impact_summary_ke.json", "w"), indent=1)
 adm2.drop(columns="geometry").to_csv(f"{OUT}/subcounty_ke.csv", index=False)
 adm1.drop(columns="geometry").to_csv(f"{OUT}/county_ke.csv", index=False)
+plan['version']=_V; plan['plan_dated']=_VD; plan['note']=_NOTE  # v0.7.4 stamp
 plan.to_csv(f"{OUT}/pre_positioning_plan_ke.csv", index=False)
 pd.DataFrame(curve).to_csv(f"{OUT}/coverage_curve_ke.csv", index=False)
 

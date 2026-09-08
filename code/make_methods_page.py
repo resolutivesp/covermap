@@ -64,8 +64,8 @@ html = f"""<!DOCTYPE html><html lang=en><head><meta charset=utf-8>
 <title>CoverMap — Methods {VERSION_TAG.split(' · ')[0].replace('CoverMap ','')}</title>
 <style>{BASE_CSS}{SUPP}</style></head><body>
 <header><div class=wrap>
-<div class=badge>{VERSION_TAG} · METHODS · what the model does and what it assumes</div>
-<h1>Methods — Ghana · Nigeria · India</h1>
+<div class=badge>{VERSION_TAG} · METHODS · what the model does and what it assumes · not clinical guidance — informs procurement and placement only</div>
+<h1>Methods — Ghana · Nigeria · India · Kenya</h1>
 <div class=sub>The full method, every load-bearing parameter, and an explicit record of what is
 sourced versus what we chose. Read alongside the
 <a href="parameter-audit.txt" style="color:#fff;text-decoration:underline">parameter provenance audit</a>,

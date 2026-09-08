@@ -94,7 +94,7 @@ recommended alternative that is not commercialised in Kenya. Not clinical guidan
 <div class="kpi"><b>{O['hospitals']}</b>hospitals selected from {S['n_hospital_tier']}
 hospital-tier facilities</div>
 <div class="kpi"><b>{O['vials_yr']:,}</b>vials/yr demand forecast
-(~${O['procure_usd_yr']:,}/yr at the ${P.PRICE_PER_VIAL_USD:.0f}/vial planning assumption)</div>
+(~${O['procure_usd_yr']:,}/yr at the ${P.PRICE_PER_VIAL_USD:.0f}/vial planning assumption — the PANAF price; where the plan names SAIMR as the alternative, that product is ~$315/vial in Kenya, so a county buying it would pay materially more)</div>
 <div class="kpi"><b>{S['burden_anchor']['implied_national_attendance_per_100k']}</b>implied
 national attendances/100k — inside the published multi-area range
 ({S['burden_anchor']['coombs_range'][0]}–{S['burden_anchor']['coombs_range'][1]}, Coombs 1997)</div>
